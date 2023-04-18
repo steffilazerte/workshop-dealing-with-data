@@ -5,9 +5,11 @@
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)
 
-*Brandon University* **Thurs/Fri April 20th-21st 2023 9am-5pm
-Central**  
-**Brodie Building Rm 4-47**
+*Brandon University*
+
+- **Thurs/Fri April 20th-21st 2023**
+- **9am-5pm Central**  
+- **Brodie Building Rm 4-47**
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
