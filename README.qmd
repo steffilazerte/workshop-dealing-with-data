@@ -193,7 +193,7 @@ Alternatively you can use the RStudio package manager.
 - Type the name of the package (e.g., 'tidyverse') into the 'Packages' box, and click on 'Install'
 - Repeat for the other packages
 
-<img src="figures/A1_packages_edit.png" alt="RStudio Packages Tab" style="height: 500px;"/>
+![](figures/A1_packages_edit.png){width=700px}
 
 
 - Test that your installation had no problems by typing `library("tidyverse")` into the console and hitting enter. You should see something like this (**Note:** These are messages, not errors!):

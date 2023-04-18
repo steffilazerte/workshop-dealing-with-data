@@ -211,7 +211,7 @@ Alternatively you can use the RStudio package manager.
   box, and click on ‘Install’
 - Repeat for the other packages
 
-<img src="figures/A1_packages_edit.png" alt="RStudio Packages Tab" style="height: 500px;"/>
+<img src="figures/A1_packages_edit.png" width="700" />
 
 - Test that your installation had no problems by typing
   `library("tidyverse")` into the console and hitting enter. You should
