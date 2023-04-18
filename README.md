@@ -9,9 +9,17 @@
 
 - **Thurs/Fri April 20th-21st 2023**
 - **9am-5pm Central**  
-- **Brodie Building Rm 4-47**
+- **Brandon University, Brodie Building Rm 4-47**
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
+
+> **Important!**
+>
+> Make sure you’re ready for the workshop by following the [**Before the
+> workshop**](#before-the-workshop) instructions below. Please [email
+> me](mailto:sel@steffilazerte.ca) if you run into any problems.
+>
+> Take care to **update both R and RStudio**, in particular.
 
 ------------------------------------------------------------------------
 
@@ -31,14 +39,6 @@ with the tidyverse suite of packages or those wanting to up their game.
 
 This GitHub repository holds all the information relating to our
 workshop.
-
-> **Important!**
->
-> Make sure you’re ready for the workshop by following the [**Before the
-> workshop**](#before-the-workshop) instructions below. Please [email
-> me](mailto:sel@steffilazerte.ca) if you run into any problems.
->
-> Take care to **update both R and RStudio**, in particular.
 
 ------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ copy/paste code.
 
 ## Before the workshop
 
-### In a nutshell… (see below for details)
+### In a nutshell… (see [below for details](#in-detail))
 
 - [Install R](https://muug.ca/mirror/cran/) (**update R** to the newest
   version, if already installed)
@@ -104,12 +104,14 @@ copy/paste code.
 - Consider running through the [RStudio Programming Basics
   Primer](https://rstudio.cloud/learn/primers/1.2)
 
+------------------------------------------------------------------------
+
 ### In detail…
 
-**1. Install R (Update R)**
+**1. Install/Update R**
 
-> Even if you already have R installed, **please update it**, so we’re
-> all working with the same version
+Even if you already have R installed, **please update it**, so we’re all
+working with the same version.
 
 Depending on your operating system, you can install R in one of the
 following ways:
@@ -133,10 +135,10 @@ Linux: Debian/Ubuntu
 - Add one of the CRAN repositories to you apt (otherwise your R will be
   out of date)
 
-**2. Install RStudio**
+**2. Install/Update RStudio**
 
-> Even if you already have RStudio installed, **please update it**, so
-> we’re all working with the same version
+Even if you already have RStudio installed, **please update it**, so
+we’re all working with the same version.
 
 - For all Operating systems (i.e., Windows, Mac Os, Linux, etc.) go to
   RStudio’s download page:
@@ -145,10 +147,9 @@ Linux: Debian/Ubuntu
   (i.e. select your link from the top options, not the Zip/Tarball
   options)
 
-Open RStudio
-<img src="figures/RStudio-Ball.png" alt="RStudio Logo" style="height: 30px;"/>
-**not R** <img src="figures/R.png" alt="R Logo" style="height: 30px;"/>.
-RStudio automatically opens R for you in the ‘Console’ pane
+Open RStudio <img src="figures/RStudio-Ball.png" width="30" /> **not R**
+<img src="figures/R.png" width="30" />. RStudio automatically opens R
+for you in the ‘Console’ pane
 
 **Verify that your version of R by looking at the first line of the
 console (left or lower left pane), you should see something like this:**
@@ -174,7 +175,7 @@ console (left or lower left pane), you should see something like this:**
 The important line is the first one: R version 4.2.3 (2023-03-15) –
 Shortstop Beagle
 
-**3. Install or Update Packages**
+**3. Install/Update Packages**
 
 Packages are extensions or add-ons for R. You will use many different
 ones over the course of your work with R. `tidyverse` is name of a
@@ -240,7 +241,7 @@ library("tidyverse")
 >   `readr`, `ggplot2`, `skimr`
 > - Email Steffi <sel@steffilazerte.ca>
 
-4.  RStudio R primers (option)
+**4. RStudio R primers (optional)**
 
 If you have time, please complete the [RStudio Programming Basics
 Primer](https://rstudio.cloud/learn/primers/1.2).
