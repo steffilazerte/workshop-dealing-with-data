@@ -3,13 +3,9 @@
 
 *An introduction to R for data management and manipulation*
 
-**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)
-
-*Brandon University*
-
-- **Thurs/Fri April 20th-21st 2023**
-- **9am-5pm Central**  
-- **Brandon University, Brodie Building Rm 4-47**
+**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
+**Location**: Brandon University<br> Brodie Building Rm 4-47<br>
+Thurs/Fri April 20th-21st 2023<br> 9am-5pm<br>
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
