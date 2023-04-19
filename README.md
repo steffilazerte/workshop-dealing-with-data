@@ -74,15 +74,13 @@ copy/paste code.
 
 ------------------------------------------------------------------------
 
-## Before the workshop
+## Before the workshop - In brief
 
-### In a nutshell… (see [below for details](#in-detail))
+(see [below for details](#before-the-workshop-in-detail))
 
-- [Install R](https://muug.ca/mirror/cran/) (**update R** to the newest
-  version, if already installed)
+- Install/Update R
 
-- [Install RStudio](https://www.rstudio.com/products/rstudio/download/)
-  (**update RStudio** to the newest version, if it’s already installed)
+- Install/Update RStudio
 
 - Install R packages for following along
 
@@ -102,9 +100,9 @@ copy/paste code.
 
 ------------------------------------------------------------------------
 
-### In detail…
+## In detail…
 
-**1. Install/Update R**
+### **1. Install/Update R**
 
 Even if you already have R installed, **please update it**, so we’re all
 working with the same version.
@@ -115,23 +113,24 @@ following ways:
 Windows
 
 - Go to the Windows download page:
-  <https://cran.r-project.org/bin/windows/base/>
+  <https://muug.ca/mirror/cran/bin/windows/base/>
 - Download and install R for windows (the link at the top)
 
 Mac
 
 - Go to the Mac OS X download page:
-  <https://cran.r-project.org/bin/macosx/>
+  <https://muug.ca/mirror/cran/bin/macosx/>
 - Download and install the version that matches your Mac OS X
 
 Linux: Debian/Ubuntu
 
 - Specific details:
-  <https://cran.r-project.org/bin/linux/ubuntu/README.html>
+  - Ubuntu <https://muug.ca/mirror/cran/bin/linux/ubuntu/>
+  - Debian <https://muug.ca/mirror/cran/bin/linux/debian/>
 - Add one of the CRAN repositories to you apt (otherwise your R will be
   out of date)
 
-**2. Install/Update RStudio**
+### **2. Install/Update RStudio**
 
 Even if you already have RStudio installed, **please update it**, so
 we’re all working with the same version.
@@ -171,7 +170,7 @@ console (left or lower left pane), you should see something like this:**
 The important line is the first one: R version 4.2.3 (2023-03-15) –
 Shortstop Beagle
 
-**3. Install/Update Packages**
+### **3. Install/Update Packages**
 
 Packages are extensions or add-ons for R. You will use many different
 ones over the course of your work with R. `tidyverse` is name of a
@@ -237,7 +236,7 @@ library("tidyverse")
 >   `readr`, `ggplot2`, `skimr`
 > - Email Steffi <sel@steffilazerte.ca>
 
-**4. RStudio R primers (optional)**
+#### **4. RStudio R primers (optional)**
 
 If you have time, please complete the [RStudio Programming Basics
 Primer](https://rstudio.cloud/learn/primers/1.2).
