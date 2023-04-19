@@ -4,16 +4,17 @@
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Brandon University<br> Brodie Building Rm 4-47<br>
-Thurs/Fri April 20th-21st 2023<br> 9am-5pm<br>
+**Location**: Brodie Building Rm 4-47, Brandon University<br>
+**Date/time** Thurs/Fri April 20th-21st 2023, 9am-5pm<br>
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
-> **Important!**
+> ⚠️️ **Important!**⚠️
 >
 > Make sure you’re ready for the workshop by following the [**Before the
-> workshop**](#before-the-workshop-in-detail) instructions below. Please
-> [email me](mailto:sel@steffilazerte.ca) if you run into any problems.
+> workshop**](#before-the-workshop---in-detail) instructions below.
+> Please [email me](mailto:sel@steffilazerte.ca) if you run into any
+> problems.
 >
 > Take care to **update both R and RStudio**, in particular.
 
@@ -38,7 +39,7 @@ workshop.
 
 ------------------------------------------------------------------------
 
-## Workshop Resources - Slides
+## Workshop Resources - Slides 🚧 Coming soon! 🚧
 
 These are the slides we’ll use throughout the workshop. Answers to the
 activies will be posted after the workshop.
@@ -76,7 +77,7 @@ copy/paste code.
 
 ## Before the workshop - In brief
 
-(see [below for details](#before-the-workshop-in-detail))
+(see [below for details](#before-the-workshop---in-detail))
 
 - Install/Update R
 
@@ -135,12 +136,9 @@ Linux: Debian/Ubuntu
 Even if you already have RStudio installed, **please update it**, so
 we’re all working with the same version.
 
-- For all Operating systems (i.e., Windows, Mac Os, Linux, etc.) go to
-  RStudio’s download page:
-  <https://www.rstudio.com/products/rstudio/download/#download>
-- Download and install the **installer** that matches your system
-  (i.e. select your link from the top options, not the Zip/Tarball
-  options)
+For all Operating systems (i.e., Windows, Mac Os, Linux, etc.) follow
+step 2 from RStudio’s download page:
+<https://www.rstudio.com/products/rstudio/download/#download>
 
 Open RStudio <img src="figures/RStudio-Ball.png" width="30" /> **not R**
 <img src="figures/R.png" width="30" />. RStudio automatically opens R
@@ -174,8 +172,9 @@ Shortstop Beagle
 
 Packages are extensions or add-ons for R. You will use many different
 ones over the course of your work with R. `tidyverse` is name of a
-collection of newer packages for data management. We will use the
-following packages:
+collection of newer packages for data management.
+
+We will use the following packages:
 
 - `tidyverse`
 - `patchwork`
@@ -232,8 +231,8 @@ library("tidyverse")
 > - If you get an error about a problem installing a specific package,
 >   try installing that package invidiually (search for it in the
 >   install packages menu)
-> - Try installing the packages we need by hand: `dplyr`, `tidyr`,
->   `readr`, `ggplot2`, `skimr`
+> - Problems with `tidyverse`? Try installing the packages we need by
+>   hand: `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
 > - Email Steffi <sel@steffilazerte.ca>
 
 #### **4. RStudio R primers (optional)**
