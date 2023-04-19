@@ -45,21 +45,28 @@ workshop.
 ## Workshop Resources - Slides 🚧 Coming soon! 🚧
 
 These are the slides we’ll use throughout the workshop. Answers to the
-activies will be posted after the workshop.
+activities will be posted after the workshop.
 
-I recommend using the html version of these slides as they will be the
-most accurate with respect to formatting and will allow you to easily
-copy/paste code.
+**I recommend using the html version** of these slides as they will be
+the most accurate with respect to formatting and will allow you to
+easily copy/paste code.
 
 1.  Intro to R
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))
 
 2.  Visualizing data in R
+    ([HTML](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf))
 
 3.  Loading & Cleaning Data in R
+    ([HTML](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf))
 
 4.  Summarizing & Transforming Data in R
+    ([HTML](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))
 
 5.  Getting help with R
+    ([HTML](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))
+
+> Answer slides will be posted after the workshop
 
 ------------------------------------------------------------------------
 
