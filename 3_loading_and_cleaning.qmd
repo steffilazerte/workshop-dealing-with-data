@@ -735,6 +735,7 @@ g4 <- ggplot(data = penguins, aes(x = body_mass_g)) +
 
 
 # Example of problematic data
+[[`rivers_correct.csv`](`r glue("{site}/data/rivers_correct.csv")`)]{.large}
 
 
 ## Look at the data
