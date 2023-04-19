@@ -1,0 +1,750 @@
+---
+params:
+  site: "https://steffilazerte.ca/workshop-dealing-with-data"
+  answers: "visible" #"hidden"
+
+format: 
+  revealjs:
+    title: Getting Started with R
+    subtitle: Back to Basics
+    title-slide-attributes: 
+      data-background-image: figures/R.png
+      data-background-size: "40%"
+      data-background-position: "85% 50%"
+---
+
+```{r setup, include = FALSE}
+visibility <- params$answers
+
+library(knitr)
+library(palmerpenguins)
+```
+
+## This is me and my creatures {{< fa cat >}}{.pic background-color="black" background-image="figures/creatures.jpg"}
+
+## This is my garden {{< fa tree >}} {.pic background-color="black" background-image="figures/garden.jpg"} 
+
+## Introductions  {.nostretch}
+
+### Dr. Steffi LaZerte
+
+-   Background in Biology (Animal Behaviour)
+-   Working with R since 2007
+-   Professional R programmer/consultant<br>since 2017
+-   Fifth year giving BU R Workshop!
+-   [rOpenSci](https://ropensci.org) Community Assistant
+
+![](figures/steffi_vivi.jpg){.absolute right=10 top=50 width=40%}
+
+## What about you?
+
+-   Name
+-   Background (Role, Area of study, etc.)
+-   Familiarity with R or Programming
+-   Creatures (furry, feathery, scaley, green or otherwise)?
+
+## About this Workshop
+
+### Format
+
+-   I will provide you tools and workflow to get started with R
+-   We'll have hands-on, lecture, and demonstrations
+
+### R is hard: But have no fear!
+
+-   [Don't expect to remember everything!]{.fragment .highlight-bold}
+-   Copy/Paste is your friend (never apologize for using it!)
+-   Consider this workshop a resource to return to
+
+# What is R?
+
+## R is a Programming language
+
+> A programming **language** is a way to give instructions in order to get a computer to do something
+
+-   You need to know the language (i.e., the code)
+-   Computers don't know what you mean, only what you type (unfortunately)
+-   Spelling, punctuation, and capitalization all matter!
+
+### For example {.spacer}
+
+**R, what is 56 times 5.8?**
+
+```{r}
+#| code-line-numbers: false
+56 * 5.8
+```
+
+## Use code to tell R what to do
+
+::: fragment
+### R, what is the average of numbers 1, 2, 3, 4? {.spacer}
+
+```{r}
+#| code-line-numbers: false
+mean(c(1, 2, 3, 4))
+```
+:::
+
+::: fragment
+### R, save this value for later {.spacer}
+
+```{r}
+#| code-line-numbers: false
+steffis_mean <- mean(c(1, 2, 3, 4))
+```
+:::
+
+::: fragment
+### R, multiply this value by 6 {.spacer}
+
+```{r}
+#| code-line-numbers: false
+steffis_mean * 6
+```
+:::
+
+
+# Why R?
+
+## R is hard
+
+![](figures/R_hard.png){fig-align="center"}
+
+## But R is powerful (and reproducible)! {.nostretch}
+
+![](figures/R_powerful2_edit.png){width="70%" fig-align="center" style="margin-top:5%"}
+
+. . .
+
+[(I made these slides with a mix of R and Quarto)]{.footnote}
+
+## R is also beautiful
+
+![](figures/spatial.png){fig-align="center"}
+
+## R is affordable (i.e., free!) {.nostretch}
+
+![](figures/R_free.png){width="70%" fig-align="center" style="margin-top:15%"}
+
+
+## ImpostR Syndrome {.hide-title}
+
+![](figures/impostR_en.png){.absolute top=10%}
+
+## ImpostR Syndrome {.hide-title}
+
+::: {layout="[[-100], [-100], [50,50]]"}
+![](figures/impostR_en.png)
+
+![](figures/imposter.jpg)
+:::
+
+[David Whittaker]{.footnote}
+
+. . .
+
+> **Moral of the story?**
+>
+> Make friends, code in groups, learn together and don't beat yourself up
+
+## The Goal
+
+![](figures/horst_monster1.jpg){.absolute left="10" bottom="150" width="50%"}
+
+[Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+. . .
+
+![](figures/horst_monster2.jpg){.absolute right="10" bottom="150" width="48%"}
+
+
+
+
+
+# About R
+
+## Code, Output, Scripts
+
+::: columns
+::: {.column width="50%"}
+### Code
+
+-   The actual commands
+
+### Output {.spacer}
+
+-   The result of running code or a script
+
+### Script {.spacer}
+
+-   A text file full of code that you want to run
+-   You should always keep your code in a script
+:::
+
+::: {.column .fragment width="50%"}
+### For example:
+
+```{r}
+#| code-line-numbers: false
+mean(c(1, 2, 3, 4))
+```
+
+[**Code**]{.absolute right="20" top="150"}
+[**Output**]{.absolute right="20" top="190"}
+
+![](figures/script.png){.absolute right="125" bottom="0" width="38%"} 
+[**Script**]{.absolute right="20" top="230"}
+:::
+:::
+
+## RStudio vs. R
+
+::: {layout="[[-2, 5, -2, 5, -2]]" layout-valign="center"}
+![RStudio](https://d33wubrfki0l68.cloudfront.net/3099a8a5ab437c8cca2446dfb08383ecfca761ec/0377b/wp-content/uploads/2014/06/rstudio-ball.png){width="20%"}
+
+![R](https://www.r-project.org/logo/Rlogo.png)
+::: 
+
+-   **RStudio** is not **R**
+-   RStudio is a User Interface or IDE (integrated development environment)
+    -   (i.e., Makes coding simpler)
+
+
+## RStudio Features
+
+### Changing Options: Tools > Global Options
+
+- General > Restore RData into workspace at startup (NO!)
+- General > Save workspace to on exit (NEVER!)
+- Code > Insert matching parens/quotes (Personal preference)
+
+### Projects
+- Handles working directories
+- Organizes your work
+
+### Packages
+- Can use the package manager to install packages
+- Can use the manager to load them as well, but not recommended
+
+. . . 
+
+
+[Let's take a look at RStudio!]{.note .absolute top=45% left=75%}
+
+
+# Getting Ready
+
+:::{style="text-align:left; padding: 15px 200px 15px 200px"}
+{{< fa folder-open >}} Open New File <br>
+[(make sure you're in the RStudio Project)]{.small .hang}
+
+{{< fa pen >}} Write `library(tidyverse)` at the top
+
+{{< fa floppy-disk >}} Save this new script <br>
+[(consider names like `intro.R` or `1_getting_started.R`)]{.small .hang}
+:::
+
+
+# Your first *real* code!
+
+## First Code
+
+```{r first_code}
+#| eval: false
+
+# First load the packages
+library(palmerpenguins)
+library(ggplot2)
+
+# Now create the figure
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
+  geom_point()
+```
+ 
+::: {.space-list .spacer}
+1. **Copy/paste or type** this into the **script** window in RStudio
+    - You may have to go to File \> New File \> R Script
+2. Click on the **first line of code**
+3. **Run the code**
+    - Click 'Run' button (upper right) **or** 
+    - Use the short-cut `Ctrl-Enter`
+4. **Repeat** until all the code has run
+:::
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+<<first_code>>
+```
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+#| code-line-numbers: "2,3"
+<<first_code>>
+```
+
+[Packages<br>`ggplot2` and `palmerpenguins`]{.note .absolute top="8%" left=55%}
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+#| code-line-numbers: "2,3,6,7"
+<<first_code>>
+```
+
+[Functions<br>`library()`, `ggplot()`, `aes()`, `geom_point()`]{.note .absolute top="8%" left=55%}
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+#| code-line-numbers: "6"
+<<first_code>>
+```
+
+[`+`<br>(Specific to `ggplot`)]{.note .absolute top=20% left=90% width=15%}
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+<<first_code>>
+```
+
+[Figure!]{.note .absolute bottom="30%" left=10%}
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+<<first_code>>
+```
+
+[Warning]{.note .absolute bottom=55% left=70%}
+
+## First Code
+
+```{r}
+#| warning: true
+#| fig-asp: 0.5
+#| fig-align: center
+#| code-line-numbers: "1,5"
+<<first_code>>
+```
+
+[Comments]{.note .absolute top="12%" left="35%"}
+
+
+
+# R Basics: Objects
+
+Objects are *things* in the environment  
+
+(Check out the **Environment** pane in RStudio)
+
+
+
+## functions()
+
+### Do things, Return things
+
+#### Does something but returns nothing {.spacer}
+e.g., `write_csv()` - Saves the `mtcars` data frame as a csv file
+
+```{r, eval = FALSE}
+write_csv(mtcars, path = "mtcars.csv")
+```
+
+
+#### Does something and returns something {.spacer}
+e.g., `sd()` - returns the standard deviation of a vector 
+
+```{r}
+sd(c(4, 10, 21, 55))
+```
+
+## functions()
+
+- Functions can take **arguments** (think 'options')
+- `data`, `x`, `y`, `colour`
+
+```{r eval = FALSE}
+ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+  geom_point()
+```
+
+. . .
+
+- Arguments defined by **name** or by **position**
+- With correct position, do not need to specify by name
+
+::::{.columns}
+
+:::{.column width="50%"}
+### By name:
+```{r}
+mean(x = c(1, 5, 10))
+```
+:::
+
+:::{.column width="50%"}
+### By order:
+```{r}
+mean(c(1, 5, 10))
+```
+:::
+::::
+
+
+## functions()
+
+### Watch out for 'hidden' arguments
+
+::::{.columns}
+
+:::{.column width="40%"}
+#### By name:
+```{r}
+mean(x = c(1, 5, 10, NA), 
+     na.rm = TRUE)
+```
+:::
+
+:::{.column width="50%" .fragment}
+#### By order:
+```{r}
+#| error: true
+mean(c(1, 5, 10, NA), 
+     TRUE)
+```
+:::
+::::
+
+. . .
+
+:::{.center .spacer}
+This error states that we've assigned the argument `trim` to a non-valid argument
+
+Where did **`trim`** come from?
+:::
+
+
+## R documentation
+
+```{r}
+?mean
+```
+
+. . . 
+
+
+![ ](figures/mean_docs.png){.absolute bottom=5% right=0% height=83%}
+
+
+
+## Data {.incremental}
+
+Generally kept in `vectors` or `data.frames`
+
+- These are objects with names (like functions)
+- We can use `<-` to assign values to objects (assignment)
+
+<p>
+
+::::{.columns}
+
+:::{.column width="40%"}
+### Vector (1 dimension)
+
+```{r}
+my_letters <- c("a", "b", "c")
+my_letters
+```
+
+- Use `c()` to create a vector
+:::
+
+:::{.column width="60%"}
+### Data frame (2 dimensions)
+
+```{r}
+my_data <- data.frame(x = c("s1", "s2", "s3", "s4"),
+                      y = c(101, 102, 103, 104),
+                      z = c("a", "b", "c", "d"))
+my_data
+```
+
+
+- Columns have different types of variables
+
+:::
+::::
+
+[rows x columns]{.note .absolute bottom=0 left=70%}
+
+## Your Turn: Vectors and Data frames
+
+Try out the following code...
+
+- What is the output in your console?
+- How does your `environment` change (upper right panel)?
+
+<p>
+
+:::{.columns}
+
+:::{.column width="40%"}
+**Vectors** 
+```{r, results = "hide"}
+a <- c("apples", 12, "bananas")
+a
+```
+:::
+
+:::{.column width="60%"}
+**Data frames**
+```{r, results = "hide"}
+my_data <- data.frame(x = c("s1", "s2", "s3", "s4"),
+                      y = c(101, 102, 103, 104),
+                      z = c("a", "b", "c", "d"))
+my_data
+```
+:::
+:::
+
+
+## Your Turn: Vectors and Data frames
+
+**Try out the following code...**
+
+- What does `:` do?
+- What does `c()` do?
+- Why use a comma with data frames?
+
+<p>
+
+:::{.columns}
+
+:::{.column width="50%"}
+**Vectors** 
+
+- Use `[index]` to access part of a vector
+- Can access multiple parts at once
+```{r yt_vect, eval = FALSE}
+a[2]
+a[2:3]     # What does : do?
+a[c(1, 3)] # What does c() do?
+
+```
+:::
+
+:::{.column width="50%"}
+**Data frames**  
+
+- `x$colname` to pull columns out as vector
+- `x[row, col]` to access rows/columns
+
+```{r yt_df, eval = FALSE}
+my_data[3, ]   # Why the comma?
+my_data[3, 1]
+my_data[, 1:2]
+```
+:::
+:::
+
+
+## Your Turn: Vectors and Data frames {visibility=`r visibility`}
+
+Try out the following code...
+
+:::{.columns}
+:::{.column width="50%"}
+**Vectors**
+```{r ref.label = "yt_vect"}
+```
+:::
+
+:::{.column width="50%"}
+**Data frames** 
+```{r ref.label = "yt_df"}
+```
+:::
+:::
+
+
+# Miscellaneous
+
+
+## R has spelling and punctuation
+
+- R cares about spelling
+- R is also case sensitive! (`Apple` is not the same as `apple`)
+
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/d4f90788-7a14-4d44-94ab-da13dd41f009.png?h=585957612c146dc43c4aa63e9431ad1b){fig-align=center}
+
+[Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+## R has spelling and punctuation
+
+- Commas are used to separate arguments in functions
+
+
+This is correct:
+```{r, eval = FALSE}
+mean(c(5, 7, 10))  # [1] 7.333333
+```
+
+This is **not** correct:
+```{r}
+#| eval: false
+mean(c(5 7 10))
+```
+
+. . . 
+
+:::{.center .spacer}
+[\>80% of learning R is learning to **troubleshoot**!]{.note}
+:::
+
+## R has spelling and punctuation
+
+#### Spaces usually don't matter unless they change meanings
+
+```{r, eval = FALSE}
+5>=6    # [1] FALSE
+5 >=6   # [1] FALSE
+5 >= 6  # [1] FALSE
+5 > = 6 # Error: unexpected '=' in "5 > ="
+```
+
+#### Periods don't matter either, but can be used in the same way as letters
+  (But don't)
+
+```{r}
+apple.oranges <- "fruit"
+```
+
+
+## Assignments and Equal signs
+
+#### Use `<-` to assign values to objects
+
+```{r}
+a <- "hello"
+```
+
+#### Use `=` to set function arguments
+
+```{r, eval = FALSE}
+mean(x = c(4, 9, 10))
+```
+
+#### Use `==` to determine equivalence (logical)
+
+```{r, eval = FALSE}
+10 == 10 # [1] TRUE
+10 == 9  # [1] FALSE
+```
+
+
+## Braces/Brackets
+
+### Round brackets: `()`
+
+- Identify functions (even if there are no arguments)
+
+```{r}
+Sys.Date() # Get the Current Date
+```
+
+. . . 
+
+- Without the `()`, R spits out information on the function:
+
+```{r}
+Sys.Date
+```
+
+. . . 
+
+
+:::{.spacer .center}
+[`()` must be associated with a **function** [(Well, _almost_ always)]{.small}]{.note}
+:::
+
+
+## Square brackets: `[]`
+
+- Extract parts of objects  
+
+```{r, eval = TRUE}
+LETTERS
+LETTERS[1]
+LETTERS[26]
+```
+
+. . . 
+
+:::{.spacer .center}
+[`[]` have to be associated with an **object** that has dimensions  [(Always!)]{.small}]{.note}
+:::
+
+## Improving code readability
+
+#### Use spaces like you would in sentences:
+```{r}
+a <- mean(c(4, 10, 13))
+```
+
+is easier to read than 
+
+```{r}
+a<-mean(c(4,10,13))
+```
+
+
+(But the same, coding-wise)
+
+
+## Improving code readability
+
+#### Don't be afraid to use line breaks ('Enters') to make the code more readable
+
+**Hard to read**
+```{r}
+a <- data.frame(exp = c("A", "B", "A", "B", "A", "B"), sub = c("A1", "A1", "A2", "A2", "A3", "A3"), res = c(10, 12, 45, 12, 12, 13))
+```
+
+**Easier to read**
+```{r}
+a <- data.frame(exp = c("A", "B", "A", "B", "A", "B"), 
+                sub = c("A1", "A1", "A2", "A2", "A3", "A3"), 
+                res = c(10, 12, 45, 12, 12, 13))
+```
+
+
+(But the same, coding-wise)
+
+## Let's go!
+
+![](figures/happy_r.png){fig-align=center}
+
+
+[Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}

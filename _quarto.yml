@@ -1,0 +1,24 @@
+project:
+  title: "Two-day R Workshop"
+  render:
+    - "*.qmd"
+
+format:
+  revealjs:
+    author-steffi: true
+    workshop: "Workshop: Dealing with Data in R"
+    date: today
+    date-format: iso
+    template-partials:
+      - extra/title-slide.html
+    theme: [default, extra/styles.scss]
+    width: 1200
+    slide-number: true
+    fontsize: 1.7em
+    fig-dpi: 200
+    fig-width: 7
+    fig-asp: 0.35
+
+execute:
+  echo: true
+  cache: true

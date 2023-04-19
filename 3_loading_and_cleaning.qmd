@@ -1,0 +1,1571 @@
+---
+params:
+  site: "https://steffilazerte.ca/workshop-dealing-with-data"
+  answers: "visible" #"hidden"
+format: 
+  revealjs:
+    title: Loading & Cleaning Data in R
+    subtitle: I know the file exists, why doesn't R?
+    title-slide-attributes: 
+      data-background-image: figures/dataset.png
+      data-background-size: "40%"
+      data-background-position: "95% 50%"
+---
+
+```{r setup}
+#| include: false
+#| cache: false
+
+visibility <- params$answers
+site <- params$site
+
+library(palmerpenguins)
+library(tidyverse)
+library(glue)
+library(skimr)
+
+options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
+```
+
+# First things first
+
+:::{style="text-align:left; padding: 15px 200px 15px 200px"}
+{{< fa floppy-disk >}} Save previous script
+
+{{< fa folder-open >}} Open New File <br>
+[(make sure you're in the RStudio Project)]{.small .hang}
+
+{{< fa pen >}} Write `library(tidyverse)` at the top
+
+{{< fa floppy-disk >}} Save this new script <br>
+[(consider names like `cleaning.R` or `3_loading_and_cleaning.R`)]{.small .hang}
+:::
+
+
+
+# Side Note
+*R base vs. `tidyverse`*
+
+## R base vs. `tidyverse`
+
+### R base
+- Basic R
+- Packages are installed and loaded by default
+- Base pipe `|>` *
+
+![](figures/R.png){.absolute right=20% top=10% width=20%}
+
+[*We'll cover pipes soon {{< fa grin >}}]{.footnote}
+
+:::{.fragment}
+### `tidyverse`
+- Collection of 'new' packages developed by a team closely affiliated with RStudio
+  - e.g., `ggplot2`, `dplyr`, `tidyr`, `readr`
+  - Packages designed to work well together
+- Use a slightly different syntax
+- tidyverse pipe `%>%` or base pipe `|>` *
+
+![](figures/hex_tidyverse.png){.absolute right=40% bottom=0 width=15%}
+:::
+
+[Useful to know if functions are<br>**`tidyverse`** or **R base**]{.fragment .note .absolute bottom=5% left=80% width=25%}
+
+
+## Dealing with data
+
+::::{.columns}
+:::{.column width=50%}
+
+### 1. Loading data
+  - Get your data into R
+
+### 2. Looking for problems
+  - Typos
+  - Incorrectly loaded data
+
+### 3. Fixing problems
+  - Corrections
+  - Renaming
+:::
+
+:::{.column width=50%}
+### 4. Setting formats
+  - Dates
+  - Numbers
+  - Factors
+
+### 5. Saving your data
+:::
+::::
+
+
+# Loading Data
+
+
+## Data types: What kind of data do you have?
+
+### Specific program files
+
+::::{.columns}
+:::{.column width=80%}
+
+Type           | Extension         | R Package   | R function
+-------------- | ----------------- | ----------- | ------------
+Excel          | .xls, .xlsx       | `readxl`*    | `read_excel()` 
+Open Document  | .ods              | `readODS`   | `read_ods()`
+SPSS           | .sav, .zsav, .por | `haven`     | `read_spss()`
+SAS            | .sas7bdat         | `haven`     | `read_sas()`            
+Stata          | .dta              | `haven`     | `read_dta()`
+Database Files | .dbf              | `foreign`   | `read.dbf()`
+:::
+::::
+
+:::{.fragment}
+### Convenient but...
+- Can be unreliable
+- Can take longer
+:::
+
+[For files that don't change, better to save as a `*.csv`<br>
+(Comma-separated-variables file)
+]{.fragment .note .absolute bottom=0 left=60%}
+
+![](figures/hex_readxl.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+
+## Data types: What kind of data do you have?
+
+### General text files
+
+Type            | R base          | `readr` package *
+--------------- | --------------- | --------------
+Comma separated | `read.csv()`    | `read_csv()`, `read_csv2()`
+Tab separated   | `read.delim()`  | `read_tsv()`
+Space separated | `read.table()`  | `read_table()`
+Fixed-width     | `read.fwf()`    | `read_fwf()`
+
+![](figures/hex_readr.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+:::{.fragment .spacer}
+- **`readr` package** especially useful for big data sets (fast!)
+- Error/warnings from `readr` are a bit more helpful
+:::
+
+
+:::{.fragment .note .absolute width=50% bottom=-15%}
+[**We'll focus on**]{.large}
+
+- `readxl` package {{< fa arrow-right >}} `read_excel()`    
+- `readr` package {{< fa arrow-right >}} `read_csv()`, `read_tsv()`  
+:::
+
+
+## Where is my data?
+
+### Common error
+
+```{r, error = TRUE}
+my_data <- read_csv("weather.csv")
+```
+
+With no folder (just file name) R expects file to be in **Working directory**
+
+:::{.fragment .spacer}
+### Working directory is:
+- Where your RStudio project is
+- Your home directory (My Documents, etc.) [If not using RStudio Projects]
+- Where you've set it (using `setwd()` or RStudio's Session > Set Working Directory)
+:::
+
+:::{.fragment .note .absolute bottom=-5% width=50%}
+**Don't** use `setwd()`  
+**Do** use Projects in RStudio  
+:::
+
+
+## Where is my data?
+
+### A note on file paths (file locations)
+
+
+```{r eval = FALSE}
+/home
+```
+
+- folders separated by `/`
+- `home` is a folder
+
+
+## Where is my data?
+
+### A note on file paths (file locations)
+
+
+```{r eval = FALSE}
+/home/steffi/
+```
+
+- folders separated by `/`
+- `home` and `steffi` are folders
+- `steffi` is a folder inside of `home`
+
+
+## Where is my data?
+
+### A note on file paths (file locations)
+
+```{r eval = FALSE}
+/home/steffi/Documents/R Projects/mydata.csv
+```
+
+- folders separated by `/`
+- `home`, `steffi`, `Documents`, `R Projects` are folders
+- `steffi` is inside of `home`, `Documents` is inside of `steffi`, etc.
+- `mydata.csv` is a data file inside `R Projects` folder
+
+
+![RStudio Files Pane](figures/file_viewer.png){width=40% fig-alt="Screen shot of RStudio file pane showing mydata.csv"}
+
+
+## Where is my data?
+
+### **Absolute** Paths
+:::{.small .left}
+OS     | Path
+------ | -----------------------
+**LINUX** | /home/steffi/Documents/R Projects/mydata.csv
+ **WINDOWS** | C:/Users/steffi/My Documents/R Projects/mydata.csv
+**MAC** | /users/steffi/Documents/R Projects/mydata.csv
+:::
+
+:::{.fragment .note .absolute top=28% left=75%}
+Full location, folders and filename
+:::
+
+:::{.fragment}
+### **Relative** Paths {.spacer}
+:::{.small .left}
+Path               | Where to look
+------------------ | ---------------------------------------------------
+mydata.csv         | Here (current directory)
+../mydata.csv      | Go up one directory (../)
+data/mydata.csv    | Stay here, go into "data" folder (data/)
+../data/mydata.csv | Go up one directory (../), then into "data" folder (data/)
+:::
+:::
+
+:::{.fragment .note .absolute top=65% left=75%}
+Only *relative* info  
+Use relative symbols (e.g., `../`)
+:::
+
+:::{.note .fragment .absolute bottom=-5% left=25%}
+With RStudio 'Projects' only need to use **relative** paths
+:::
+
+
+## Keep yourself organized
+
+### For simple projects
+- Create an 'RStudio Project' for each Project (Chapter, Thesis, etc.)
+- Create a specific "Data" folder within each project (one per project)
+
+```{r eval = FALSE}
+#| code-line-numbers: "1,3"
+- Prospect Lake Quality                 # Project Folder
+    - prospect_analysis.R
+    - data                              # Data Folder   
+        - prospect_data_2017-01-01.csv
+        - prospect_data_2017-02-01.csv
+```
+
+. . .
+
+- Use **relative** paths to refer to this folder
+
+```{r, eval = FALSE}
+d <- read_csv("data/prospect_data_2017-01-01.csv")
+```
+
+
+
+# Let's Load Some Data!
+
+
+## Your turn: Load some data  {.space-list}
+
+::::{.columns}
+:::{.column width=60%}
+1. Create a '**data**' folder in your RStudio project
+
+2. Put [`rivers_correct.xlsx`](`r glue("{site}/data/rivers_correct.xlsx")`) file in the
+"**data**" folder
+
+3. Load the package
+```{r, message = FALSE}
+library(readxl)
+```
+4. Read in the Excel file and assign to object `rivers`
+```{r, message = FALSE}
+rivers <- read_excel("data/rivers_correct.xlsx")
+```
+5. Use `head()` and `tail()` functions to look at the data   
+  [e.g., `head(rivers)` and `tail(rivers)`]{.hang .small}
+
+6. Click on the `rivers` object in your "Environment" pane to look at the whole data set
+:::
+
+:::{.column width=40%}
+![Click on "New Folder"](figures/files.png)
+
+![Use the *'tab'* key in RStudio when typing in the file name for auto-complete](figures/tip_file_nav.gif)
+:::
+
+::::
+
+
+
+## Your turn: Load some data {visibility=`r visibility`}
+
+:::{.small}
+```{r, message = FALSE}
+library(readxl)
+rivers <- read_excel("data/rivers_correct.xlsx")
+```
+```{r}
+head(rivers)
+tail(rivers)
+```
+:::
+
+![](figures/dataset.png){.absolute right=0 top=0 width=45%}
+
+
+## How do I know which function to use? {.space-list}
+
+### Look at the file extension:
+
+- [`rivers_correct.csv`](`r glue("{site}/data/rivers_correct.csv")`)
+
+- `.csv` {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
+
+. . .
+
+[But not always obvious...]{.note}
+
+
+## How do I know which function to use? {.space-list}
+
+### Look at the file: [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
+    
+- Put this file in your **`data`** folder
+- In lower right-hand pane, click on **Files**
+  - Click on **data** folder
+  - Click on **master_moch.txt**
+  - Click "View File" [(if asked)]{.small}
+
+
+```{r echo = FALSE}
+cat(readChar("data/master_moch.txt", nchars = 214))
+```
+
+
+[This **does not** read the file into R, but only shows you the contents as text.
+]{.note .absolute bottom=8%}
+
+. . .
+
+[Hmm, not comma-separated, maybe tab-separated?]{.note .absolute bottom=-10%}
+
+## How do I know what to use?
+
+### Peak:
+- Pick a read function with your best guess (`read_csv()` is a good start)
+- Use `n_max` to read only first few rows
+
+```{r, message = FALSE}
+read_csv("data/master_moch.txt", n_max = 3)
+```
+
+:::{.spacer}
+[`\t` means tab, so this is tab-separated data]{.note}
+:::
+
+## How do I know what to use?
+
+### Peak:
+- Try again with `read_tsv()`
+
+
+```{r, message = FALSE}
+read_tsv("data/master_moch.txt", n_max = 3)  # note change in function!
+```
+
+::::{.spacer}
+[Excellent!]{.note}
+:::
+
+# Specifics of loading functions
+
+
+## `col_names`  {.space-list}
+
+-  [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
+
+<p>
+
+::::{.columns}
+:::{.column width=60%}
+
+```{r}
+#| code-line-numbers: "2"
+my_data <- read_csv("data/geolocators.csv")
+my_data
+```
+Oops?
+:::
+
+:::{.column .fragment width=40%}
+- `read_csv`, `read_tsv`, etc. assume that the first row contains the column names
+- This file doesn't have headers
+:::
+
+::::
+
+
+
+## `col_names`
+
+-  [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
+
+<p>
+
+::::{.columns}
+:::{.column width=50%}
+
+### Declare no headings
+```{r}
+#| code-line-numbers: "2"
+my_data <- read_csv("data/geolocators.csv", 
+                    col_names = FALSE)
+my_data
+```
+
+:::
+
+:::{.column width=50%}
+:::{.fragment}
+### Name headings
+
+```{r}
+#| code-line-numbers: "2"
+my_data <- read_csv("data/geolocators.csv", 
+                    col_names = c("date", "light"))
+my_data
+```
+:::
+:::
+::::
+
+
+## `skip` info rows before data
+
+- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+
+```{r, error = TRUE, message = FALSE, highlight.output = c(2, 4:6)}
+my_data <- read_tsv("data/grain_size.txt")
+my_data
+```
+
+
+
+## `skip` info rows before data
+
+- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+
+
+```{r, eval = FALSE}
+my_data <- read_tsv("data/grain_size.txt")
+my_data
+```
+
+::::{.columns}
+:::{.column width=30%}
+**Look at the file:**
+
+- Click on **Files** tab
+- Click on **data** folder
+- Click on **grain_size.txt**
+- Click **"View file"** [(if asked)]{.small}
+
+:::
+
+:::{.column width=60% .fragment}
+```{r, echo = FALSE}
+cat(readChar("data/grain_size.txt", nchars = 320))
+```
+:::
+::::
+
+[**Ah ha!**<br>Metadata was stored at the top of the file
+]{.note .absolute .fragment bottom=10% left=50%}
+
+
+## `skip` info rows before data
+
+- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+- Add `skip = 3` to skip the first three rows
+
+```{r, message = FALSE}
+my_data <- read_tsv("data/grain_size.txt", skip = 3)
+my_data
+```
+
+[Much better!]{.note .absolute bottom=40% left=65%}
+
+
+## Your turn: Load this data set
+
+Load the telemetry data set: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+
+1. Look at the file
+2. Decide which R function to use based on delimiter [(comma, space, or tab?)]{.small}
+3. Any other options need to be specified?
+
+### It should look like this:
+```{r yt_load, echo = FALSE, message = FALSE, R.options = list(tibble.print_max = 7, tibble.print_min = 7)}
+telemetry <- read_csv("data/Sta A Data 2006-11-07.dmp", skip = 2)
+telemetry
+```
+
+[**Too Easy?**<br>Load some of your own tricky data]{.note .absolute bottom=15% left=80%}
+
+
+
+## Your turn: Load this data set {visibility=`r visibility`}
+
+Load the telemetry data set: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+
+```{r, ref.label="yt_load", message = FALSE, R.options = list(tibble.print_max = 7, tibble.print_min = 7)}
+```
+
+
+# Looking for problems
+
+## Look at the data
+
+- Make sure columns as expected [(correctly assigned file format)]{.small}
+- Make sure no extra lines above the data [(should we have used a skip?)]{.small}
+- Make sure column names look appropriate
+
+```{r}
+library(palmerpenguins)
+penguins
+```
+
+
+## Look at the data
+
+- Did the whole data set load?
+- Are there extra blank lines at the end of the data?
+
+```{r}
+tail(penguins)
+```
+
+
+
+## `skim()` the data
+
+### `skim()` is from `skimr` {.spacer}
+
+::::{.columns}
+:::{.column .small .space-list width=25%}
+- Are the formats correct?
+  - numbers (`numeric`), 
+  - text (`character`)
+  - date (`date`, `POSIXct`, `datetime`)
+  - categories (`factor`)
+- Are values appropriate? 
+  - Should there be `NA`s?
+- Are there any typos?
+- Number of rows expected?
+:::
+
+:::{ .small .column width=75%}
+```{r, render = knitr::normal_print}
+library(skimr)
+skim(penguins)
+```
+:::
+::::
+
+![](figures/hex_skimr.png){width=16% .absolute top=0 right=0}
+
+
+## `count()` categories
+
+
+### `count()` is from `dplyr`* {.spacer}
+
+- Check for sample sizes and potential typos in categorical columns
+- Assess missing values
+
+::::{.columns}
+:::{.column}
+```{r}
+count(penguins, species)
+count(penguins, island)
+```
+:::
+:::{.column}
+```{r}
+count(penguins, sex)
+```
+:::
+::::
+
+
+![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+## Plot categories
+
+
+:::{.spacer}
+```{r}
+#| eval: false
+ggplot(data = penguins, aes(x = COLUMN)) + 
+  geom_bar()
+```
+:::
+
+::::{.columns style="font-size: 75%"}
+:::{.column width=33%}
+```{r}
+#| fig-asp: 1
+#| fig-width: 4
+#| echo: false
+ggplot(data = penguins, aes(x = species)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar() +
+  labs(title = "x = species")
+```
+:::
+
+:::{.column width=33%}
+```{r}
+#| fig-asp: 1
+#| fig-width: 4
+#| echo: false
+ggplot(data = penguins, aes(x = island)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar() +
+  labs(title = "x = island")
+```
+:::
+
+:::{.column width=33%}
+```{r}
+#| fig-asp: 1
+#| fig-width: 4
+#| echo: false
+ggplot(data = penguins, aes(x = sex)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar()+
+  labs(title = "x = sex")
+```
+:::
+
+::::
+
+
+![](figures/hex_ggplot2.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+## Plot numbers
+
+:::{.spacer}
+```{r}
+#| eval: false
+ggplot(data = penguins, aes(x = COLUMN)) + 
+  geom_histogram()()
+```
+:::
+
+:::{style="font-size: 75%"}
+```{r}
+#| fig-asp: 0.5
+#| fig-width: 10
+#| out-width: 80%
+#| fig-align: center
+#| echo: false
+library(patchwork)
+g1 <- ggplot(data = penguins, aes(x = bill_length_mm)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = bill_length_mm")
+
+g2 <- ggplot(data = penguins, aes(x = bill_depth_mm)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = bill_depth_mm")
+
+g3 <- ggplot(data = penguins, aes(x = flipper_length_mm)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = flipper_length_mm")
+
+g4 <- ggplot(data = penguins, aes(x = body_mass_g)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = body_mass_g")
+
+(g1 + g3) / (g2 + g4) + theme(plot.margin = unit(c(0,0,0,0), "mm"))
+
+```
+:::
+
+
+![](figures/hex_ggplot2.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+
+
+# Example of problematic data
+
+
+## Look at the data
+:::{.small}
+```{r, message = FALSE}
+rivers <- read_csv("data/rivers_correct.csv")
+rivers
+```
+:::
+
+- Column names are not great (`River Name` and `Temperature C°` are not R-friendly) 
+  or obvious (what is `Ele`?)
+- At least one typo in River (`Grase` should be `Grasse`)
+
+
+## Looking for problems
+
+### Your Turn!
+
+- `skim()` the data
+- `count()` some columns
+- Perhaps make some `ggplot()`s
+
+[Find any problems?]{.note .absolute}
+
+
+## `skim()` the data {visibility=`r visibility`}
+```{r, render = knitr::normal_print}
+#| R.options:
+#|   width: 110
+skim(rivers)
+```
+
+## `count()` categories {visibility=`r visibility`}
+
+::::{.columns}
+:::{.column}
+```{r}
+count(rivers, `River Name`)
+count(rivers, Wea)
+```
+:::
+
+:::{.column}
+```{r}
+count(rivers, Site)
+count(rivers, Ele)
+```
+:::
+::::
+
+
+## Plot categories {visibility=`r visibility`}
+
+
+:::{.spacer}
+```{r}
+#| eval: false
+ggplot(data = rivers, aes(x = COLUMN)) + 
+  geom_bar()
+```
+:::
+
+:::{style="font-size: 75%"}
+```{r}
+#| fig-asp: 0.5
+#| fig-width: 12
+#| out-width: 90%
+#| fig-align: center
+#| echo: false
+g1 <- ggplot(data = rivers, aes(x = `River Name`)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar() +
+  labs(title = "x = `River Name`")
+
+g2 <- ggplot(data = rivers, aes(x = Site)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar() +
+  labs(title = "x = Site")
+
+g3 <- ggplot(data = rivers, aes(x = Wea)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar()+
+  labs(title = "x = Wea")
+
+g4 <- ggplot(data = rivers, aes(x = Ele)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_bar()+
+  labs(title = "x = Ele")
+
+(g1 + g2) / (g3 + g4) + theme(plot.margin = unit(c(0,0,0,0), "mm"))
+```
+:::
+
+
+## Plot numbers {visibility=`r visibility`}
+
+:::{.spacer}
+```{r}
+#| eval: false
+ggplot(data = rivers, aes(x = COLUMN)) + 
+  geom_histogram()()
+```
+:::
+
+:::{style="font-size: 75%"}
+```{r}
+#| fig-asp: 0.45
+#| fig-width: 10
+#| out-width: 100%
+#| fig-align: center
+#| echo: false
+library(patchwork)
+g1 <- ggplot(data = rivers, aes(x = Amo)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = Amo")
+
+g2 <- ggplot(data = rivers, aes(x = `Temperature C°`)) + 
+  theme(plot.title = element_text(family = "mono")) +
+  geom_histogram() +
+  labs(title = "x = `Temperature C°`")
+
+g1 + g2 + theme(plot.margin = unit(c(0,0,0,0), "mm"))
+
+```
+:::
+
+
+
+# Fixing problems
+
+
+## Cleaning column names
+
+### `clean_names()` is from `janitor`* {.spacer}
+
+[* *not* part of the `tidyverse` but `tidyverse`-orientated]{.footnote}
+
+::::{.columns}
+:::{.column .small width=50%}
+```{r, message = FALSE}
+#| class-output: small
+library(janitor)
+rivers <- clean_names(rivers)
+rivers
+```
+:::
+::::
+
+![](figures/hex_janitor.png){width=10% .absolute top=0 right=0}
+![](figures/horst_janitor.png){width=57% .absolute top=20% right=-5%}
+
+
+## Cleaning column names
+
+### `rename()` is from `dplyr`* {.spacer}
+
+**`rename()` columns**
+
+```{r}
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers
+```
+
+![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+## Subsetting columns
+
+### `select()` is from `dplyr`* {.spacer}
+
+**`select()` columns you want **
+
+```{r, eval = FALSE}
+rivers <- select(rivers, river_name, site, element, amount)
+```
+
+![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+. . .
+
+**OR, un`select()` columns you don't want**
+```{r}
+rivers <- select(rivers, -wea)
+rivers
+```
+
+
+
+## Cleaning columns
+
+### Put it all together
+
+```{r, message = FALSE}
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers
+```
+
+. . .
+
+[Note how code repeats data frame `rivers`...]{.note .absolute bottom=0}
+
+
+## Fixing typos
+
+```{r}
+count(rivers, river_name)
+```
+
+## Fixing typos
+
+### `if_else()`, `case_when()`, `mutate()` from `dplyr` package* {.spacer}
+
+
+:::{.spacer}
+**`mutate()`** creates or changes columns in a data frame:
+```{r, eval = FALSE}
+mutate(dataframe, column = new_values)
+```
+:::
+
+:::{.spacer}
+**`if_else()`** tests for a condition, and returns one value if `FALSE` and another if `TRUE`
+```{r, eval = FALSE}
+if_else(condition, value_if_true, value_if_false)
+```
+:::
+
+:::{.spacer}
+**`case_when()`** tests for multiple conditions, and returns different values depending
+```{r, eval = FALSE}
+case_when(condition1 ~ value_if_true1,
+          condition2 ~ value_if_true2,
+          condition3 ~ value_if_true3,
+          TRUE ~ default_value)
+```
+:::
+
+
+![](figures/hex_dplyr.png){width=15% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+## Fixing typos
+
+### Replace typos
+Combine the `if_else` function with the `mutate()` function
+
+```{r}
+rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+```
+
+### Check that it's gone:
+```{r}
+filter(rivers, river_name == "Grase")
+```
+
+
+## Iterative process
+
+- Make some corrections
+- Check the data
+- Make some more corrections (either add to or modify existing code)
+
+
+
+## Your Turn: Fix another "Grasse" typo
+
+1. Check the data with `count()`
+2. Use `mutate()` and `if_else()` to fix the typo
+
+```{r, eval = FALSE}
+#| code-line-numbers: "7"
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+
+rivers <- mutate(???, ??? = ???)
+```
+
+[**Too Easy?**<br>Examine and fix problems in your own data]{.note .absolute bottom=20% left=27%}
+
+
+
+## Your Turn: Fix another "Grasse" typo {visibility=`r visibility`}
+
+1. Check the data with `count()`
+2. Use `mutate()` and `if_else()` to fix the typo
+
+```{r, eval = FALSE}
+#| code-line-numbers: "7"
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+
+rivers <- mutate(rivers, river_name = if_else(river_name == "grasse", "Grasse", river_name))
+```
+
+
+## Fixing typos
+
+### To be more efficient, fix all typos at once
+
+```{r, message = FALSE}
+#| code-line-numbers: "5,6"
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 river_name = if_else(river_name %in% c("Grase", "grasse"), "Grasse", river_name))
+```
+
+
+[`==` compares one item to one other<br>`%in%` 
+compares one item to many different ones]{.note .absolute bottom=30%}
+
+
+## Fixing typos
+
+### One last typo to fix
+```{r}
+#| code-line-numbers: "7"
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 river_name = if_else(river_name %in% c("Grase","grasse"), "Grasse", river_name),
+                 river_name = if_else(river_name == "raquette", "Raquette", river_name))
+```
+
+:::{.fragment}
+
+### Combine with `case_when()`
+```{r}
+#| code-line-numbers: "6-8"
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                        river_name == "raquette" ~ "Raquette",
+                                        TRUE ~ river_name))
+```
+:::
+
+
+
+# Tangent: `tidyverse` functions
+
+## `tidyverse` functions
+
+### `rename()`, `select()`, `mutate()`
+- `tidyverse` functions always start with the **data**, followed by other arguments
+- you can reference any **column** from '**data**'
+
+```{r}
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 if_else(river_name %in% c("Grase", "grasse"), "Grasse", river_name))
+```
+
+- `rename()` changes column names
+- `select()` chooses columns to keep or to remove (with `-`)
+- `mutate()` changes column contents
+
+![](figures/hex_tidyverse.png){width=16% .absolute top=0 right=0}
+
+## Why use `tidyverse` functions?
+
+### Pipes! `|>`* Allow you to string commands together
+
+Instead of:
+```{r}
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                        river_name == "raquette" ~ "Raquette",
+                                        TRUE ~ river_name))
+```
+         
+
+[* `|>` is the base pipe, `%>%` is the tidyverse pipe, you can use either]{.footnote}
+
+![](figures/hex_tidyverse.png){width=16% .absolute top=0 right=0}
+
+. . .
+
+We have:
+
+```{r, message = FALSE}
+rivers <- read_csv("data/rivers_correct.csv") |>
+  clean_names() |>
+  rename(element = ele, amount = amo, temperature = temperature_c) |>
+  select(-wea) |>
+  mutate(river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                river_name == "raquette" ~ "Raquette",
+                                TRUE ~ river_name))
+```
+
+
+## Play around
+
+Take a moment to play with this code in your console
+
+### Convert this:
+```{r}
+rivers <- read_csv("data/rivers_correct.csv")
+rivers <- clean_names(rivers)
+rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
+rivers <- select(rivers, -wea)
+rivers <- mutate(rivers, 
+                 river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                        river_name == "raquette" ~ "Raquette",
+                                        TRUE ~ river_name))
+```
+
+
+### To this:
+
+```{r, message = FALSE}
+rivers <- read_csv("data/rivers_correct.csv") |>
+  clean_names() |>
+  rename(element = ele, amount = amo, temperature = temperature_c) |>
+  select(-wea) |>
+  mutate(river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                river_name == "raquette" ~ "Raquette",
+                                TRUE ~ river_name))
+```
+
+
+![](figures/hex_tidyverse.png){width=16% .absolute top=0 right=0}
+
+# Dealing with `NA`s
+[Data that *is* missing<br>Data that *should* be missing]{.large}
+
+
+## Exploring `NA`s
+
+- We saw missing values in `amount`
+- Use `filter()` to take a closer look
+
+```{r}
+filter(rivers, is.na(amount))
+```
+
+## Omitting `NA`s
+
+If we want to **omit** `NA`s
+
+### `drop_na()` is from `tidyr`*   {.spacer}
+
+```{r}
+rivers_no_na <- drop_na(rivers, amount)
+```
+
+(Or if you want to omit **all** `NA`s from all columns)
+```{r}
+rivers_no_na <- drop_na(rivers)
+```
+
+:::{.fragment .spacer}
+Check...
+```{r}
+filter(rivers_no_na, is.na(amount))
+nrow(rivers_no_na)
+```
+
+[No more `NA`s!<br>Fewer rows]{.note .absolute bottom=0}
+:::
+
+[* part of the `tidyverse`]{.footnote}
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+
+## Replacing `NA`s
+
+If we want to replace `NA`s
+
+### `replace_na()` is from `tidyr`* {.spacer}
+
+```{r}
+rivers_no_na <- mutate(rivers, amount = replace_na(amount, 0))
+```
+
+:::{.fragment .spacer}
+Check...
+```{r}
+filter(rivers_no_na, is.na(amount))
+nrow(rivers_no_na)
+```
+
+[No more `NA`s!<br>Same number of rows]{.note .absolute bottom=5%}
+:::
+
+[* part of the `tidyverse`]{.footnote}
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+
+## Converting to `NA`
+
+
+Remember the problem with `temperature`?
+
+```{r}
+filter(rivers, temperature < -10)
+```
+
+:::{.fragment}
+### `na_if()` is from `dplyr`*   {.spacer}
+
+```{r}
+rivers <- mutate(rivers, temperature = na_if(temperature, -99))
+```
+
+![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+:::
+
+:::{.fragment}
+Check...
+```{r}
+filter(rivers, is.na(temperature))
+```
+:::
+
+
+
+
+# Fixing formats
+
+## Changing classes
+
+Function  |  Input | Output
+--------- | -------------- | ------
+`as.character()` |  Any vector | Text (Characters)
+`as.numeric()`   |  Any vector (but returns NAs if not numbers) | Numbers
+`as.logical()`   |  TRUE, FALSE, T, F, 0 (FALSE), any other number (all TRUE) | TRUE or FALSE
+`as.factor()`    |  Any vector | Categories
+
+
+[We'll deal with dates and times later...]{.note .absolute bottom=33%}
+
+### Your turn, try the following...{style="margin-top:10%"}
+::::{.columns}
+:::{.column}
+```{r formats1}
+a <- c("hi", "hello", "bonjour")
+```
+```{r formats2}
+#| eval: false
+as.character(a)
+as.numeric(a)
+as.logical(a)
+as.factor(a)
+```
+:::
+:::{.column}
+```{r formats3}
+b <- c(1, 0, 20)
+```
+```{r formats4}
+#| eval: false
+as.character(b)
+as.numeric(b)
+as.logical(b)
+as.factor(b)
+```
+:::
+::::
+
+## Changing classes {visibility=`r visibility`}
+
+### Your turn, try the following...
+
+::::{.columns}
+:::{.column}
+
+```{r}
+<<formats1>>
+```
+
+```{r}
+<<formats2>>
+```
+:::
+
+:::{.column}
+```{r}
+<<formats3>>
+```
+```{r}
+<<formats4>>
+```
+:::
+::::
+
+## Look for problems
+
+```{r, highlight.output = 3}
+rivers
+```
+
+[Year could be categorical (factor)<br>Better for plotting!]{.note .absolute bottom=15%}
+
+## Convert to categorical
+
+```{r}
+rivers <- mutate(rivers, year = factor(year))
+rivers
+```
+
+
+
+## Put it all together...
+
+```{r}
+rivers <- read_csv("data/rivers_correct.csv") |>
+  clean_names() |>
+  rename(element = ele, amount = amo, temperature = temperature_c) |>
+  select(-wea) |>
+  mutate(river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                                river_name == "raquette" ~ "Raquette",
+                                TRUE ~ river_name),
+         amount = replace_na(amount, 0),
+         temperature = na_if(temperature, -99),
+         year = factor(year)) 
+```
+
+
+
+### And you have a clean, corrected data frame ready to use {.spacer}
+- You have not changed the original data
+- You have a **reproducible** record of all corrections
+- You can alter these corrections at any time
+- You have formatted your data for use in R
+- Read these steps line by line to remind yourself what you did
+
+## Put it all together...
+
+### Feel free to annotate within a pipe
+```{r}
+rivers <- read_csv("data/rivers_correct.csv") |>
+  # Fix column names
+  clean_names() |>
+  rename(element = ele, amount = amo, temperature = temperature_c) |>
+  select(-wea) |>
+  mutate(
+    # Correct typos
+    river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
+                           river_name == "raquette" ~ "Raquette",
+                           TRUE ~ river_name),
+    # Missing amounts should be 0
+    amount = replace_na(amount, 0),
+    # Problems with temperature logger, -99 is a mistake
+    temperature = na_if(temperature, -99),
+    # Convert for plotting 
+    year = factor(year)) 
+```
+
+
+# Dates and Times
+
+[**(Or why does R hate me?)**]{.large}
+
+
+## Dates and Times
+
+- Date/times aren't always recognized as date/times
+
+```{r, message = FALSE, R.options = list(tibble.print_max = 6, tibble.print_min = 6)}
+geolocators <- read_csv("data/geolocators.csv", col_names = c("time", "light"))
+geolocators
+```
+
+> Here `time` column is considered `chr` (character/text)
+
+## {data-menu-title="lubridate" background-image="figures/horst_lubridate_ymd.png" background-size=75% background-position="top"}
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+
+## `lubridate` package *
+
+- Part of `tidyverse`, but needs to be loaded separately
+- Great for converting date/time formats
+
+```{r message = FALSE, R.options = list(tibble.print_max = 6, tibble.print_min = 6)}
+library(lubridate)
+geolocators <- mutate(geolocators, time_formatted = dmy_hms(time))
+geolocators
+```
+
+> Now `time_formatted` column is considered `dttm` (Date/Time)
+
+
+![](figures/hex_lubridate.png){width=16% .absolute top=0 right=0}
+[* part of the `tidyverse`]{.footnote}
+
+## `lubridate` package *
+
+
+![](figures/hex_lubridate.png){width=16% .absolute top=0 right=0}
+
+Generally, only the order of the **y**ear, **m**onth, **d**ay, **h**our, **m**inute, or **s**econd matters.
+
+
+:::{.spacer}
+date/time              | function    | class
+---------------------- | ----------- | -------
+2018-01-01 13:09:11    | `ymd_hms()` | dttm (POSIXct/POSIXt)
+12/20/2019 10:00 PM    | `mdy_hm()` | dttm (POSIXct/POSIXt)
+31/01/2000 10 AM       | `dmy_h()` | dttm (POSIXct/POSIXt)
+31-01/2000             | `dmy()` | Date
+:::
+
+:::{.spacer}
+> `lubridate` is smart enough to detect AMs and PMs
+:::
+
+[**Note:** R *generally* requires that times have dates (`datetime`/`POSIXct`), 
+but dates don't have to have times (`Date`)<br>
+* part of the `tidyverse`]{.footnote}
+
+
+# Saving data
+
+[(For the love of all that is good don't *lose* that data!!!)]{.large}
+
+
+## Saving data
+
+### Keep yourself organized
+- Keep your R-created data in a **different** folder from your 'raw' data *
+- If you have a lot going on, split your work into several scripts, and number the both the scripts AND the data sets produced:
+ - `1_cleaned.csv`
+ - `2_summarized.csv`
+ - `3_graphing.csv`
+
+:::{.fragment}
+### Save your data to file:
+```{r, eval = FALSE}
+write_csv(rivers, "datasets/rivers_cleaned.csv")
+```
+![](figures/hex_readr.png){width=16% .absolute bottom=12% right=0}
+:::
+
+[* I usually have a `data` folder and then both `raw` and `datasets` folders inside of that]{.footnote}
+
+
+
+
+## Dealing with data
+
+::::{.columns}
+:::{.column width=50%}
+### 1. Loading data
+  - Get your data into R
+
+### 2. Looking for problems
+  - Typos
+  - Incorrectly loaded data
+
+### 3. Fixing problems
+  - Corrections
+  - Renaming
+:::
+
+:::{.column width=50%}
+### 4. Setting formats
+  - Dates
+  - Numbers
+  - Factors
+
+### 5. Saving your data
+:::
+::::
+
+
+
+## Wrapping up: Common mistakes
+
+### Assuming your data is in one format when it's not
+- Print your data to the console and use `skim()` to explore the format of your data
+- Use `skim()`, `count()`, `filter()`, `select()`, `ggplot()` to explore the content of your data
+
+
+## Wrapping up: Common mistakes
+### Confusing pipes with function arguments
+- Pipes (`|>` or `%>%`) pass the _output_ from one function as _input_ to the next function:
+
+```{r, eval = FALSE}
+my_data <- my_data |>                 # Pass my_data
+  filter(my_column > 5) |>            # Pass my_data, filtered
+  select(my_column, my_second_column)
+```
+
+- Arguments may be on different lines, but all part of _one_ function
+```{r, eval = FALSE}
+my_data <- my_data |>                  # Pass my_data
+  mutate(my_column1 = if_else(...),    # No passing (no pipes!)
+         my_column2 = if_else(...),    # Instead, give 3 arguments to mutate:
+         my_column3 = if_else(...))    # Arguments separated by ",", and surrounded by ( )
+
+```
+
+
+
+
+
+## Wrapping up: Further reading
+
+- R for Data Science
+  - [Chapter 5: Transforming data](http://r4ds.had.co.nz/transform.html)
+  - [Chapter 8: RStudio Projects](http://r4ds.had.co.nz/workflow-projects.html)
+  - [Chapter 14: Strings](http://r4ds.had.co.nz/strings.html)
+  - [Chapter 15: Factors](http://r4ds.had.co.nz/factors.html)
+  - [Chapter 18: Pipes](http://r4ds.had.co.nz/pipes.html)
+  
+  

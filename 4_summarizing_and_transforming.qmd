@@ -1,0 +1,1755 @@
+---
+params:
+  site: "https://steffilazerte.ca/workshop-dealing-with-data"
+  answers: "visible" #"hidden"
+format: 
+  revealjs:
+    title: Summarizing & Transforming Data in R
+    subtitle: Saving you time and sanity
+    caption: "Illustration from the Openscapes blog Tidy Data for<br>reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"
+    title-slide-attributes: 
+      data-background-image: figures/horst_tidydata.jpg
+      data-background-size: "50%"
+      data-background-position: "95% 85%"
+---
+
+```{r setup}
+#| include: false
+#| cache: false
+visibility <- params$answers
+site <- params$site
+
+library(palmerpenguins)
+library(tidyverse)
+library(glue)
+library(skimr)
+library(dplyr)
+library(tidyr)
+
+options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
+```
+
+# First things first
+
+:::{style="text-align:left; padding: 15px 200px 15px 200px"}
+{{< fa floppy-disk >}} Save previous script
+
+{{< fa folder-open >}} Open New File <br>
+[(make sure you're in the RStudio Project)]{.small .hang}
+
+{{< fa pen >}} Write `library(tidyverse)` at the top
+
+{{< fa floppy-disk >}} Save this new script <br>
+[(consider names like `summarizing.R` or `4_sum_and_trans.R`)]{.small .hang}
+:::
+
+
+## Types of Modifications
+
+::::{.columns}
+:::{.column}
+### 1. **Subset**
+- `filter()` observations (rows)
+- `select()` variables (columns)
+
+### 2. **Joining data sets**
+- `left_join()`, `right_join()`, etc.
+
+### 3. **Creating new columns**
+- Creating categories 
+- Column calculations
+- By group
+- `mutate()` and `group_by()`
+:::
+
+:::{.column}
+### 4. **Summarize existing columns**
+- Summarizing by group
+- `summarize()` and `group_by()`
+
+### 5. **Transpose**
+- Going between **wide** and **long** data formats
+  - `pivot_wider()` and `pivot_longer()`
+- Transposing for analysis
+- Transposing for visualizations
+:::
+::::
+
+
+
+## Getting ready
+
+::::{.columns}
+
+:::{.column}
+### Check out the data:
+```{r, message = FALSE, eval = FALSE}
+library(tidyverse)
+size <- read_csv("data/grain_size2.csv")
+size
+```
+:::
+
+:::{.column}
+### Using data sets:
+- [grain_size2.csv](`r glue("{site}/data/grain_size2.csv")`)
+- [grain_meta.csv](`r glue("{site}/data/grain_meta.csv")`)
+:::
+::::
+
+```{r, echo = FALSE, message = FALSE}
+size <- read_csv("data/grain_size2.csv")
+size
+```
+
+
+# Subsetting
+
+[By rows and column]{.large}
+
+## `filter()` observations
+
+### `filter()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+filter(data, expression1, expression2, etc.)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with data
+- Column `expression`s reference actual columns in data
+- Here we use logical statements relating to column values
+:::
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+## `filter()` observations
+
+### `filter()` by category {.spacer}
+
+```{r}
+filter(size, plot %in% c("CSP11", "CSP13"))
+```
+
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+. . .
+
+**Note**: To save this as a separate object, don't forget assignments:
+
+
+```{r}
+#| eval: false
+size_sub <- filter(size, plot %in% c("CSP11", "CSP13"))
+```
+
+
+
+## `filter()` observations
+
+### `filter()` by measures {.spacer}
+
+
+```{r}
+filter(size, depth > 140 | depth < 4)
+```
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+# Tangent
+[Logical Operators]{.large}
+
+## Logical Operators
+
+::::{.columns}
+:::{.column}
+### Possible options
+
+Operator   | Code
+---------- | ------
+OR         | <code>&vert;</code>
+AND        | `&`
+EQUAL      | `==`
+NOT EQUAL  | `!=`
+NOT        | `!`
+Greater than | `>`
+Less than | `<`
+Greater than or equal to | `>=`
+Less than or equal to | `<=`
+In    | `%in%`
+:::
+
+:::{.column}
+### Single comparisons
+
+```{r, eval = FALSE}
+1 < 2
+1 != 2
+```
+
+### Multiple comparisons
+
+```{r, eval = FALSE}
+1 == c(1, 2, 1, "apple")
+1 %in% c(1, 2, 1, "apple")
+
+c(1, 2, 1, "apple") == 1
+c(1, 2, 1, "apple") %in% 1
+
+c(1, 2, 1, "apple") == 1 | c(1, 2, 1, "apple") == 2
+```
+
+> **Your turn!**  
+> In each case, what are you asking?<br>Do you expect 1 or 4 values?
+
+:::
+::::
+
+# Back to `filter()`ing...
+
+## `filter()` observations
+
+### Which values are greater than 100 OR less than 4?
+
+:::{.small}
+```{r}
+#| R.options: 
+#|   width: 115
+size$depth > 140 | size$depth < 4
+```
+:::
+
+### Return only rows with `TRUE`
+
+```{r, eval = FALSE}
+filter(size, depth > 140 | depth < 4)
+```
+
+
+
+
+## `filter()` observations
+
+### `filter()` by a combination {{< fa arrow-right >}} use comma {.spacer}
+```{r}
+#| code-line-numbers: "2"
+filter(size, 
+       depth > 100,
+       plot %in% c("CSP11", "CSP13"))
+```
+
+. . .
+
+### Equivalent {{< fa arrow-right >}} use &
+```{r}
+#| code-line-numbers: "2"
+#| eval: false
+filter(size, 
+       depth > 100 &
+       plot %in% c("CSP11", "CSP13"))
+```
+
+
+
+[Separate arguments in `filter()` act like **&**]{.note .absolute bottom=10% left=25%}
+
+
+
+## `select()` variables
+
+### `select()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+select(data, selection1, selection2, etc.)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with data
+- Specify columns to keep or remove
+- Column `selection`s reference actual columns in data
+:::
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+
+## `select()` variables
+
+::::{.columns .spacer}
+:::{.column}
+### `select()` by name
+
+```{r}
+#| R.options:
+#|  tibble.print_max: 4
+#|  tibble.print_min: 4
+select(size, coarse_sand, medium_sand, fine_sand)
+```
+:::
+
+:::{.column .fragment}
+
+### Using helper functions
+
+```{r}
+#| R.options:
+#|  tibble.print_max: 4
+#|  tibble.print_min: 4
+select(size, ends_with("sand"))
+```
+:::
+::::
+
+
+
+:::{.fragment}
+**Some other helper functions (`?select_helpers`):**
+
+Function        | Usage
+--------------- | ---------
+`starts_with()` | `starts_with("fine")`
+`contains()`    | `contains("sand")`
+`everything()`  | Useful for rearranging
+`matches()`     | Uses regular expressions
+:::
+
+
+
+
+## `select()` variables
+
+### Put it all together
+
+::::{.columns}
+:::{.column}
+### To explore the data
+```{r}
+size |>
+  filter(depth > 100, 
+         plot %in% c("CSP13", "CSP25")) |>
+  select(plot, depth, ends_with("sand"))
+```
+:::
+
+:::{.column .fragment}
+### To save as a separate object
+```{r}
+#| code-line-numbers: "1"
+size_sub_sand <- size |>
+  filter(depth > 100, 
+         plot %in% c("CSP13", "CSP25")) |>
+  select(plot, depth, ends_with("sand"))
+```
+:::
+::::
+
+
+## Your turn: Subsetting
+
+- Subset the data to variables **plot**, **depth** and all measures of **sand**
+- Keep only values where there is **<u>at least</u> 30% clay**
+
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2-3"
+size <- read_csv("data/grain_size2.csv") |>
+  filter(???) |>
+  select(???)   
+```
+
+[**Note:**<br>All particle values are percentages (depth is cm)]{.note .absolute top=20% left=80% width=20%}
+
+
+
+
+[**Too Easy?**<br>What happens if you `select()` before you `filter()`?
+]{.note .absolute bottom=10% left=50% width=60%}
+
+
+## Your turn: Subsetting {visibility=`r visibility`}
+
+- Subset the data to variables **plot**, **depth** and all measures of **sand**
+- Keep only values where there is **<u>at least</u> 30% clay**
+
+```{r}
+size <- read_csv("data/grain_size2.csv") |>
+  filter(clay >= 30) |>
+  select(plot, depth, ends_with("sand"))
+
+head(size)
+```
+
+. . .
+
+**Select equivalents:**
+
+- `select(plot, depth, ends_with("sand"))`
+- `select(plot, depth, contains("sand"))`
+- `select(plot, depth, coarse_sand, medium_sand, fine_sand)`
+- `select(-coarse_silt, -medium_silt, -fine_silt, -clay)`
+
+
+## Your turn: Subsetting (Too Easy?) {visibility=`r visibility`}
+
+**What happens if you `select()` before you `filter()`?**
+
+```{r}
+#| error: true
+size <- read_csv("data/grain_size2.csv") |>
+  select(plot, depth, ends_with("sand")) |>
+  filter(clay >= 30)
+```
+
+
+- Lines are sequential
+- First `select()` removes column `clay`
+- Then `filter()` cannot find `clay` 
+  - [(`object 'clay' not found`)]{.small}
+
+
+
+# Joining or Merging data
+
+
+## Joining data sets
+
+::::{.columns}
+
+:::{.column}
+### Measurements
+
+```{r}
+#| echo: false
+library(gt)
+library(lubridate)
+
+join1 <- data.frame(Plot = c(rep("A", 3), rep("B",3))) |>
+  mutate(Date = seq(Sys.Date(), Sys.Date() + months(4), length.out = n()),
+         Date = as.character(Date),
+         n_birds = c(1, 11, 2, 4, 10, 21))
+
+join1 |>
+  gt() |>
+  data_color(columns = c("Date", "n_birds"), colors = "#fff4a1") |>
+  data_color(columns = c("Plot"), colors = "#c2ffa1") |>
+  cols_align("center") |>
+  cols_width(everything() ~ px(120))
+```
+
+### Metadata
+```{r}
+#| echo: false
+
+join2 <- data.frame(Plot = c("A", "B")) |>
+  mutate(`Vegetation Density` = c(50, 76))
+
+join2 |>
+  gt() |>
+  data_color(columns = c("Vegetation Density"), colors = c("#d1a1ff", "#d1a1ff50")) |>
+  data_color(columns = c("Plot"), colors = "#c2ffa1") |>
+  cols_align("center") |>
+  cols_width(everything() ~ px(150))
+```
+:::
+
+
+:::{.column}
+
+:::{.fragment}
+### Joining them together
+
+[Metadata is duplicated to line up with measurements]{.center}
+
+```{r}
+#| echo: false
+left_join(join1, join2, by = c("Plot")) |>
+  gt() |>
+  data_color(columns = c("Vegetation Density"), colors = c("#d1a1ff", "#d1a1ff50")) |>
+  data_color(columns = c("Plot"), colors = "#c2ffa1") |>
+  data_color(columns = c("Date", "n_birds"), colors = "#fff4a1") |>
+  cols_align("center") |>
+  cols_width(`Vegetation Density` ~ px(150),
+             everything() ~ px(100))
+```
+:::
+:::
+
+::::
+
+
+## Joining data sets
+
+::::{.columns}
+:::{.column width=42%}
+### Index or Metadata
+```{r}
+#| R.options:
+#|   tibble.print_min: 15
+meta <- read_csv("data/grain_meta.csv")
+meta
+```
+:::
+
+:::{.column width=58%}
+### Measurements
+
+```{r}
+#| R.options:
+#|   width: 70
+#|   tibble.print_min: 15
+size <- read_csv("data/grain_size2.csv")
+size
+```
+:::
+::::
+
+:::{.note .absolute .fragment bottom=0}
+`plot` (CSP01, CSP02, etc.) identifies data in both
+:::
+
+
+
+## Types of Join: Which rows to keep?
+
+### `left_join(x, y)`
+- Keep all rows in `x`
+- Keep rows in `y` only if they're also in `x`
+
+![](figures/joins.png){.absolute right=0 top=10% width=40%}
+
+[Adapted from "R for Data Science"]{.footnote}
+
+:::{.fragment}
+### `right_join(x, y)`
+- Keep all rows in `y`
+- Keep rows in `x` only if they're also in `y`
+:::
+
+:::{.fragment}
+### `inner_join(x, y)`
+- Keep **only** rows that exist in **both** data frames
+:::
+
+:::{.fragment}
+### `full_join(x, y)`
+- Keep **all** rows that exist in **either** `x` _or_ `y`
+:::
+
+
+
+## Joining data sets
+
+### `left_join()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+
+```{r}
+#| eval: false
+left_join(x = data, y = data_to_join, by = c("column1", "column2"), ...)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with data (`x`)
+- Here, also need second dataset (`y`)
+- `by` refers columns in `x` and `y` used to join
+:::
+
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+## Joining data sets
+
+### Keep all measurements, only keep meta if we have a measurement
+```{r}
+#| eval: false
+size <- left_join(x = size, y = meta, by = "plot")
+```
+
+:::{.fragment}
+```{r}
+#| echo: false
+#| class-output: small
+size
+```
+:::
+
+:::{.fragment}
+> For more information see R for Data Science [Chapter 13.4 Mutating joins](http://r4ds.had.co.nz/relational-data.html#mutating-joins)
+:::
+
+
+
+# Creating/modifying columns with `mutate()`
+
+![](figures/horst_dplyr_mutate.png)
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+## Creating new columns
+
+
+### `mutate()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+mutate(data, column1 = expression1, column2 = expression2, ...)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with data
+- Create new or modify existing `column`s in the `data`
+- Columns filled according to `expression`
+:::
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+
+## Creating new columns
+
+```{r}
+size <- read_csv("data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand)
+```
+
+. . .
+
+Creates new column at the end, `total_sand`
+
+```{r, echo = FALSE}
+size
+```
+
+. . .
+
+> **Note:** Column math is _**vectorized**_ (i.e., row by row)
+
+
+
+
+
+# Tangent
+[Vectorizing]{.large}
+
+## Tangent: Vectorized
+
+:::{.center .large .spacer}
+**Vectorized functions run in parallel across vectors**
+:::
+
+::::{.columns .spacer}
+:::{.column .spacer}
+- Many functions in R are vectorized
+- Makes them faster and easier
+
+### For example
+```{r}
+#| results: hide
+a <- c(1, 2, 3)
+a + a
+a * a
+```
+:::
+
+:::{.column .fragment .spacer}
+- But not all functions are vectorized
+
+### For example {style="padding-top:1.2em"}
+```{r}
+#| results: hide
+sum(a)
+sum(a, a)
+mean(a)
+mean(c(a, a))
+```
+:::
+::::
+
+# Back to `mutate()`...
+
+## Your turn: Creating new columns
+
+- Add a calculation for **total `silt`**
+- Check your work
+
+```{r}
+#| eval: false
+#| code-line-numbers: "5"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         ???)
+```
+
+[**Too Easy?**<br>What happens if you add `total_sand` and `total_silt` together in the same `mutate()` function?]{.note .absolute left=50% bottom=20% width=80%}
+
+## Your turn: Creating new columns {visibility=`r visibility`}
+
+- Add a calculation for **total `silt`**
+- Check your work
+
+```{r}
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+```
+
+
+## Your turn: Creating new columns {visibility=`r visibility`}
+
+- Add a calculation for **total `silt`**
+- Check your work
+
+```{r}
+select(size, contains("silt"))
+```
+
+. . .
+
+> Wait... that doesn't add up!
+
+## Your turn: Creating new columns {visibility=`r visibility`}
+
+- Add a calculation for **total `silt`**
+- Check your work
+
+```{r}
+select(size, contains("silt")) |>
+  as.data.frame()
+```
+
+
+[Whew!]{.note .absolute left=75% bottom=50% width=20%}
+
+
+## Your turn: Creating new columns (Too Easy?) {visibility=`r visibility`}
+
+**What happens if you add `total_sand` and `total_silt` together in the same `mutate()`?**
+
+```{r}
+#| code-line-numbers: "6"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt,
+         total = total_sand + total_silt)
+```
+
+- You get the sum!
+- Lines within `mutate()` run sequentially
+- You can create `total_sand` and `total_silt` in the first two lines then use them in the 3rd
+- But you could not create `total_sand` and `total_silt` *after* using them
+
+
+# Tangent
+
+[Decimal points]{.large}
+
+## Where are...
+
+### ... the decimal points?
+
+- `tibble` rounds values for easy viewing
+
+```{r}
+#| echo: false
+#| R.options:
+#|   width: 100
+print(size, n = 5)
+```
+
+
+### ... my data?
+
+`# ℹ 109 more rows`<br>
+`# ℹ 5 more variables: technician <chr> ...`
+
+
+## To see raw data
+- Click on the name in the Environment pane
+- Or use `as.data.frame()`
+```{r}
+#| R.options:
+#|   width: 100
+as.data.frame(size)
+```
+
+## To see all rows
+- Use `print()`
+
+```{r}
+#| R.options:
+#|   width: 100
+print(size, n = Inf)
+```
+
+
+# Back to `mutate()`...
+
+## Mutating by group
+
+### `group_by()` and `ungroup()` are from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+group_by(data, column1, column2)
+ungroup(data)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with data
+- `group_by()` applies grouping according to specified `data` `columns`
+- `ungroup()` removes grouping from `data`
+:::
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+## Mutating by group
+
+::::{.columns}
+
+:::{.column}
+### `mutate()` without grouping
+
+```{r}
+size <- size |>
+  mutate(mean_sand_all = mean(total_sand))
+```
+
+```{r, echo=FALSE}
+select(size, plot, total_sand, mean_sand_all)
+```
+
+> Overall mean calculated
+
+:::
+
+:::{.column .fragment}
+### Grouping via `group_by()`:
+
+```{r}
+#| code-line-numbers: "2,4"
+size <- size |>
+  group_by(plot) |>
+  mutate(mean_sand_plot = mean(total_sand)) |>
+  ungroup()
+```
+
+
+```{r, echo = FALSE, R.options = list(tibble.print_min = 8)}
+select(size, plot, total_sand, mean_sand_plot)
+```
+
+> Mean calculated for each group (i.e. plot)
+
+:::
+::::
+
+[Always remember to **`ungroup()`** your data!
+]{.fragment .small .note .absolute left=85% top=35% width=20%}
+
+
+
+## {data-menu-title="ungroup()" background-image="figures/horst_ungroup.png" background-size=75% background-position="center"}
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+
+## Your turn: Mutating by group
+
+Add a column containing the **mean amount of total silt _per_ plot**
+
+```{r}
+#| eval: false
+#| code-line-numbers: "6-8"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  ??? |>   
+  ??? |>   
+  ???       
+```
+
+## Your turn: Mutating by group {visibility=`r visibility`}
+
+Add a column containing the **mean amount of total silt _per_ plot**
+
+```{r}
+#| code-line-numbers: "6-8"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(plot) |>
+  mutate(mean_silt = mean(total_silt)) |>
+  ungroup()
+```
+
+
+```{r}
+#| echo: false
+select(size, plot, contains("silt"))
+```
+
+
+
+## Put it all together
+
+```{r, message = FALSE}
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(plot) |>
+  mutate(mean_sand = mean(total_sand),
+         mean_silt = mean(total_silt)) |> 
+  ungroup()
+```
+
+:::{.fragment}
+### Check it out
+```{r}
+select(size, plot, depth, total_sand, total_silt, mean_sand, mean_silt)
+```
+:::
+
+# Summarizing
+
+## Summarizing by group
+
+### `summarize()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+
+```{r}
+#| eval: false
+summarize(data, column1 = expression1, column2 = expression2)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with `data`
+- `summarize()` collapses `data`
+- Creates new `column`s
+- Columns filled according to `expression`
+:::
+
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+## Summarizing by group
+
+- Similar to `mutate()`, but **collapses** rows whereas `mutate()` repeats data  
+
+### `mutate()`
+
+```{r}
+#| code-line-numbers: "3"
+size <- size |>
+  group_by(plot) |>
+  mutate(mean_sand = mean(total_sand)) |>
+  ungroup()
+
+select(size, plot, contains("sand"))
+```
+
+[Repeated values]{.note .absolute bottom=20% left=68%}
+
+
+## Summarizing by group
+
+- Similar to `mutate()`, but **collapses** rows whereas `mutate()` repeats data  
+
+### `summarize()`
+
+```{r}
+#| code-line-numbers: "3"
+size <- size |>
+  group_by(plot) |>
+  summarize(mean_sand = mean(total_sand), .groups = "drop")   # Ungroup data
+
+size
+```
+
+[**Note:**<br>Drops unused columns]{.note .absolute bottom=25% left=75%}
+
+## Summarizing by group
+
+```{r}
+#| echo: false
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+```
+
+
+- Keep other id columns by adding them to `group_by()`
+- Beware: think carefully about grouping variables!
+
+
+```{r}
+size |> 
+  group_by(plot, depth) |>
+  summarize(mean_sand = mean(total_sand), .groups = "drop")
+```
+
+
+> `depth` is not a category, therefore not an appropriate grouping factor
+
+
+## Summarizing by group
+
+- Use true groups of interest (e.g., Sex, Age)
+- Or use factors which are on the same level (e.g., ID columns)
+
+```{r}
+size |> 
+  group_by(plot, habitat) |>
+  summarize(mean_sand = mean(total_sand), .groups = "drop")
+```
+
+
+> Better: `habitat` varies with `plot` (alternatively could have Joined later)
+
+
+## Summarizing by group
+
+```{r}
+#| echo: false
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+```
+
+
+Summarizing is an excellent way to calculate statistics to describe your data
+
+- sample sizes (`n()`)
+- means (`mean()`)
+- standard deviations (`sd()`)
+- standard errors (`sd()` / `sqrt(n())`)
+- total values (`sum()`)
+- total counts (`n()`)
+
+
+## Summarizing by group
+
+### `n()` is from `dplyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+
+```{r}
+#| eval: false
+n()
+```
+
+:::{.spacer}
+- *Helper* `tidyverse` function which **does NOT** start with data
+- Returns row counts according to groups (if present)
+- Can only be used *inside* `mutate()` or `summarize()`
+:::
+
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+
+
+**For example...**
+
+::::{.columns}
+:::{.column}
+```{r n}
+#| eval: false
+size |>
+  group_by(plot) |>
+  summarize(samples_total = n(), 
+            .groups = "drop")
+```
+:::
+:::{.column}
+```{r}
+#| echo: false
+#| R.options:
+#|   tibble.print_max: 8
+#|   tibble.print_min: 8
+<<n>>
+```
+:::
+::::
+
+## Your Turn: Calculate summary statistics
+
+### For each plot and habitat, calculate
+
+- sample sizes with `n()`
+- means for **total_sand** and **total_silt** with `mean()`
+- standard deviations for **total_sand** and **total_silt** with `sd()`
+- standard errors for **total_sand** and **total_silt** with `sd()`/`sqrt(n())`
+
+
+```{r}
+#| eval: false
+#| code-line-numbers: "9"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+
+size_sum <- size |>
+  group_by(plot, habitat) |>
+  ???
+```
+
+
+[**Too Easy?**<br>Calculate summary statistics for your own data
+]{.note .absolute bottom=-5%}
+
+
+
+## Your Turn: Calculate summary statistics {visibility=`r visibility`}
+
+### For each plot and habitat, calculate
+
+- sample sizes with `n()`
+- means for **total_sand** and **total_silt** with `mean()`
+- standard deviations for **total_sand** and **total_silt** with `sd()`
+- standard errors for **total_sand** and **total_silt** with `sd()`/`sqrt(n())`
+
+
+```{r}
+#| code-line-numbers: "9-15"
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+
+size_sum <- size |>
+  group_by(plot, habitat) |>
+  summarize(sample_size = n(),                         
+            mean_sand = mean(total_sand),          
+            sd_sand = sd(total_sand),              
+            se_sand = sd_sand / sqrt(sample_size),     
+            mean_silt = mean(total_silt),          
+            sd_silt = sd(total_silt),              
+            se_silt = sd_silt / sqrt(sample_size))     
+```
+
+
+## Your Turn: Calculate summary statistics {visibility=`r visibility`}
+
+### Check your work
+```{r}
+size_sum
+```
+
+
+# Transposing
+[Let's talk about tidy data]{.large}
+
+:::{.small style="color:grey;margin-top:100px"}
+Upcoming illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/)<br>by Julia Lowndes and Allison Horst
+:::
+
+## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata1.jpg}
+
+## {data-menu-title="Tidy Data"}
+
+### Tidy Data
+
+::::{.columns}
+
+:::{.column width=60%}
+
+id   | name | colour | age  | mass (lb)
+---- | ---- | ------ | ---- | ----
+1    | floof | grey | 10    | 7
+1    | floof | grey | 12    | 7.5
+2    | max | black | 1    | 5
+2    | max | black | 2    | 6
+3 | cat | orange | 5   | 10
+3 | cat | orange | 7   | 12
+
+### Un-tidy
+id   | name | colour | age1  | mass1 | age2 | mass2
+---- | ---- | ------ | ---- | ---- | ---- | ----
+1    | floof | grey | 10    | 7 | 12    | 7.5
+2    | max | black | 1    | 5 | 2    | 6
+3 | cat | orange | 5   | 10 | 7   | 12
+
+:::
+
+:::{.column}
+
+[**Long data**<br>One measurement per row]{.note .absolute left=65% bottom=50%}
+
+[**Wide data**<br>Several measurements per row]{.note .absolute left=75% bottom=0}
+
+:::
+::::
+
+## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata2.jpg}
+
+
+## Tidy Data
+
+### Un-Tidy (wide)
+```{r, echo = FALSE, results = "asis"}
+knitr::kable(table4a, format = "markdown")
+```
+
+
+## Why do we care? {background-image=figures/horst_tidydata3.jpg}
+
+## Why do we care?
+
+### How would you plot the untidy data?
+(No. of cases by country for each year)
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1-2"
+ggplot(data = table4a, aes(x = ???, y = ???)) + 
+  ???                                           
+```
+
+**Note**  
+ 
+- `table4a` is a built-in data frame
+- Type `table4a` in the console to take a look
+- Type `?table4a` to pull up the help file with information
+
+
+
+## Why do we care?
+
+### With un-tidy data
+
+::::{.columns .small}
+:::{.column}
+```{r}
+ggplot(data = table4a, aes(x = country, y = `1999`)) +
+  geom_bar(stat = "identity", fill = "blue")
+```
+:::
+
+:::{.column}
+```{r}
+ggplot(data = table4a, aes(x = country, y = `2000`)) +
+  geom_bar(stat = "identity", fill = "red")
+```
+:::
+::::
+
+
+## Why do we care?
+### With tidy data
+
+```{r}
+ggplot(data = table1, aes(x = country, y = cases, fill = factor(year))) +
+  geom_bar(stat = "identity")
+```
+
+
+## Why do we care?
+### With tidy data
+
+
+::::{.columns .small}
+:::{.column}
+```{r}
+#| code-line-numbers: "2"
+ggplot(data = table1, 
+       aes(x = country, y = cases, fill = factor(year))) +
+  geom_bar(stat = "identity", position = "dodge")
+```
+:::
+
+:::{.column}
+```{r}
+#| code-line-numbers: "2"
+ggplot(data = table1, 
+       aes(x = country, y = cases, fill = factor(year))) +
+  geom_bar(stat = "identity") + facet_wrap(~year)
+```
+:::
+::::
+
+
+## Going long
+
+### `pivot_longer()`
+
+![](figures/pivot_longer.png)
+
+[[R for Data Science](http://r4ds.had.co.nz/)]{.footnote}
+
+## Going long
+
+
+```{r}
+size_long <- size |>
+  pivot_longer(cols = c(-plot, -depth, -habitat, -technician, -date),
+               names_to = "type", values_to = "amount")
+```
+
+::::{.columns}
+:::{.column width=55%}
+
+#### From wide ...
+
+```{r, echo = FALSE}
+#| echo: false
+select(size, plot, depth,  contains("silt"))
+```
+:::
+
+:::{.column width=45% .fragment}
+
+#### ... to long
+```{r}
+#| echo: false
+select(size_long, plot, depth, type, amount) |>
+  filter(stringr::str_detect(type, "silt"))
+```
+:::
+::::
+
+
+## Going long
+
+### `pivot_longer()` is from `tidyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r pivot_longer}
+#| eval: false
+pivot_longer(data, cols = c(column1, column2),
+             names_to = "new_categorical_column",
+             values_to = "new_numerical_column")
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with `data`
+- Takes columns and converts to long data
+- Column names (`column1` and `column2`) go into "new_categorical_column"
+- Column values (*contents* of `column1` and `column2`) go into "new_numerical_column"
+:::
+
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+
+## Going long
+
+### `pivot_longer()` is from `tidyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+<<pivot_longer>>
+```
+
+### In our example:   
+- **data** = `size`  
+- **cols** = `c(-plot, -depth, -habitat, -technician, -date)`
+    - Here, easiest to exclude columns
+- **names_to** = `"type"`  
+- **values_to** = `"amount"`   
+
+
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+
+## Going long
+
+```{r}
+size_long <- pivot_longer(size, cols = c(-plot, -depth, -habitat, -technician, -date),
+                          names_to = "type", values_to = "amount")
+```
+
+```{r, echo = FALSE, R.options = list(tibble.print_max = 12, tibble.print_min = 12)}
+size_long
+```
+
+
+
+## Your turn: Lengthen data
+
+- We'll first create a summary dataset for sand variables
+
+```{r}
+sand_sum <- read_csv("data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand) |>
+  group_by(plot) |>
+  summarize(sample_size = n(),
+            mean_sand = mean(total_sand),
+            sd_sand = sd(total_sand),
+            se_sand = sd_sand / sqrt(sample_size))
+
+sand_sum
+```
+
+
+## Your turn: Lengthen data
+
+- Gather all variables except `plot` and `sample_size` into a long format
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2"
+sand_long <- pivot_longer(sand_sum, 
+                          ???)
+```
+
+
+## Your turn: Lengthen data {visibility=`r visibility`}
+
+- Gather all variables except `plot` and `sample_size` into a long format
+
+```{r}
+#| code-line-numbers: "2-4"
+sand_long <- pivot_longer(sand_sum, 
+                          cols = contains("sand"),  
+                          names_to = "type",    
+                          values_to = "amount") 
+```
+
+::::{.columns}
+:::{.column width=45%}
+```{r}
+#| echo: false
+sand_long
+```
+:::
+
+:::{.column .fragment width=55%}
+**Remember tidy selectors!**
+
+Could also use...
+
+- `cols = ends_with("sand")`
+- `cols = c(mean_sand, sd_sand, se_sand)`
+- `cols = c(-plot, -sample_size)`
+:::
+::::
+
+## Going wide
+
+### `pivot_wider()`
+
+![](figures/pivot_wider.png)
+
+[[R for Data Science](http://r4ds.had.co.nz/)]{.footnote}
+
+
+
+## Going wide
+
+
+```{r}
+size_long <- size |>
+  pivot_longer(names_to = "type", values_to = "amount", 
+               cols = c(-plot, -depth, -habitat, -technician, -date))
+```
+
+::::{.columns}
+:::{.column width=45%}
+
+#### From long ...
+
+```{r}
+#| echo: false
+select(size_long, plot, depth, type, amount) |>
+  filter(stringr::str_detect(type, "silt")) 
+```
+:::
+
+:::{.column width=55% .fragment}
+
+#### ... to wide
+```{r}
+#| echo: false
+select(size, plot, depth,  contains("silt"))
+```
+:::
+::::
+
+
+
+
+
+## Going wide
+
+### `pivot_wider()` is from `tidyr`* {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r pivot_wider}
+#| eval: false
+pivot_wider(data,
+            names_from = existing_categorical_column,
+            values_from = existing_numerical_column)
+```
+
+:::{.spacer}
+- `tidyverse` functions always start with `data`
+- Takes columns and converts to wide data
+- Values in `existing_categorical_column` become column names
+- Values in `existing_numerical_column` become column contents
+:::
+
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+
+:::{.fragment}
+### In our example:   
+- **data** = `size`  
+- **names_from** = `type`  
+- **values_from** = `amount`   
+:::
+
+## Going wide
+
+```{r}
+size_wide <- size_long |>
+  pivot_wider(names_from = type, values_from = amount)
+```
+
+```{r}
+#| echo: false
+#| class-output: small
+size_wide
+```
+
+
+
+## Again: Why transpose? 
+
+### Figures: Long data are great for graphing
+
+
+```{r}
+#| fig-asp: 0.35
+#| fig-width: 12
+size_long <- pivot_longer(size, cols = c(-plot, -depth, -technician, -habitat, -date),
+                          names_to = "type", values_to = "amount")
+
+ggplot(data = size_long, aes(y = depth, x = amount, colour = type)) +
+  geom_point() +
+  scale_y_reverse() +
+  facet_wrap(~ type, nrow = 2)
+```
+
+
+
+
+## Again: Why transpose? 
+
+### Figures: Take it to the next step
+
+```{r}
+#| code-line-numbers: "7-8"
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+
+size_long <- pivot_longer(size, cols = c(-plot, -depth, -technician, -habitat, -date, -clay),
+                          names_to = c("size", "category"), values_to = "amount",
+                          names_sep = "_") |>
+  mutate(size = factor(size, levels = c("total", "coarse", "medium", "fine")))
+```
+
+```{r}
+#| echo: false
+size_long
+```
+
+
+
+## Again: Why transpose? 
+
+### Figures: Take it to the next step
+
+```{r}
+#| fig-asp: 0.35
+#| fig-width: 12 
+ggplot(data = size_long, 
+       aes(y = depth, x = amount, colour = category)) +
+  geom_point() +
+  scale_y_reverse() +
+  facet_grid(category ~ size)
+```
+
+
+## Again: Why transpose? 
+
+### Anlyses: Linear models `lm(y ~ x, data)`
+
+:::{.spacer}
+Use `pivot_longer()` in analysis where grouping variables are important
+
+- i.e., do amounts of different size classes differ with depth? (need size classes in "type" column)
+
+```{r, eval = FALSE}
+lm(amount ~ type + depth, data = size_long)
+```
+:::
+
+:::{.spacer}
+Use `pivot_wider()` in analyses where each variable must be in it's own column
+
+- i.e., does the amount of sand differ with depth? (need size classes in separate columns)
+
+```{r, eval = FALSE}
+lm(total_sand ~ depth, data = size_wide)
+```
+:::
+
+. . .
+
+
+> If you can't figure out how to plot or analyse your data, they probably need to be transposed 
+
+
+## Your Turn: Transpose for plotting
+
+Plot the number of Tuberculosis cases (`cases`) vs. the `population` in data frame `table2`
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2,4-5"
+temp <- table2 |>
+  ???(???)                    
+
+ggplot(data = temp, ???) +    
+  ???                         
+```
+
+
+## Your Turn: Transpose for plotting {visibility=`r visibility`}
+
+Plot the number of Tuberculosis cases (`cases`) vs. the `population` in data frame `table2`
+
+```{r}
+#| code-line-numbers: "2,4-6"
+#| fig-asp: 0.45
+#| fig-align: center
+temp <- table2 |>
+  pivot_wider(names_from = "type", values_from = "count") 
+
+ggplot(data = temp, aes(x = population, y = cases)) + 
+  geom_point() + 
+  stat_smooth(method = "lm") 
+```
+
+
+
+
+## Put it all together
+
+```{r}
+meta <- read_csv("data/grain_meta.csv")
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+
+size_sum <- size |>
+  group_by(plot, habitat) |>
+  summarize(sample_size = n(),
+            total_sand = sum(total_sand),
+            mean_sand = mean(total_sand),
+            sd_sand = sd(total_sand),
+            se_sand = sd_sand / sqrt(sample_size),
+            total_silt = sum(total_silt),
+            mean_silt = mean(total_silt),
+            sd_silt = sd(total_silt),
+            se_silt = sd_silt / sqrt(sample_size))
+
+size_long <- size |>
+  pivot_longer(cols = c(-plot, -depth, -technician, -habitat, -date, -clay), 
+               values_to = "amount", names_to = c("size", "category"), names_sep = "_") |>
+  mutate(size = factor(size, levels = c("total", "coarse", "medium", "fine")))
+```
+
+
+
+## Put it all together
+
+### Save your data
+
+```{r, eval = FALSE}
+write_csv(size, "Datasets/size_total.csv")
+write_csv(size_sum, "Datasets/size_summary.csv")
+write_csv(size_long, "Datasets/size_long.csv")
+```
+
+
+### Keep yourself organized {.spacer}
+- Keep your R-created data in a **different** folder from your 'raw' data
+- If you have a lot going on, split your work into several scripts, and number the both the scripts AND the data sets produced:
+ - `1_cleaned.csv`
+ - `2_summarized.csv`
+ - `3_graphing.csv`
+
+  
+
+## Wrapping up: Common mistakes {.space-list}
+
+- `select()` doesn't work
+    - You may have the `MASS` package loaded, it also has a select
+    - make sure you loaded `tidyverse` or `dplyr` packages
+    - try using `dplyr::select()`
+
+- I can't figure out how to `pivot_wider()` my data in the way I want it
+    - Sometimes you need to `pivot_longer()` before you can widen it
+    
+- `mutate()` is giving me weird results
+    - Is your data grouped when it shouldn't be?
+    - Try using `ungroup()` first
+
+- I get a warning when I join data sets
+  - Can be because multiple joins
+  - Can be because mismatched factor levels
+    - If the category levels in one data frame do not match the other data frame
+    - They will be transformed to character
+    - If that's a problem, use `as.factor()` to turn them back
+
+
+## Wrapping up: Further reading {.space-list}
+
+- R for Data Science
+  - [Chapter 5: Transforming data](http://r4ds.had.co.nz/transform.html)
+  - [Chapter 12: Tidy data](http://r4ds.had.co.nz/tidy-data.html)
+  - [Chapter 13: Relational data](http://r4ds.had.co.nz/relational-data.html)
+  
+- [RStudio Data Manipulation with `dplyr`, tidyr](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+    - Or Help > Cheatsheets > Data Manipulation 
+    

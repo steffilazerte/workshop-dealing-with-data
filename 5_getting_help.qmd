@@ -1,0 +1,569 @@
+---
+params:
+  site: "https://steffilazerte.ca/workshop-dealing-with-data"
+  answers: "visible" #"hidden"
+format: 
+  revealjs:
+    title: Getting Help with R
+    subtitle: After this workshop
+    title-slide-attributes: 
+      data-background-image: figures/horst_communities.png
+      data-background-size: "60%"
+      data-background-position: "90% 50%"
+---
+
+```{r setup}
+#| include: false
+#| cache: false
+visibility <- params$answers
+```
+
+
+# First things first
+
+:::{style="text-align:left; padding: 15px 200px 15px 200px"}
+{{< fa floppy-disk >}} Save previous script
+
+{{< fa folder-open >}} Open New File <br>
+[(make sure you're in the RStudio Project)]{.small .hang}
+
+{{< fa pen >}} Write `library(tidyverse)` at the top
+
+{{< fa floppy-disk >}} Save this new script <br>
+[(consider names like `troubleshoting.R` or `5_getting_help.R`)]{.small .hang}
+:::
+
+
+
+## {data-menu-title="What next?" background-image="figures/horst_knowing_so_little.png"}
+
+[Artwork by [@allison_horst](https://twitter.com/allison_horst/)]{.footnote}
+
+
+
+# Troubleshooting
+
+
+## {data-menu-title="Troubleshooting" background-image="figures/horst_need_a_moment.png" background-size=90%}
+
+[Artwork by [@allison_horst](https://twitter.com/allison_horst/)]{.footnote}
+
+
+## Bit by bit
+
+### Line by line
+
+- R is sequential
+- If you skip lines, you're not running that part
+
+```{r, error = TRUE}
+#library(tidyverse)
+count(mtcars, am)
+```
+
+. . .
+
+- Error? Start at the beginning and go line by line
+
+```{r, message = FALSE}
+library(tidyverse)
+count(mtcars, am)
+```
+
+## Bit by bit
+
+### Line by line
+
+```{r, eval = FALSE}
+# Load Data
+size <- read_csv("./data/grain_size2.csv")
+
+# First modification
+size <- mutate(size, 
+               total_sand = coarse_sand + medium_sand + fine_sand,
+               total_silt = coarse_silt + medium_silt + fine_silt)
+
+# Second modification
+size <- size |>
+  group_by(plot) |>
+  summarize(n = n(),
+            total_sand = sum(total_sand),
+            mean_sand = mean(total_sand),
+            sd_sand = sd(total_sand),
+            se_sand = sd_sand / sqrt(n))
+```
+
+[Especially important if loading and modifying data]{.note .fragment .absolute bottom=60% left=75%}
+
+[Can't run 1st modification<br>after 2nd modification]{.note .fragment .absolute bottom=10% left=65%}
+
+## Bit by bit
+### Section by section
+
+```{r, message = FALSE, error = TRUE}
+size <- read_csv("./data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(plot) |>
+  summarize(n = n(),
+            total_sand = sum(total_sand),
+            mean_sand = mean(totall_sand),
+            sd_sand = sd(total_sand),
+            se_sand = sd_sand / sqrt(n))
+```
+
+## Bit by bit
+### Section by section
+
+```{r, message = FALSE, error = TRUE}
+size <- read_csv("./data/grain_size2.csv")
+```
+
+No error
+
+. . .
+
+```{r, message = FALSE, error = TRUE}
+size <- read_csv("./data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+```
+
+No error
+
+. . .
+
+```{r, message = FALSE, error = TRUE}
+size <- read_csv("./data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(plot) 
+```
+
+No error
+
+## Bit by bit
+### Section by section
+
+```{r, message = FALSE, error = TRUE}
+size <- read_csv("./data/grain_size2.csv") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(plot) |>
+  summarize(n = n(),
+            total_sand = sum(total_sand),
+            mean_sand = mean(totall_sand),
+            sd_sand = sd(total_sand),
+            se_sand = sd_sand / sqrt(n))
+```
+
+Ah ha!
+
+## Bit by bit
+
+### Applies to error messages too
+
+- First, don't panic!
+- Look at the error bit by bit
+
+```{r, echo = FALSE}
+cat("Error: Problem with `summarise()` column `mean_sand`.
+ℹ `mean_sand = mean(totall_sand)`.
+x object 'totall_sand' not found
+ℹ The error occurred in group 1: plot = \"CSP01\".")
+```
+
+
+
+## Bit by bit
+
+### Applies to error messages too
+
+```
+Error: Problem with 'summarise()' column 'mean_sand'`
+```
+Okay, we know the problem is in the `summarize()` part and then `mean_sand` part of that
+
+. . .
+
+:::{.spacer}
+```
+ℹ 'mean_sand = mean(totall_sand)'
+x object 'totall_sand' not found
+```
+Looks like this is the line with the problem.   
+And the problem is `object 'totall_sand' not found`. **Ooops! Typo!**
+:::
+
+. . .
+
+:::{.spacer}
+
+```
+ℹ The error occurred in group 1: plot = "CSP01".
+```
+Lastly, it's telling us that the problem was when working with this group of data. 
+
+(This can be useful when troubleshooting, because you can `filter()` your data and take a look)
+:::
+
+
+## {data-menu-title="Troubleshooting" background-image="figures/horst_debugging.png" background-size=90%}
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+# R is never wrong
+
+[Just sometimes unhelpful!]{.large .fragment}
+
+
+# Getting Help
+
+
+## Cheat Sheets
+
+### RStudio Menu
+
+- Help
+  - Cheatsheets
+
+> Take a look yourself
+
+## {data-menu-title="Cheat Sheets" background-image="figures/ggplot.png" background-size=70%}
+
+
+## Vignettes
+
+Many packages come with vignettes (tutorials)
+
+### List Vignettes
+
+```{r, eval = FALSE}
+vignette(package = "ggplot2")
+```
+
+
+```
+Vignettes in package ‘ggplot2’:
+
+ggplot2-specs                      Aesthetic specifications (source, html)
+extending-ggplot2                  Extending ggplot2 (source, html)
+profiling                          Profiling Performance (source, html)
+```
+
+:::{.fragment}
+### Load Vignettes
+```{r, eval = FALSE}
+vignette("ggplot2-specs", package = "ggplot2")
+```
+
+> Try it!
+:::
+
+## Tutorials
+
+### Vignettes also online
+- e.g., [`ggplot2](https://ggplot2.tidyverse.org)
+- e.g., [`tidyverse`](https://tidyverse.org)
+
+### Organizations/Websites
+- [Software Carpentry](https://software-carpentry.org/)
+- [STHDA](http://www.sthda.com/english/)
+
+![](figures/tidyverse_ggplot2.png){.absolute right=-5% top=10% width=68%}
+
+
+## Books!
+
+### Free Online
+- [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html) (read it!)
+- [R Graphics Cookbook](https://r-graphics.org/) (how to do X)
+- [`ggplot2`](https://ggplot2-book.org/) (next level)
+- [Data Visualization: A practical introduction](http://socviz.co/)
+- [Geocomputation with R](https://bookdown.org/robinlovelace/geocompr/) (spatial, GIS, maps)
+- [Statistical Inference via Data Science: A ModernDive into R and the tidyverse](https://moderndive.com) (stats)
+
+<!-- ### U of M Library - Online -->
+
+<!-- - [The R Book](https://search.lib.umanitoba.ca/permalink/01UMB_INST/o2jqjb/wilbookl10.1002%252F9781118448908) -->
+<!-- - [Generalized Linear Models With Examples in R](https://search.lib.umanitoba.ca/permalink/01UMB_INST/1ckhu3a/alma99149458994801651) -->
+<!-- - [Linear Mixed-Effects Models Using R A Step-by-Step Approach](https://search.lib.umanitoba.ca/permalink/01UMB_INST/1ckhu3a/alma99143075480001651) -->
+<!-- - [Mixed Effects Models and Extensions in Ecology with R](https://search.lib.umanitoba.ca/permalink/01UMB_INST/1ckhu3a/alma99149017057101651) -->
+
+## Communities!
+
+- [rOpenSci](https://ropensci.org/)
+- [rLadies](https://www.rladies.org/)
+- [#RStats Twitter](https://twitter.com/search?q=%23Rstats&src=hashtag_click)
+- #RStats Mastodon  
+  (e.g., [Fosstodon.org](https://fosstodon.org/tags/rstats) or [Hachyderm.io](https://hachyderm.io/tags/rstats))
+- [R4DS Online learning community on Slack](https://rfordatascience.slack.com/join/shared_invite/zt-1rjoxgepe-QC2Q5d1ucSW4UQlj7ULnUQ#/shared-invite/email)
+
+![](figures/ropensci.png){.absolute top=0 right=30% width=20%}
+![](figures/rladies.png){.absolute bottom=0 left=10% width=20%}
+![](figures/horst_communities.png){.absolute bottom=-5% right=0 width=55%}
+
+# Specific help
+
+## Examples
+
+### In R
+
+```{r}
+?geom_boxplot
+```
+
+> Copy and paste the examples into your console
+
+
+## Examples
+
+### On the web
+
+- Nice to see expected output
+- Helps figure out if it's your system or your code
+
+
+![](figures/ggplot_examples.png){.absolute bottom=0 right=0 width=50%}
+
+## Web searches {.space-list}
+
+- **Always include "R" in the search**
+- **Include the package name!**
+- **Use keywords**
+- **Some errors are very general**
+
+## Web searches {.space-list} 
+
+- **Always include "R" in the search**
+- **Include the package name!**
+  - [Try "R boxplots" vs. "R boxplots ggplot2"]{.hl}
+- **Use keywords**
+  - [Try "R boxplots ggplot2 notch"]{.hl}
+- **Some errors are very general**
+  - [Try "R Error: object 'm' not found"]{.hl}
+
+
+# Stackoverflow etc.
+
+[["R how to remove duplicate rows"](https://stackoverflow.com/questions/13967063/remove-duplicated-rows)]{.large}
+
+## Stackoverflow etc. {.space-list}
+
+### Things to consider
+
+- Date (i.e., R version, Package Version)
+- Packages used (`tidyverse`? R base? A mix?)
+- What are the example data? 
+  - `mtcars` and `iris` are commonly used data sets built into R base
+  - `msleep` and `diamonds` are commonly used data sets built into `ggplot2`
+- What are the example columns?
+- What is actually required to answer *your* question?
+
+
+## Asking for Help
+
+### Not useful
+
+- "I got an error"
+- "It didn't work"
+
+:::{.fragment}
+### Better!
+
+- "I got *this* error"
+- "It didn't give me *this*"
+:::
+
+:::{.fragment}
+### Best!!
+
+- "I did *this* and I got *this* error"
+- "I expected it to do *this*, but in fact the output was *this*"
+:::
+
+:::{.fragment}
+### Best of the Best!!!
+
+- "I did *this* [small reproducible code, including data set] and I got *this* [exact error/output]"
+:::
+
+## Reproducible Examples {.space-list}
+
+
+- Minimal code and data required to reproduce the error
+- Often preparing this actually helps you solve the error!
+- Includes
+  - packages (`library()`)
+  - data
+  - runnable code
+
+
+
+## Reproducible Examples
+
+### How do I change the order of `vore`?
+
+
+### Not reproducible
+
+```{r, include = FALSE}
+detach("package:tidyverse", unload = TRUE, character.only = TRUE)
+detach("package:ggplot2", unload = TRUE, character.only = TRUE)
+```
+
+```{r, error = TRUE}
+ggplot(data = m, aes(x = vore, y = awake, fill = `Body Size`)) +
+  theme_bw() + 
+  theme(axis.title.x = element_blank()) +
+  geom_boxplot() +
+  scale_fill_viridis_d() +
+  labs(y = "Awake time (hrs)",
+       title = "Awake time by Diet")
+```
+
+- No indication of packages
+- No indication of what `m` is
+
+```{r, include = FALSE}
+library(tidyverse)
+```
+
+
+## Reproducible Examples
+
+### How do I change the order of `vore`?
+
+### Reproducible, but not minimal
+:::{.small}
+```{r}
+#| code-line-numbers: "1,3-5"
+#| fig-asp: 0.8
+#| fig-width: 6
+#| output-location: column
+
+library(ggplot2)
+
+m <- msleep |>
+  mutate(`Body Size` = if_else(bodywt > median(bodywt),
+                               "Large", "Small"))
+
+ggplot(m, aes(x = vore, y = awake, fill = `Body Size`)) +
+  theme_bw() + 
+  theme(axis.title.x = element_blank()) +
+  geom_boxplot() +
+  scale_fill_viridis_d() +
+  labs(y = "Awake time (hrs)",
+       title = "Awake time by Diet")
+```
+:::
+
+## Reproducible Examples
+
+
+### How do I change the order of `vore`?
+
+### Reproducible AND Minimal
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 6
+#| output-location: column
+
+library(ggplot2)
+
+ggplot(msleep, aes(x = vore, y = awake)) +
+  geom_boxplot()
+```
+
+
+# Paying it forward
+
+## Citing Software
+
+### In-line Text
+- Software name
+- Version
+- Programmers/authors OR Journal article releasing the software (if available)
+
+### Bibliography
+- Journal article releasing the program **OR**
+- Programmers/authors
+- Year of release
+- Program Name
+- URL 
+
+
+## Citing R
+
+### Inline
+
+"All statistical analyses were performed with R statistical software (v3.6.2, R Core Team 2019)."
+
+### Bibliography
+
+R Core Team (2019). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+
+
+## Citing R
+
+### Version information
+```{r}
+R.Version()$version.string
+```
+
+
+### Citation information
+```{r, eval = FALSE}
+citation()
+```
+
+```{r, echo = FALSE}
+cat(capture.output(citation())[1:6], sep = "\n")
+```
+
+
+## Citing R Packages
+
+### Inline
+
+"All statistical analyses were performed with R statistical software (v4.0.3, R Core Team 2020). We performed Type III ANOVAs using the 'car' package for R (v3.0.10, Fox and Weisberg)."
+
+### Bibliography
+
+John Fox and Sanford Weisberg (2019). An R Companion to Applied Regression, Third Edition. Thousand Oaks CA: Sage.
+
+## Citing R Packages
+
+### Version information
+
+```{r}
+packageVersion("car")
+```
+
+### Citation information
+
+```{r, eval = FALSE}
+citation("car")
+```
+
+```{r, echo = FALSE}
+cat(capture.output(citation("car"))[1:6], sep = "\n")
+```
+
+:::{.spacer}
+See more about citing packages in my rOpenSci blog post: [How to Cite R and R packages](https://ropensci.org/blog/2021/11/16/how-to-cite-r-and-r-packages/)
+:::
+
+
+## {data-menu-title="You made it!" background-image="figures/horst_monster.jpg" background-size=90% background-position="50% 40%"}
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+
+:::{style="margin-top:45%" .center}
+### You made it! 
+
+### Thank you!
+
+(Feedback!)
+:::
