@@ -1,5 +1,4 @@
 library(tidyverse)
-library(fs)
 
 f <- tibble(
   file = c("1_intro_to_R", "2_visualizations", "3_loading_and_cleaning",
