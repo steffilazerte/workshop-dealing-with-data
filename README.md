@@ -12,8 +12,8 @@ To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 > **Important!**
 >
 > Make sure you’re ready for the workshop by following the [**Before the
-> workshop**](#before-the-workshop) instructions below. Please [email
-> me](mailto:sel@steffilazerte.ca) if you run into any problems.
+> workshop**](#before-the-workshop-in-detail) instructions below. Please
+> [email me](mailto:sel@steffilazerte.ca) if you run into any problems.
 >
 > Take care to **update both R and RStudio**, in particular.
 
@@ -100,7 +100,7 @@ copy/paste code.
 
 ------------------------------------------------------------------------
 
-## In detail…
+## Before the workshop - In detail
 
 ### **1. Install/Update R**
 
