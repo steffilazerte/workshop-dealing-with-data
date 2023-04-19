@@ -9,7 +9,7 @@
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
-> ⚠️️ **Important!**⚠️
+> **⚠️Important!⚠️**
 >
 > Make sure you’re ready for the workshop by following the [**Before the
 > workshop**](#before-the-workshop---in-detail) instructions below.
