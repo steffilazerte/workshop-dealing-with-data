@@ -5,7 +5,7 @@
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
 **Location**: Brodie Building Rm 4-47, Brandon University<br>
-**Date/time** Thurs/Fri April 20th-21st 2023, 9am-5pm<br>
+**Date/time**: Thurs/Fri April 20th-21st 2023, 9am-5pm<br>
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
