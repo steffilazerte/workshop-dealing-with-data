@@ -42,31 +42,31 @@ workshop.
 
 ------------------------------------------------------------------------
 
-## Workshop Resources - Slides 🚧 Coming soon! 🚧
+## Workshop Resources - Slides <!-- 🚧 Coming soon! 🚧 -->
 
-These are the slides we’ll use throughout the workshop. Answers to the
-activities will be posted after the workshop.
+These are the slides used throughout the workshop. Answers to the
+activities are be posted after the workshop.
 
 **I recommend using the html version** of these slides as they will be
 the most accurate with respect to formatting and will allow you to
 easily copy/paste code.
 
 1.  Intro to R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)\|)
 
 2.  Visualizing data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))
 
 3.  Loading & Cleaning Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))
 
 4.  Summarizing & Transforming Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))
 
 5.  Getting help with R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_answers_sm.pdf))
 
-> Answer slides will be posted after the workshop
+<!-- > Answer slides will be posted after the workshop -->
 
 ------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ for you in the ‘Console’ pane
 **Verify that your version of R by looking at the first line of the
 console (left or lower left pane), you should see something like this:**
 
-    R version 4.2.3 (2023-03-15) -- Shortstop Beagle
+    R version 4.3.0 (2023-04-21) -- Already Tomorrow
     Copyright (C) 2023 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -160,8 +160,8 @@ console (left or lower left pane), you should see something like this:**
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.2.3 (2023-03-15) –
-Shortstop Beagle
+The important line is the first one: R version 4.3.0 (2023-04-21) –
+Already Tomorrow
 
 ### **3. Install/Update Packages**
 
@@ -210,14 +210,16 @@ Alternatively you can use the RStudio package manager.
 library("tidyverse")
 ```
 
-    ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-    ✔ ggplot2 3.4.1     ✔ purrr   1.0.1
-    ✔ tibble  3.2.1     ✔ dplyr   1.1.1
-    ✔ tidyr   1.3.0     ✔ stringr 1.5.0
-    ✔ readr   2.1.4     ✔ forcats 1.0.0
+    ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ✔ dplyr     1.1.2     ✔ readr     2.1.4
+    ✔ forcats   1.0.0     ✔ stringr   1.5.0
+    ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+    ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+    ✔ purrr     1.0.1     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
+    ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 > ### Problems?
 >
