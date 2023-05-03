@@ -683,12 +683,12 @@ mean(c(a, a))
 ## Your turn: Creating new columns
 
 - Add a calculation for **total `silt`**
-- Check your work
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "5"
+#| code-line-numbers: "6"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -700,10 +700,10 @@ size <- read_csv("data/grain_size2.csv") |>
 ## Your turn: Creating new columns {visibility=`r visibility`}
 
 - Add a calculation for **total `silt`**
-- Check your work
 
 ```{r}
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -711,40 +711,14 @@ size <- read_csv("data/grain_size2.csv") |>
 ```
 
 
-## Your turn: Creating new columns {visibility=`r visibility`}
-
-- Add a calculation for **total `silt`**
-- Check your work
-
-```{r}
-select(size, contains("silt"))
-```
-
-. . .
-
-> Wait... that doesn't add up!
-
-## Your turn: Creating new columns {visibility=`r visibility`}
-
-- Add a calculation for **total `silt`**
-- Check your work
-
-```{r}
-select(size, contains("silt")) |>
-  as.data.frame()
-```
-
-
-[Whew!]{.note .absolute left=75% bottom=50% width=20%}
-
-
 ## Your turn: Creating new columns (Too Easy?) {visibility=`r visibility`}
 
 **What happens if you add `total_sand` and `total_silt` together in the same `mutate()`?**
 
 ```{r}
-#| code-line-numbers: "6"
+#| code-line-numbers: "7"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -756,6 +730,23 @@ size <- read_csv("data/grain_size2.csv") |>
 - Lines within `mutate()` run sequentially
 - You can create `total_sand` and `total_silt` in the first two lines then use them in the 3rd
 - But you could not create `total_sand` and `total_silt` *after* using them
+
+## Your turn: Creating new columns {visibility=`r visibility`}
+
+- Check your work
+
+```{r}
+meta <- read_csv("data/grain_meta.csv")
+
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt)
+
+select(size, contains("silt"))
+```
+
+> Wait... that doesn't add up!
 
 
 # Tangent
@@ -881,8 +872,9 @@ Add a column containing the **mean amount of total silt _per_ plot**
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "6-8"
+#| code-line-numbers: "7-9"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -897,8 +889,9 @@ size <- read_csv("data/grain_size2.csv") |>
 Add a column containing the **mean amount of total silt _per_ plot**
 
 ```{r}
-#| code-line-numbers: "6-8"
+#| code-line-numbers: "7-9"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -920,6 +913,7 @@ select(size, plot, contains("silt"))
 
 ```{r, message = FALSE}
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -1116,8 +1110,9 @@ size |>
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "9"
+#| code-line-numbers: "10"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -1145,8 +1140,9 @@ size_sum <- size |>
 
 
 ```{r}
-#| code-line-numbers: "9-15"
+#| code-line-numbers: "10-16"
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
@@ -1676,6 +1672,7 @@ ggplot(data = temp, aes(x = population, y = cases)) +
 
 ```{r}
 meta <- read_csv("data/grain_meta.csv")
+
 size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
