@@ -42,7 +42,9 @@ workshop.
 
 ------------------------------------------------------------------------
 
-## Workshop Resources - Slides <!-- 🚧 Coming soon! 🚧 -->
+## Slides
+
+<!-- 🚧 Coming soon! 🚧 -->
 
 These are the slides used throughout the workshop. Answers to the
 activities are be posted after the workshop.
