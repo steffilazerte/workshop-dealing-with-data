@@ -7,23 +7,26 @@ f <- tibble(
   qmd = paste0(file, ".qmd"),
   html = paste0(file, ".html"))
 
+# Answers
 for(i in seq_len(nrow(f))) {
-  # Answers
   quarto::quarto_render(input = f$qmd[i], output_file = f$answer[i],
                         cache_refresh = TRUE,
                         execute_params = list(answers = "visible"))
 }
 
-# No Answers
+# No Answers - All
 quarto::quarto_render(cache_refresh = TRUE,
                       execute_params = list(answers = "hidden"))
 
+# No Answers - Single
+# quarto::quarto_render(input = f$qmd[i], cache_refresh = TRUE,
+#                       execute_params = list(answers = "hidden"))
 
 
 f <- list.files(pattern = "html")
 
 # Pdf
-for(i in f) {
+for(i in f[7:8]) {
 
   # Create PDFs
   pagedown::chrome_print(i, extra_args = "--font-render-hinting=none")
@@ -40,3 +43,10 @@ for(i in f) {
 
 fs::file_move(list.files(pattern = ".pdf"), "pdf/")
 
+# Wrap up ---------------------------------------
+# - Post answers
+# - Link to answers in README
+# - Create signed release
+# - Create certificates
+# - Send out certificates
+usethis::use_github_release()
