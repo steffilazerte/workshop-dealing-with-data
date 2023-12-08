@@ -4,8 +4,8 @@
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Brodie Building Rm 4-47, Brandon University<br>
-**Date/time**: Thurs/Fri April 20th-21st 2023, 9am-5pm<br>
+**Location**: Brodie Building TBD <!--Rm 3-47, Brandon University--><br>
+**Date/time**: Sat/Sun February 10-11th 2024, 9am-5pm<br>
 
 To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
 
@@ -44,7 +44,8 @@ workshop.
 
 ## Slides
 
-<!-- 🚧 Coming soon! 🚧 -->
+🚧 Warning - These are 2023 slides, and 2024 slides will be updated and
+coming soon! 🚧
 
 These are the slides used throughout the workshop. Answers to the
 activities are be posted after the workshop.
@@ -54,21 +55,21 @@ the most accurate with respect to formatting and will allow you to
 easily copy/paste code.
 
 1.  Intro to R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)\|)
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)|)-->
 
 2.  Visualizing data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))-->
 
 3.  Loading & Cleaning Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))-->
 
 4.  Summarizing & Transforming Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))-->
 
 5.  Getting help with R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_answers_sm.pdf))
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_answers_sm.pdf))-->
 
-<!-- > Answer slides will be posted after the workshop -->
+> Answer slides will be posted after the workshop
 
 ------------------------------------------------------------------------
 
@@ -144,7 +145,7 @@ for you in the ‘Console’ pane
 **Verify that your version of R by looking at the first line of the
 console (left or lower left pane), you should see something like this:**
 
-    R version 4.3.0 (2023-04-21) -- Already Tomorrow
+    R version 4.3.2 (2023-10-31) -- Eye Holes
     Copyright (C) 2023 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -162,8 +163,8 @@ console (left or lower left pane), you should see something like this:**
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.3.0 (2023-04-21) –
-Already Tomorrow
+The important line is the first one: R version 4.3.2 (2023-10-31) – Eye
+Holes
 
 ### **3. Install/Update Packages**
 
@@ -213,11 +214,11 @@ library("tidyverse")
 ```
 
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ✔ dplyr     1.1.2     ✔ readr     2.1.4
+    ✔ dplyr     1.1.3     ✔ readr     2.1.4
     ✔ forcats   1.0.0     ✔ stringr   1.5.0
-    ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-    ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-    ✔ purrr     1.0.1     
+    ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+    ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+    ✔ purrr     1.0.2     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
