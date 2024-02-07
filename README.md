@@ -95,9 +95,6 @@ easily copy/paste code and navigate
 
       install.packages(c("tidyverse", "palmerpenguins", "skimr", "patchwork", "janitor", "readxl"))
 
-- Consider running through the [RStudio Programming Basics
-  Primer](https://rstudio.cloud/learn/primers/1.2)
-
 ------------------------------------------------------------------------
 
 ## Before the workshop - In detail
