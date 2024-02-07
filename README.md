@@ -1,13 +1,15 @@
 
+
 # Workshop: Dealing with Data in R
 
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Brodie Building TBD <!--Rm 3-47, Brandon University--><br>
+**Location**: Brodie Building Rm 3-47, Brandon University<br>
 **Date/time**: Sat/Sun February 10-11th 2024, 9am-5pm<br>
 
-To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
+To Register contact [Heather Teeple](mailto:TeepleH@BrandonU.CA) or
+[Steffi LaZerte](mailto:sel@steffilazerte.ca)
 
 > **⚠️Important!⚠️**
 >
@@ -44,15 +46,14 @@ workshop.
 
 ## Slides
 
-🚧 Warning - These are 2023 slides, and 2024 slides will be updated and
-coming soon! 🚧
+<!-- 🚧 Warning - These are 2023 slides, and 2024 slides will be updated and coming soon! 🚧 -->
 
 These are the slides used throughout the workshop. Answers to the
 activities are be posted after the workshop.
 
 **I recommend using the html version** of these slides as they will be
 the most accurate with respect to formatting and will allow you to
-easily copy/paste code.
+easily copy/paste code and navigate
 
 1.  Intro to R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)|)-->
@@ -67,7 +68,7 @@ easily copy/paste code.
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))-->
 
 5.  Getting help with R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_answers_sm.pdf))-->
+    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))
 
 > Answer slides will be posted after the workshop
 
@@ -138,12 +139,12 @@ For all Operating systems (i.e., Windows, Mac Os, Linux, etc.) follow
 step 2 from RStudio’s download page:
 <https://www.rstudio.com/products/rstudio/download/#download>
 
-Open RStudio <img src="figures/RStudio-Ball.png" width="30" /> **not R**
-<img src="figures/R.png" width="30" />. RStudio automatically opens R
-for you in the ‘Console’ pane
+Open RStudio <img src="figures/logo_rstudio.png" width="30" /> **not R**
+<img src="figures/logo_r.png" width="30" />. RStudio automatically opens
+R for you in the ‘Console’ pane
 
-**Verify that your version of R by looking at the first line of the
-console (left or lower left pane), you should see something like this:**
+**Verify your version of R by looking at the first line of the console
+(left or lower left pane), you should see something like this:**
 
     R version 4.3.2 (2023-10-31) -- Eye Holes
     Copyright (C) 2023 The R Foundation for Statistical Computing
@@ -203,7 +204,9 @@ Alternatively you can use the RStudio package manager.
   box, and click on ‘Install’
 - Repeat for the other packages
 
-<img src="figures/A1_packages_edit.png" width="700" />
+<img src="figures/A1_packages_edit.png"
+data-fig-alt="Screenshot of the RStudio console with the Packages Tab and the Install button circled in green. A &quot;Install Packages&quot; window is open and &#39;tidyver&#39; is typed into the &#39;Package&#39; form field and circled in green"
+width="700" />
 
 - Test that your installation had no problems by typing
   `library("tidyverse")` into the console and hitting enter. You should
@@ -214,8 +217,8 @@ library("tidyverse")
 ```
 
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ✔ dplyr     1.1.3     ✔ readr     2.1.4
-    ✔ forcats   1.0.0     ✔ stringr   1.5.0
+    ✔ dplyr     1.1.4     ✔ readr     2.1.4
+    ✔ forcats   1.0.0     ✔ stringr   1.5.1
     ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
     ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
     ✔ purrr     1.0.2     
@@ -228,23 +231,18 @@ library("tidyverse")
 >
 > - If you already had R/RStudio installed, try removing them both and
 >   installing everything from scratch
-> - If you get an error about a problem installing a specific package,
->   try installing that package invidiually (search for it in the
->   install packages menu)
-> - Problems with `tidyverse`? Try installing the packages we need by
->   hand: `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
+> - If you get an error about a problem installing a specific package or
+>   with the `tidyverse`, try installing packages invidiually
+>   - `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
+>   - e.g., `install.packages("dplyr")` or in the Install Packages Menu
 > - Email Steffi <sel@steffilazerte.ca>
 
-#### **4. RStudio R primers (optional)**
+#### **4. A big of background (optional)**
 
-If you have time, please complete the [RStudio Programming Basics
-Primer](https://rstudio.cloud/learn/primers/1.2).
+If you have time, consider reading the first couple of sections of [R
+for cats](https://rforcats.net/) (“Using the R console” to “lists”).
 
-You can complete it online and it’ll give you a quick introduction to R
-coding which is will be a great way to get up to speed on the basics
-before we jump in.
-
-Feel free to run through other [RStudio
-Primers](https://rstudio.cloud/learn/primers).
+This is a quick introduction to R coding which is will be a great way to
+get up to speed on the basics before we jump in.
 
 **Congratulations! Now you’re ready to get into the fun stuff :)**

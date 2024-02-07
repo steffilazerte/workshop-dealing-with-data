@@ -8,7 +8,7 @@ format:
     title: Getting Started with R
     subtitle: Back to Basics
     title-slide-attributes: 
-      data-background-image: figures/R.png
+      data-background-image: figures/logo_r.png
       data-background-size: "40%"
       data-background-position: "85% 50%"
 ---
@@ -18,11 +18,12 @@ visibility <- params$answers
 
 library(knitr)
 library(palmerpenguins)
+source("0_figs.R")
 ```
 
-## This is me and my creatures {{< fa cat >}}{.pic background-color="black" background-image="figures/creatures.jpg"}
+## These are me and my creatures {{< fa cat >}}{.pic background-color="black" background-image="figures/creatures.jpg" title="Three pictures. One showing Steffi with a cat on her backpack in the woods. One showing a cat and a man looking out of the car window. One showing a leashed cat looking out over the water from the front of a canoe"}
 
-## This is my garden {{< fa tree >}} {.pic background-color="black" background-image="figures/garden.jpg"} 
+## This is my garden {{< fa tree >}} {.pic background-color="black" background-image="figures/garden.jpg" title="A lush and green front-yard, urban, vegetable garden"} 
 
 ## Introductions  {.nostretch}
 
@@ -31,10 +32,9 @@ library(palmerpenguins)
 -   Background in Biology (Animal Behaviour)
 -   Working with R since 2007
 -   Professional R programmer/consultant<br>since 2017
--   Fifth year giving BU R Workshop!
 -   [rOpenSci](https://ropensci.org) Community Assistant
 
-![](figures/steffi_vivi.jpg){.absolute right=10 top=50 width=40%}
+![](figures/steffi_vivi.jpg){.absolute right=10 top=50 width=40% fig-alt="Steffi smiling and holding a cat in her arms"}
 
 ## What about you?
 
@@ -43,12 +43,15 @@ library(palmerpenguins)
 -   Familiarity with R or Programming
 -   Creatures (furry, feathery, scaley, green or otherwise)?
 
+![](figures/horst_dragons.png){fig-align="center" width=20% fig-alt="Three very different looking dragons stand side by side. On the left, a very small blue dragon with spiky hair and no pattern. In the center, a green striped dragon. On the right, a large purple dragon with spots."}
+
+
 ## About this Workshop
 
 ### Format
 
 -   I will provide you tools and workflow to get started with R
--   We'll have hands-on, lecture, and demonstrations
+-   We'll have hands-on activities, lectures, and demonstrations
 
 ### R is hard: But have no fear!
 
@@ -56,7 +59,26 @@ library(palmerpenguins)
 -   Copy/Paste is your friend (never apologize for using it!)
 -   Consider this workshop a resource to return to
 
+
+![](figures/horst_need_a_moment.png){fig-align="center" width=20% fig-alt="A frustrated little monster sits on the ground with his hat next to him, saying \"I just need a minute.\" Looking on empathetically is the R logo, with the word \"Error\" in many different styles behind it."}
+
+
+
 # What is R?
+
+## RStudio vs. R
+
+::: {layout="[[-2, 5, -2, 5, -2]]" layout-valign="center"}
+![RStudio](figures/logo_rstudio.png){width="80%" fig-alt="RStudio blue ball logo"}
+
+![R](figures/logo_r.png){fig-alt="R logo, blue R with grey circle around the back"}
+::: 
+
+-   **RStudio** is not **R**
+-   RStudio is a User Interface or IDE (integrated development environment)
+    -   (i.e., Makes coding simpler)
+
+## Open RStudio {.center}
 
 ## R is a Programming language
 
@@ -109,11 +131,11 @@ steffis_mean * 6
 
 ## R is hard
 
-![](figures/R_hard.png){fig-align="center"}
+![](figures/R_hard.png){fig-align="center" fig-alt="A complex R script"}
 
 ## But R is powerful (and reproducible)! {.nostretch}
 
-![](figures/R_powerful2_edit.png){width="70%" fig-align="center" style="margin-top:5%"}
+![](figures/R_powerful2_edit.png){width="70%" fig-align="center" style="margin-top:5%" fig-alt="A screenshot of the R environment showing a data frame with 13 million observations"}
 
 . . .
 
@@ -121,23 +143,23 @@ steffis_mean * 6
 
 ## R is also beautiful
 
-![](figures/spatial.png){fig-align="center"}
+![](figures/spatial.png){fig-align="center" fig-alt="A colourful map of Manitoba"}
 
 ## R is affordable (i.e., free!) {.nostretch}
 
-![](figures/R_free.png){width="70%" fig-align="center" style="margin-top:15%"}
+![](figures/R_free.png){width="70%" fig-align="center" style="margin-top:15%" fig-alt="Text reading: \"R is available as Free Software under the terms of the Free Software Foundation's GNU General Public License in source code form. It compiles and runss on a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux), Windows and MacOS."}
 
 
 ## ImpostR Syndrome {.hide-title}
 
-![](figures/impostR_en.png){.absolute top=10%}
+![](figures/impostR_en.png){.absolute top=10% fig-alt="Text reading \"Impost R Syndrome\" with the Blue R logo for the 'R'"}
 
 ## ImpostR Syndrome {.hide-title}
 
 ::: {layout="[[-100], [-100], [50,50]]"}
-![](figures/impostR_en.png)
+![](figures/impostR_en.png){fig-alt="Text reading \"Impost R Syndrome\" with the Blue R logo for the 'R'"}
 
-![](figures/imposter.jpg)
+![](figures/imposter.jpg){fig-alt="Two yellow circles. The one on the left has 'Imposter Syndrome' written above. Inside this yellow circle it says 'What I think others know', inside a small blue circle reads 'What I know'. The yellow circle on the right has 'Reality' written above. This yellow circle is made up of many small yellow circles with the label 'What others know', surrounding a small blue circle which reads 'What I know'"}
 :::
 
 [David Whittaker]{.footnote}
@@ -150,13 +172,13 @@ steffis_mean * 6
 
 ## The Goal
 
-![](figures/horst_monster1.jpg){.absolute left="10" bottom="150" width="50%"}
+![](figures/horst_monster1.jpg){.absolute left="10" bottom="150" width="50%" fig-alt="An R-logo with a scary face, and a small scared little fuzzy monster holding up a white flag in surrender while under a dark storm cloud. The text above says \"at first I was like…\""}
 
 [Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
 . . .
 
-![](figures/horst_monster2.jpg){.absolute right="10" bottom="150" width="48%"}
+![](figures/horst_monster2.jpg){.absolute right="10" bottom="150" width="48%" fig-alt="A friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above reads \"but now it’s like…\""}
 
 
 
@@ -193,44 +215,40 @@ mean(c(1, 2, 3, 4))
 [**Code**]{.absolute right="20" top="150"}
 [**Output**]{.absolute right="20" top="190"}
 
-![](figures/script.png){.absolute right="125" bottom="0" width="38%"} 
+![](figures/script.png){.absolute right="125" bottom="0" width="38%" fig-alt="A screenshot of a script in the RStudio window: many lines of code in a file called '4_analysis.R'"} 
 [**Script**]{.absolute right="20" top="230"}
 :::
 :::
 
-## RStudio vs. R
-
-::: {layout="[[-2, 5, -2, 5, -2]]" layout-valign="center"}
-![RStudio](https://d33wubrfki0l68.cloudfront.net/3099a8a5ab437c8cca2446dfb08383ecfca761ec/0377b/wp-content/uploads/2014/06/rstudio-ball.png){width="20%"}
-
-![R](https://www.r-project.org/logo/Rlogo.png)
-::: 
-
--   **RStudio** is not **R**
--   RStudio is a User Interface or IDE (integrated development environment)
-    -   (i.e., Makes coding simpler)
-
-
 ## RStudio Features
-
-### Changing Options: Tools > Global Options
-
-- General > Restore RData into workspace at startup (NO!)
-- General > Save workspace to on exit (NEVER!)
-- Code > Insert matching parens/quotes (Personal preference)
 
 ### Projects
 - Handles working directories
 - Organizes your work
 
+:::{.fragment}
+[Let's setup a project in RStudio!]{.note .absolute top=45% left=75%}
+:::
+
+
+:::{.fragment}
+### Changing Options: Tools > Global Options
+
+- General > Restore RData into workspace at startup (NO!)
+- General > Save workspace to on exit (NEVER!)
+- Code > Insert matching parens/quotes (Personal preference)
+:::
+
+:::{.fragment}
+[Let's change some options in RStudio!]{.note .absolute top=45% left=75%}
+:::
+
+:::{.fragment}
 ### Packages
 - Can use the package manager to install packages
 - Can use the manager to load them as well, but not recommended
+:::
 
-. . . 
-
-
-[Let's take a look at RStudio!]{.note .absolute top=45% left=75%}
 
 
 # Getting Ready
@@ -278,6 +296,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| warning: true
 #| fig-asp: 0.5
 #| fig-align: center
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -288,6 +309,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| fig-asp: 0.5
 #| fig-align: center
 #| code-line-numbers: "2,3"
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -300,6 +324,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| fig-asp: 0.5
 #| fig-align: center
 #| code-line-numbers: "2,3,6,7"
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -312,6 +339,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| fig-asp: 0.5
 #| fig-align: center
 #| code-line-numbers: "6"
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -323,6 +353,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| warning: true
 #| fig-asp: 0.5
 #| fig-align: center
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -334,6 +367,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| warning: true
 #| fig-asp: 0.5
 #| fig-align: center
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -346,6 +382,9 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 #| fig-asp: 0.5
 #| fig-align: center
 #| code-line-numbers: "1,5"
+#| fig-alt: |
+#|   A scatterplot showing bill_length_mm by body_mass_g with points in
+#|   three colours corresponding to three differen species
 <<first_code>>
 ```
 
@@ -437,9 +476,7 @@ mean(c(1, 5, 10, NA),
 :::
 ::::
 
-. . .
-
-:::{.center .spacer}
+:::{.fragment .center .spacer}
 This error states that we've assigned the argument `trim` to a non-valid argument
 
 Where did **`trim`** come from?
@@ -455,7 +492,7 @@ Where did **`trim`** come from?
 . . . 
 
 
-![ ](figures/mean_docs.png){.absolute bottom=5% right=0% height=83%}
+![ ](figures/mean_docs.png){.absolute bottom=5% right=0% height=83% fig-alt="A screenshot of the documenation produced by running ?mean in the R console"}
 
 
 
@@ -501,7 +538,7 @@ my_data
 
 ## Your Turn: Vectors and Data frames
 
-Try out the following code...
+**Try out the following code...**
 
 - What is the output in your console?
 - How does your `environment` change (upper right panel)?
@@ -572,7 +609,7 @@ my_data[, 1:2]
 
 ## Your Turn: Vectors and Data frames {visibility=`r visibility`}
 
-Try out the following code...
+**Try out the following code...**
 
 :::{.columns}
 :::{.column width="50%"}
@@ -597,7 +634,7 @@ Try out the following code...
 - R cares about spelling
 - R is also case sensitive! (`Apple` is not the same as `apple`)
 
-![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/d4f90788-7a14-4d44-94ab-da13dd41f009.png?h=585957612c146dc43c4aa63e9431ad1b){fig-align=center}
+![](figures/horst_spelling.png){fig-align=center fig-alt="Comic panels of an alligator trying to debug some code. First panel: A confident looking alligator gets an error message. Second panel: a few minutes later, the error remains and the alligator is looking carefully at their code. Third panel: 10 minutes after that, the error remains and the alligator is giving a frustrated \"RAAAR\" while desperately typing. Fourth panel: The error remains, and the alligator looks exhausted and exasperated, and a thought bubble reads \"maybe it's a bug.\" Fifth panel: A friendly flamingo comes over to take a look, and reads aloud from the problematic code a spelling error: \"L-E-N-G-H-T.\" Only the tail of the alligator is visible as it stomp stomp stomps out of the panel roaring."}
 
 [Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
@@ -617,9 +654,7 @@ This is **not** correct:
 mean(c(5 7 10))
 ```
 
-. . . 
-
-:::{.center .spacer}
+:::{.center .spacer .fragment}
 [\>80% of learning R is learning to **troubleshoot**!]{.note}
 :::
 
@@ -674,18 +709,17 @@ mean(x = c(4, 9, 10))
 Sys.Date() # Get the Current Date
 ```
 
-. . . 
 
+:::{.fragment}
 - Without the `()`, R spits out information on the function:
 
 ```{r}
 Sys.Date
 ```
+::: 
 
-. . . 
 
-
-:::{.spacer .center}
+:::{.fragment .spacer .center}
 [`()` must be associated with a **function** [(Well, _almost_ always)]{.small}]{.note}
 :::
 
@@ -744,7 +778,7 @@ a <- data.frame(exp = c("A", "B", "A", "B", "A", "B"),
 
 ## Let's go!
 
-![](figures/happy_r.png){fig-align=center}
+![](figures/happy_r.png){fig-align=center fig-alt="A friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above reads \"but now it’s like…\""}
 
 
 [Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}

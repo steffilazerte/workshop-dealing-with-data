@@ -15,6 +15,8 @@ format:
 ```{r setup}
 #| include: false
 #| cache: false
+source("0_figs.R")
+
 visibility <- params$answers
 ```
 
@@ -35,7 +37,7 @@ visibility <- params$answers
 
 
 
-## {data-menu-title="What next?" background-image="figures/horst_knowing_so_little.png"}
+## {data-menu-title="What next?" background-image="figures/horst_knowing_so_little.png" title="Illustrated line plot of \"How much I think I know about R\" on the y-axis, and \"Time\" on the x-axis. Along the line are emoji-style faces, showing the non-linear progression of R knowledge over time. At first, a nervous face becomes a happy face early on in learning, then a \"grimace\" face at an intermediate peak before a steep decline (with an exhausted face at the local minimum). Then, a determined face charges back up a hill, reaching another peak with a \"mind blown\" face and text annotation \"join R community on twitter\" followed by another decline, but this time the faces look happy even though their \"How much I think I know about R\" value is declining."}
 
 [Artwork by [@allison_horst](https://twitter.com/allison_horst/)]{.footnote}
 
@@ -44,7 +46,7 @@ visibility <- params$answers
 # Troubleshooting
 
 
-## {data-menu-title="Troubleshooting" background-image="figures/horst_need_a_moment.png" background-size=90%}
+## {data-menu-title="Troubleshooting" background-image="figures/horst_need_a_moment.png" background-size=90% title="A frustrated little monster sits on the ground with his hat next to him, saying \"I just need a minute.\" Looking on empathetically is the R logo, with the word \"Error\" in many different styles behind it."}
 
 [Artwork by [@allison_horst](https://twitter.com/allison_horst/)]{.footnote}
 
@@ -54,21 +56,26 @@ visibility <- params$answers
 ### Line by line
 
 - R is sequential
-- If you skip lines, you're not running that part
+- If you skip lines, you're not running that part (and R has no idea)
+
 
 ```{r, error = TRUE}
-#library(tidyverse)
-count(mtcars, am)
+#a <- 1
+b <- 2
+a + b
 ```
 
-. . .
+:::{.fragment}
 
 - Error? Start at the beginning and go line by line
 
 ```{r, message = FALSE}
-library(tidyverse)
-count(mtcars, am)
+a <- 1
+b <- 2
+a + b
 ```
+
+:::
 
 ## Bit by bit
 
@@ -121,7 +128,7 @@ size <- read_csv("./data/grain_size2.csv")
 
 No error
 
-. . .
+:::{.fragment}
 
 ```{r, message = FALSE, error = TRUE}
 size <- read_csv("./data/grain_size2.csv") |>
@@ -130,8 +137,9 @@ size <- read_csv("./data/grain_size2.csv") |>
 ```
 
 No error
+:::
 
-. . .
+:::{.fragment}
 
 ```{r, message = FALSE, error = TRUE}
 size <- read_csv("./data/grain_size2.csv") |>
@@ -141,6 +149,7 @@ size <- read_csv("./data/grain_size2.csv") |>
 ```
 
 No error
+:::
 
 ## Bit by bit
 ### Section by section
@@ -184,20 +193,20 @@ Error: Problem with 'summarise()' column 'mean_sand'`
 ```
 Okay, we know the problem is in the `summarize()` part and then `mean_sand` part of that
 
-. . .
 
-:::{.spacer}
+:::{.fragment .spacer}
 ```
 ℹ 'mean_sand = mean(totall_sand)'
 x object 'totall_sand' not found
 ```
 Looks like this is the line with the problem.   
-And the problem is `object 'totall_sand' not found`. **Ooops! Typo!**
+And the problem is `object 'totall_sand' not found`.  
+
+**Ooops! Typo!**
 :::
 
-. . .
 
-:::{.spacer}
+:::{.fragment .spacer}
 
 ```
 ℹ The error occurred in group 1: plot = "CSP01".
@@ -208,7 +217,7 @@ Lastly, it's telling us that the problem was when working with this group of dat
 :::
 
 
-## {data-menu-title="Troubleshooting" background-image="figures/horst_debugging.png" background-size=90%}
+## {data-menu-title="Troubleshooting" background-image="figures/horst_debugging.png" background-size=90% title="A cartoon of a fuzzy round monster face showing 10 different emotions experienced during the process of debugging code. The progression goes from (1) \"I got this\" - looking determined and optimistic; (2) \"Huh. Really thought that was it.\" - looking a bit baffled; (3) \"...\" - looking up at the ceiling in thought; (4) \"Fine. Restarting.\" - looking a bit annoyed; (5) \"OH WTF.\" Looking very frazzled and frustrated; (6) \"Zombie meltdown.\" - looking like a full meltdown; (7) (blank) - sleeping; (8) \"A NEW HOPE!\" - a happy looking monster with a lightbulb above; (9) \"insert awesome theme song\" - looking determined and typing away; (10) \"I love coding\" - arms raised in victory with a big smile, with confetti falling."}
 
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
@@ -227,9 +236,9 @@ Lastly, it's telling us that the problem was when working with this group of dat
 - Help
   - Cheatsheets
 
-> Take a look yourself
+[Take a look yourself]{.note .absolute}
 
-## {data-menu-title="Cheat Sheets" background-image="figures/ggplot.png" background-size=70%}
+## {data-menu-title="Cheat Sheets" background-image="figures/ggplot.png" background-size=70% title="Screenshot of the cheatsheet. The HTML version here: \"https://rstudio.github.io/cheatsheets/html/data-visualization.html\""}
 
 
 ## Vignettes
@@ -257,26 +266,26 @@ profiling                          Profiling Performance (source, html)
 vignette("ggplot2-specs", package = "ggplot2")
 ```
 
-> Try it!
+[Try it!]{.note .absolute}
 :::
 
 ## Tutorials
 
-### Vignettes also online
-- e.g., [`ggplot2](https://ggplot2.tidyverse.org)
+### Vignettes are also online
+- e.g., [`ggplot2`](https://ggplot2.tidyverse.org)
 - e.g., [`tidyverse`](https://tidyverse.org)
 
 ### Organizations/Websites
 - [Software Carpentry](https://software-carpentry.org/)
 - [STHDA](http://www.sthda.com/english/)
 
-![](figures/tidyverse_ggplot2.png){.absolute right=-5% top=10% width=68%}
+![](figures/tidyverse_ggplot2.png){.absolute right=-5% top=10% width=68% fig-alt="A screenshot of the ggplot2 website"}
 
 
 ## Books!
 
 ### Free Online
-- [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html) (read it!)
+- [R for Data Science](https://r4ds.hadley.nz/) (read it!)
 - [R Graphics Cookbook](https://r-graphics.org/) (how to do X)
 - [`ggplot2`](https://ggplot2-book.org/) (next level)
 - [Data Visualization: A practical introduction](http://socviz.co/)
@@ -293,15 +302,23 @@ vignette("ggplot2-specs", package = "ggplot2")
 ## Communities!
 
 - [rOpenSci](https://ropensci.org/)
-- [rLadies](https://www.rladies.org/)
 - [#RStats Twitter](https://twitter.com/search?q=%23Rstats&src=hashtag_click)
 - #RStats Mastodon  
   (e.g., [Fosstodon.org](https://fosstodon.org/tags/rstats) or [Hachyderm.io](https://hachyderm.io/tags/rstats))
-- [R4DS Online learning community on Slack](https://rfordatascience.slack.com/join/shared_invite/zt-1rjoxgepe-QC2Q5d1ucSW4UQlj7ULnUQ#/shared-invite/email)
+- [R4DS Online learning community on Slack](https://rfordatascience.slack.com/join/shared_invite/zt-1rjoxgepe-QC2Q5d1ucSW4UQlj7ULnUQ#/shared-invite/email)<br>[(ask any question, they're really nice!)]{.small}
 
-![](figures/ropensci.png){.absolute top=0 right=30% width=20%}
-![](figures/rladies.png){.absolute bottom=0 left=10% width=20%}
-![](figures/horst_communities.png){.absolute bottom=-5% right=0 width=55%}
+### Specific Groups
+- [rLadies](https://www.rladies.org/)
+- [MiR](https://mircommunity.com/)
+- [AfricaR](https://r4africa.org/events/)
+- [AsiaR](https://github.com/asiar-community)
+
+![](figures/ropensci.png){.absolute top=0 right=30% width=20% fig-alt="rOpenSci logo"}
+![](figures/rladies.png){.absolute bottom=-5 left=25% width=15% fig-alt="rLadies logo"}
+![](figures/hex_mir.png){.absolute bottom=25% left=25% width=12% fig-alt="Minorities in R hex logo"}
+![](figures/hex_asiar.png){.absolute bottom=25% left=40% width=15% fig-alt="AsiaR hex logo"}
+![](figures/hex_africar.png){.absolute bottom=0 left=10% width=15% fig-alt="AfricaR hex logo"}
+![](figures/horst_communities.png){.absolute bottom=-5% right=0 width=55% fig-alt="Two fuzzy monsters standing side-by-side outside of a door frame through which is a magical wonderland of different R communities, with a \"mind blown\" rainbow coming out of the one closest to the door. A welcome mat says \"Welcome.\""}
 
 # Specific help
 
@@ -324,7 +341,7 @@ vignette("ggplot2-specs", package = "ggplot2")
 - Helps figure out if it's your system or your code
 
 
-![](figures/ggplot_examples.png){.absolute bottom=0 right=0 width=50%}
+![](figures/ggplot_examples.png){.absolute bottom=0 right=0 width=50% fig-alt="Screenshot of some examples on the ggplot2 website"}
 
 ## Web searches {.space-list}
 
@@ -337,11 +354,11 @@ vignette("ggplot2-specs", package = "ggplot2")
 
 - **Always include "R" in the search**
 - **Include the package name!**
-  - [Try "R boxplots" vs. "R boxplots ggplot2"]{.hl}
+  - Try "R boxplots" vs. "R boxplots ggplot2"
 - **Use keywords**
-  - [Try "R boxplots ggplot2 notch"]{.hl}
+  - Try "R boxplots ggplot2 notch"
 - **Some errors are very general**
-  - [Try "R Error: object 'm' not found"]{.hl}
+  - Try "R Error: object 'm' not found"
 
 
 # Stackoverflow etc.
@@ -408,8 +425,8 @@ vignette("ggplot2-specs", package = "ggplot2")
 ### Not reproducible
 
 ```{r, include = FALSE}
-detach("package:tidyverse", unload = TRUE, character.only = TRUE)
-detach("package:ggplot2", unload = TRUE, character.only = TRUE)
+if("tidyverse" %in% (.packages())) detach("package:tidyverse", unload = TRUE, character.only = TRUE)
+if("ggplot2" %in% (.packages())) detach("package:ggplot2", unload = TRUE, character.only = TRUE)
 ```
 
 ```{r, error = TRUE}
@@ -497,11 +514,16 @@ ggplot(msleep, aes(x = vore, y = awake)) +
 
 ### Inline
 
-"All statistical analyses were performed with R statistical software (v3.6.2, R Core Team 2019)."
+"All statistical analyses were performed with R statistical software (v`r paste0(R.Version()$major, ".", R.Version()$minor)`, R Core Team `r citation()$year`)."
 
 ### Bibliography
 
-R Core Team (2019). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+```{r}
+#| results: asis
+#| echo: false
+cat(format(citation(), style = "text"))
+```
+
 
 
 ## Citing R
@@ -555,7 +577,7 @@ See more about citing packages in my rOpenSci blog post: [How to Cite R and R pa
 :::
 
 
-## {data-menu-title="You made it!" background-image="figures/horst_monster.jpg" background-size=90% background-position="50% 40%"}
+## {data-menu-title="You made it!" background-image="figures/horst_monster.jpg" background-size=90% background-position="50% 40%" title="On the left, an R-logo with a scary face, and a small scared little fuzzy monster holding up a white flag in surrender while under a dark storm cloud. The text above says \"at first I was like…\". On the right, a friendly, smiling R-logo jumping up to give a happy fuzzy monster a high-five under a smiling sun and next to colorful flowers. The text above reads \"but now it’s like…\""}
 
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 

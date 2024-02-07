@@ -26,6 +26,8 @@ library(skimr)
 library(dplyr)
 library(tidyr)
 
+source("0_figs.R")
+
 options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
 ```
 
@@ -124,7 +126,7 @@ filter(data, expression1, expression2, etc.)
 - Here we use logical statements relating to column values
 :::
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 ## `filter()` observations
 
@@ -135,19 +137,18 @@ filter(size, plot %in% c("CSP11", "CSP13"))
 ```
 
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
-. . .
+:::{.fragment}
 
 **Note**: To save this as a separate object, don't forget assignments:
-
 
 ```{r}
 #| eval: false
 size_sub <- filter(size, plot %in% c("CSP11", "CSP13"))
 ```
 
-
+:::
 
 ## `filter()` observations
 
@@ -158,7 +159,7 @@ size_sub <- filter(size, plot %in% c("CSP11", "CSP13"))
 filter(size, depth > 140 | depth < 4)
 ```
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 # Tangent
@@ -243,7 +244,7 @@ filter(size,
        plot %in% c("CSP11", "CSP13"))
 ```
 
-. . .
+:::{.fragment}
 
 ### Equivalent {{< fa arrow-right >}} use &
 ```{r}
@@ -254,11 +255,9 @@ filter(size,
        plot %in% c("CSP11", "CSP13"))
 ```
 
-
-
 [Separate arguments in `filter()` act like **&**]{.note .absolute bottom=10% left=25%}
 
-
+:::
 
 ## `select()` variables
 
@@ -277,7 +276,7 @@ select(data, selection1, selection2, etc.)
 - Column `selection`s reference actual columns in data
 :::
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 
@@ -371,8 +370,7 @@ size <- read_csv("data/grain_size2.csv") |>
 
 
 
-[**Too Easy?**<br>What happens if you `select()` before you `filter()`?
-]{.note .absolute bottom=10% left=50% width=60%}
+[**Too Easy?**<br>What happens if you `select()` before you `filter()`?<br>How many different ways can you select these columns?]{.note .absolute bottom=10% left=50% width=60%}
 
 
 ## Your turn: Subsetting {visibility=`r visibility`}
@@ -388,7 +386,7 @@ size <- read_csv("data/grain_size2.csv") |>
 head(size)
 ```
 
-. . .
+:::{.fragment}
 
 **Select equivalents:**
 
@@ -397,6 +395,7 @@ head(size)
 - `select(plot, depth, coarse_sand, medium_sand, fine_sand)`
 - `select(-coarse_silt, -medium_silt, -fine_silt, -clay)`
 
+:::
 
 ## Your turn: Subsetting (Too Easy?) {visibility=`r visibility`}
 
@@ -424,7 +423,7 @@ size <- read_csv("data/grain_size2.csv") |>
 
 ::::{.columns}
 
-:::{.column}
+:::{.column .center width=40%}
 ### Measurements
 
 ```{r}
@@ -439,10 +438,10 @@ join1 <- data.frame(Plot = c(rep("A", 3), rep("B",3))) |>
 
 join1 |>
   gt() |>
-  data_color(columns = c("Date", "n_birds"), colors = "#fff4a1") |>
-  data_color(columns = c("Plot"), colors = "#c2ffa1") |>
-  cols_align("center") |>
-  cols_width(everything() ~ px(120))
+  data_color(columns = c("Date", "n_birds"), palette = "#fff4a1") |>
+  data_color(columns = c("Plot"), palette = "#c2ffa1") |>
+  cols_align("center")# |>
+  # cols_width(everything() ~ px(120))    #BUG IN GT add back in when you can
 ```
 
 ### Metadata
@@ -454,15 +453,15 @@ join2 <- data.frame(Plot = c("A", "B")) |>
 
 join2 |>
   gt() |>
-  data_color(columns = c("Vegetation Density"), colors = c("#d1a1ff", "#d1a1ff50")) |>
-  data_color(columns = c("Plot"), colors = "#c2ffa1") |>
-  cols_align("center") |>
-  cols_width(everything() ~ px(150))
+  data_color(columns = c("Vegetation Density"), palette = c("#d1a1ff", "#d1a1ff50")) |>
+  data_color(columns = c("Plot"), palette = "#c2ffa1") |>
+  cols_align("center")
+  #cols_width(everything() ~ px(150))   #BUG IN GT add back in when you can 
 ```
 :::
 
 
-:::{.column}
+:::{.column .center width=60%}
 
 :::{.fragment}
 ### Joining them together
@@ -476,9 +475,9 @@ left_join(join1, join2, by = c("Plot")) |>
   data_color(columns = c("Vegetation Density"), colors = c("#d1a1ff", "#d1a1ff50")) |>
   data_color(columns = c("Plot"), colors = "#c2ffa1") |>
   data_color(columns = c("Date", "n_birds"), colors = "#fff4a1") |>
-  cols_align("center") |>
-  cols_width(`Vegetation Density` ~ px(150),
-             everything() ~ px(100))
+  cols_align("center") #|>
+  #cols_width(`Vegetation Density` ~ px(150),   #BUG IN GT add back in when you can
+   #          everything() ~ px(100))
 ```
 :::
 :::
@@ -524,7 +523,7 @@ size
 - Keep all rows in `x`
 - Keep rows in `y` only if they're also in `x`
 
-![](figures/joins.png){.absolute right=0 top=10% width=40%}
+![](figures/joins.png){.absolute right=0 top=10% width=40% fig-alt="Four sets of overlapping circles. The top shows the left circle in yellow overlapping part of the right circle and is labelled left_join. The next shows the right circle in green overlapping part of the left circle and is labelled right_join. The third shows the overlapping area between the two circles in purple and is labelled inner_join. The fourth shows both overlapping circles in blue and is labelled full_join."}
 
 [Adapted from "R for Data Science"]{.footnote}
 
@@ -565,12 +564,12 @@ left_join(x = data, y = data_to_join, by = c("column1", "column2"), ...)
 :::
 
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 ## Joining data sets
 
-### Keep all measurements, only keep meta if we have a measurement
+### Keep all measurements (`size`), only keep `meta` if we have a measurement
 ```{r}
 #| eval: false
 size <- left_join(x = size, y = meta, by = "plot")
@@ -580,19 +579,19 @@ size <- left_join(x = size, y = meta, by = "plot")
 ```{r}
 #| echo: false
 #| class-output: small
-size
+left_join(x = size, y = meta, by = "plot")
 ```
 :::
 
 :::{.fragment}
-> For more information see R for Data Science [Chapter 13.4 Mutating joins](http://r4ds.had.co.nz/relational-data.html#mutating-joins)
+> For more information see R for Data Science [Chapter 19.3 Basic joins](https://r4ds.hadley.nz/joins.html#sec-mutating-joins)
 :::
 
 
 
 # Creating/modifying columns with `mutate()`
 
-![](figures/horst_dplyr_mutate.png)
+![](figures/horst_dplyr_mutate.png){fig-alt="Cartoon of cute fuzzy monsters dressed up as different X-men characters, working together to add a new column to an existing data frame. Stylized title text reads \"dplyr::mutate - add columns, keep existing.\""}
 
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
@@ -614,7 +613,7 @@ mutate(data, column1 = expression1, column2 = expression2, ...)
 - Columns filled according to `expression`
 :::
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 
@@ -625,7 +624,7 @@ size <- read_csv("data/grain_size2.csv") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand)
 ```
 
-. . .
+:::{.fragment}
 
 Creates new column at the end, `total_sand`
 
@@ -633,10 +632,13 @@ Creates new column at the end, `total_sand`
 size
 ```
 
-. . .
+:::
+
+:::{.fragment}
 
 > **Note:** Column math is _**vectorized**_ (i.e., row by row)
 
+:::
 
 
 
@@ -746,7 +748,7 @@ size <- read_csv("data/grain_size2.csv") |>
 select(size, contains("silt"))
 ```
 
-> Wait... that doesn't add up!
+[Wait... that doesn't add up!]{.note .fragment .absolute}
 
 
 # Tangent
@@ -812,7 +814,7 @@ ungroup(data)
 - `ungroup()` removes grouping from `data`
 :::
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 ## Mutating by group
@@ -861,7 +863,7 @@ select(size, plot, total_sand, mean_sand_plot)
 
 
 
-## {data-menu-title="ungroup()" background-image="figures/horst_ungroup.png" background-size=75% background-position="center"}
+## {data-menu-title="ungroup()" background-image="figures/horst_ungroup.png" background-size=75% background-position="center" title="Two fuzzy monsters in the foreground in birthday party hats celebrate together because one has opened a gift with group_by() inside. Text above those two reads \"Other really important parts sold separately!\" In the background, a very hopeful little monster stands along holding a package labeled \"ungroup\", waiting to be invited."}
 
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
@@ -883,6 +885,9 @@ size <- read_csv("data/grain_size2.csv") |>
   ??? |>   
   ???       
 ```
+
+[**Too Easy?**<br>See `?mutate`<br>Can you do the same thing without using `group_by()`?]{.note .absolute bottom=10% width=60%}
+
 
 ## Your turn: Mutating by group {visibility=`r visibility`}
 
@@ -907,6 +912,7 @@ size <- read_csv("data/grain_size2.csv") |>
 select(size, plot, contains("silt"))
 ```
 
+[**Too Easy?** [You could also use<br>[`mutate(mean_silt = mean(total_silt), .by = "plot")`]{.small}]{.small}]{.note .absolute bottom=50% width=50% left=80%}
 
 
 ## Put it all together
@@ -953,7 +959,7 @@ summarize(data, column1 = expression1, column2 = expression2)
 :::
 
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 ## Summarizing by group
@@ -985,12 +991,14 @@ select(size, plot, contains("sand"))
 #| code-line-numbers: "3"
 size <- size |>
   group_by(plot) |>
-  summarize(mean_sand = mean(total_sand), .groups = "drop")   # Ungroup data
+  summarize(mean_sand = mean(total_sand), .groups = "drop")
 
 size
 ```
 
-[**Note:**<br>Drops unused columns]{.note .absolute bottom=25% left=75%}
+[No repeated values **and**<br>drops unused columns]{.note .absolute bottom=20% left=68%}
+
+[**Note:**<br>We use `.groups = "drop"` to ungroup and avoid messages<br> You could also just use `ungroup()`]{.note .small .absolute bottom=56% left=80% width=50%}
 
 ## Summarizing by group
 
@@ -1045,12 +1053,23 @@ size <- read_csv("data/grain_size2.csv") |>
 
 Summarizing is an excellent way to calculate statistics to describe your data
 
-- sample sizes (`n()`)
-- means (`mean()`)
-- standard deviations (`sd()`)
-- standard errors (`sd()` / `sqrt(n())`)
-- total values (`sum()`)
-- total counts (`n()`)
+:::{.spacer}
+Statistic | Function(s)
+---- | ----
+sample sizes / total counts  | `n()`*
+means  | `mean(x)`
+standard deviations  | `sd(x)`
+standard errors  | `sd(x)` / `sqrt(n(x))`**
+total values  | `sum(x)`
+:::
+
+:::{.center .spacer}
+Where `x` is the column you want to calculate a summary statistic for<br>
+And no, `n()` is not missing an `x` `r emo::ji("wink")`
+:::
+
+[* Special function, can only be used *inside* of `mutate()` or `summarize()`<br>
+** There is no standard error function in R, but we can calculate it by hand]{.footnote}
 
 
 ## Summarizing by group
@@ -1072,7 +1091,7 @@ n()
 :::
 
 
-![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
 **For example...**
@@ -1103,9 +1122,9 @@ size |>
 ### For each plot and habitat, calculate
 
 - sample sizes with `n()`
-- means for **total_sand** and **total_silt** with `mean()`
-- standard deviations for **total_sand** and **total_silt** with `sd()`
-- standard errors for **total_sand** and **total_silt** with `sd()`/`sqrt(n())`
+- means for **total_sand** and **total_silt** with `mean(x)`
+- standard deviations for **total_sand** and **total_silt** with `sd(x)`
+- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n(x))`
 
 
 ```{r}
@@ -1124,8 +1143,10 @@ size_sum <- size |>
 ```
 
 
-[**Too Easy?**<br>Calculate summary statistics for your own data
-]{.note .absolute bottom=-5%}
+[**Too Easy?**<br>[Can you recycle some of the calculated values into the next
+statistic?]{.small}]{.note .absolute left=85% bottom=20% width=40%}
+
+[**Challenging**<br>[What if you only wanted to calculate the mean of each column...<br>can you use the `across()` function to do this elegantly?]{.small}]{.note .absolute left=80% bottom=-5% width=50%}
 
 
 
@@ -1134,9 +1155,9 @@ size_sum <- size |>
 ### For each plot and habitat, calculate
 
 - sample sizes with `n()`
-- means for **total_sand** and **total_silt** with `mean()`
-- standard deviations for **total_sand** and **total_silt** with `sd()`
-- standard errors for **total_sand** and **total_silt** with `sd()`/`sqrt(n())`
+- means for **total_sand** and **total_silt** with `mean(x)`
+- standard deviations for **total_sand** and **total_silt** with `sd(x)`
+- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n(x))`
 
 
 ```{r}
@@ -1175,7 +1196,7 @@ size_sum
 Upcoming illustrations from the [Openscapes](https://www.openscapes.org/) blog [*Tidy Data for reproducibility, efficiency, and collaboration*](https://www.openscapes.org/blog/2020/10/12/tidy-data/)<br>by Julia Lowndes and Allison Horst
 :::
 
-## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata1.jpg}
+## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata1.jpg title="Stylized text providing an overview of Tidy Data. The top reads \"Tidy data is a standard way of mapping the meaning of a dataset to its structure. - Hadley Wickham\". On the left reads \"In tidy data: each variable forms a column; each observation forms a row; each cell is a single measurement.\" There is an example table on the lower right with columns 'id', 'name' and 'color' with observations for different cats, illustrating tidy data structure."}
 
 ## {data-menu-title="Tidy Data"}
 
@@ -1212,23 +1233,19 @@ id   | name | colour | age1  | mass1 | age2 | mass2
 :::
 ::::
 
-## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata2.jpg}
+## {data-menu-title="Tidy Data" background-image=figures/horst_tidydata2.jpg title="There are two sets of anthropomorphized data tables. The top group of three tables are all rectangular and smiling, with a shared speech bubble reading \"our columns are variables and our rows are observations!”\"Text to the left of that group reads \"The standard structure of tidy data means that \"tidy datasets are all alike…\" The lower group of four tables are all different shapes, look ragged and concerned, and have different speech bubbles reading (from left to right) \"my column are values and my rows are variables\", \"I have variables in columns AND in rows\", \"I have multiple variables in a single column\", and \"I don't even KNOW what my deal is.\" Next to the frazzled data tables is text \"...but every messy dataset is messy in its own way. -Hadley Wickham.\""}
 
-
-## Tidy Data
-
-### Un-Tidy (wide)
-```{r, echo = FALSE, results = "asis"}
-knitr::kable(table4a, format = "markdown")
-```
-
-
-## Why do we care? {background-image=figures/horst_tidydata3.jpg}
+## Why do we care? {background-image=figures/horst_tidydata3.jpg title="Cute fuzzy monsters putting rectangular data tables onto a conveyor belt. Along the conveyor belt line are different automated \"stations” that update the data, reading \"WRANGLE”, \"VISUALIZE”, and \"MODEL”. A monster at the end of the conveyor belt is carrying away a table that reads \"Complete analysis.\""}
 
 ## Why do we care?
 
-### How would you plot the untidy data?
-(No. of cases by country for each year)
+```{r, echo = FALSE, results = "asis"}
+gt(table4a) |>
+  gt::tab_footnote("Tuberculosis cases per year per country")
+```
+
+
+**How would you plot this untidy data as the number of cases by country for each year?**
 
 ```{r}
 #| eval: false
@@ -1252,6 +1269,7 @@ ggplot(data = table4a, aes(x = ???, y = ???)) +
 ::::{.columns .small}
 :::{.column}
 ```{r}
+#| fig-asp: 0.7
 ggplot(data = table4a, aes(x = country, y = `1999`)) +
   geom_bar(stat = "identity", fill = "blue")
 ```
@@ -1259,21 +1277,39 @@ ggplot(data = table4a, aes(x = country, y = `1999`)) +
 
 :::{.column}
 ```{r}
+#| fig-asp: 0.7
 ggplot(data = table4a, aes(x = country, y = `2000`)) +
   geom_bar(stat = "identity", fill = "red")
 ```
 :::
 ::::
 
+:::{.center}
+We have to plot it twice!
+:::
 
 ## Why do we care?
 ### With tidy data
 
+
+
+::::{.columns}
+:::{.column width=40%}
 ```{r}
+#| echo: false
+gt(table1)
+```
+
+:::
+
+:::{.column width=60% .fragment .small}
+```{r}
+#| fig-asp: 0.7
 ggplot(data = table1, aes(x = country, y = cases, fill = factor(year))) +
   geom_bar(stat = "identity")
 ```
-
+:::
+::::
 
 ## Why do we care?
 ### With tidy data
@@ -1282,7 +1318,7 @@ ggplot(data = table1, aes(x = country, y = cases, fill = factor(year))) +
 ::::{.columns .small}
 :::{.column}
 ```{r}
-#| code-line-numbers: "2"
+#| fig-asp: 0.7
 ggplot(data = table1, 
        aes(x = country, y = cases, fill = factor(year))) +
   geom_bar(stat = "identity", position = "dodge")
@@ -1291,7 +1327,7 @@ ggplot(data = table1,
 
 :::{.column}
 ```{r}
-#| code-line-numbers: "2"
+#| fig-asp: 0.7
 ggplot(data = table1, 
        aes(x = country, y = cases, fill = factor(year))) +
   geom_bar(stat = "identity") + facet_wrap(~year)
@@ -1304,9 +1340,9 @@ ggplot(data = table1,
 
 ### `pivot_longer()`
 
-![](figures/pivot_longer.png)
+![](figures/pivot_longer.png){fig-alt="A long data table next to a wide data table. The cells from the wide table are linked to cells in the long table by arrows"}
 
-[[R for Data Science](http://r4ds.had.co.nz/)]{.footnote}
+[[R for Data Science](https://r4ds.hadley.nz/)]{.footnote}
 
 ## Going long
 
@@ -1360,7 +1396,7 @@ pivot_longer(data, cols = c(column1, column2),
 - Column values (*contents* of `column1` and `column2`) go into "new_numerical_column"
 :::
 
-![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the tidyr R package"}
 
 ## Going long
 
@@ -1381,7 +1417,7 @@ pivot_longer(data, cols = c(column1, column2),
 - **values_to** = `"amount"`   
 
 
-![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the tidyr R package"}
 
 ## Going long
 
@@ -1460,9 +1496,9 @@ Could also use...
 
 ### `pivot_wider()`
 
-![](figures/pivot_wider.png)
+![](figures/pivot_wider.png){fig-alt="A long data table next to a wide data table. The cells from the long table are linked to cells in the wide table by arrows"}
 
-[[R for Data Science](http://r4ds.had.co.nz/)]{.footnote}
+[[R for Data Science](https://r4ds.hadley.nz/)]{.footnote}
 
 
 
@@ -1521,7 +1557,7 @@ pivot_wider(data,
 - Values in `existing_numerical_column` become column contents
 :::
 
-![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0}
+![](figures/hex_tidyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the tidyr R package"}
 
 :::{.fragment}
 ### In our example:   
@@ -1628,15 +1664,13 @@ lm(total_sand ~ depth, data = size_wide)
 ```
 :::
 
-. . .
 
-
-> If you can't figure out how to plot or analyse your data, they probably need to be transposed 
+[If you can't figure out how to plot or analyse your data, they probably need to be transposed]{.note .absolute .fragment bottom=0}
 
 
 ## Your Turn: Transpose for plotting
 
-Plot the number of Tuberculosis cases (`cases`) vs. the `population` in data frame `table2`
+Plot the number of Tuberculosis `cases` vs. the `population` in data frame `table2`
 
 ```{r}
 #| eval: false
@@ -1721,9 +1755,9 @@ write_csv(size_long, "Datasets/size_long.csv")
 ## Wrapping up: Common mistakes {.space-list}
 
 - `select()` doesn't work
-    - You may have the `MASS` package loaded, it also has a select
-    - make sure you loaded `tidyverse` or `dplyr` packages
-    - try using `dplyr::select()`
+    - You may have the `MASS` package loaded, it also has a `select()` function
+    - Make sure you loaded `tidyverse` or `dplyr` packages
+    - Try using `dplyr::select()`
 
 - I can't figure out how to `pivot_wider()` my data in the way I want it
     - Sometimes you need to `pivot_longer()` before you can widen it
@@ -1743,10 +1777,10 @@ write_csv(size_long, "Datasets/size_long.csv")
 ## Wrapping up: Further reading {.space-list}
 
 - R for Data Science
-  - [Chapter 5: Transforming data](http://r4ds.had.co.nz/transform.html)
-  - [Chapter 12: Tidy data](http://r4ds.had.co.nz/tidy-data.html)
-  - [Chapter 13: Relational data](http://r4ds.had.co.nz/relational-data.html)
+  - [Chapter 3: Data transformation](https://r4ds.hadley.nz/data-transform.html)
+  - [Chapter 5: Data tidying](https://r4ds.hadley.nz/data-tidy.html)
+  - [Chapter 19: Joins](https://r4ds.hadley.nz/joins.html)
   
-- [RStudio Data Manipulation with `dplyr`, tidyr](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-    - Or Help > Cheatsheets > Data Manipulation 
+- [RStudio Data Manipulation with `dplyr`](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+    - Or Help > Cheatsheets > Data Transformation with dplyr
     

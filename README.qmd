@@ -7,10 +7,10 @@ format: gfm
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Brodie Building TBD <!--Rm 3-47, Brandon University--><br>
+**Location**: Brodie Building Rm 3-47, Brandon University<br>
 **Date/time**: Sat/Sun February 10-11th 2024, 9am-5pm<br> 
 
-To Register contact [Heather Teeple](TeepleH@BrandonU.CA)
+To Register contact [Heather Teeple](mailto:TeepleH@BrandonU.CA) or [Steffi LaZerte](mailto:sel@steffilazerte.ca)
 
 > **⚠️Important!⚠️**
 >
@@ -37,14 +37,14 @@ This GitHub repository holds all the information relating to our workshop.
 
 ## Slides
 
-🚧 Warning - These are 2023 slides, and 2024 slides will be updated and coming soon! 🚧
+<!-- 🚧 Warning - These are 2023 slides, and 2024 slides will be updated and coming soon! 🚧 -->
 
 These are the slides used throughout the workshop. Answers to the activities
 are be posted after the workshop.
 
 **I recommend using the html version** of these
 slides as they will be the most accurate with respect to formatting and will 
-allow you to easily copy/paste code.
+allow you to easily copy/paste code and navigate
 
 1. Intro to R ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)|)-->
 
@@ -54,7 +54,7 @@ allow you to easily copy/paste code.
 
 4. Summarizing & Transforming Data in R ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))-->
 
-5. Getting help with R ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))<!--|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help_answers.html)|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_answers_sm.pdf))-->
+5. Getting help with R ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)|[pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf))
 
 > Answer slides will be posted after the workshop
 
@@ -115,14 +115,13 @@ Even if you already have RStudio installed, **please update it**, so we're all w
 
 For all Operating systems (i.e., Windows, Mac Os, Linux, etc.) follow step 2 from RStudio's download page:  <https://www.rstudio.com/products/rstudio/download/#download>
 
-Open RStudio ![](figures/RStudio-Ball.png){width=30px} **not R** ![](figures/R.png){width=30px}.
+Open RStudio ![](figures/logo_rstudio.png){width=30px} **not R** ![](figures/logo_r.png){width=30px}.
 RStudio automatically opens R for you in the 'Console' pane
 
-**Verify that your version of R by looking at the first line of the console (left or lower left pane), you should see something like this:**
+**Verify your version of R by looking at the first line of the console (left or lower left pane), you should see something like this:**
 
 ```{r, echo = FALSE}
 library(glue)
-
 R.version |>
   glue_data(
     "{version.string} -- {nickname}",
@@ -187,7 +186,7 @@ Alternatively you can use the RStudio package manager.
 - Type the name of the package (e.g., 'tidyverse') into the 'Packages' box, and click on 'Install'
 - Repeat for the other packages
 
-![](figures/A1_packages_edit.png){width=700px}
+![](figures/A1_packages_edit.png){width=700px fig-alt="Screenshot of the RStudio console with the Packages Tab and the Install button circled in green. A \"Install Packages\" window is open and 'tidyver' is typed into the 'Package' form field and circled in green"}
 
 
 - Test that your installation had no problems by typing `library("tidyverse")` into the console and hitting enter. You should see something like this (**Note:** These are messages, not errors!):
@@ -198,19 +197,18 @@ library("tidyverse")
 
 > ### Problems?
 > - If you already had R/RStudio installed, try removing them both and installing everything from scratch
-> - If you get an error about a problem installing a specific package, try installing that package invidiually (search for it in the install packages menu)
-> - Problems with `tidyverse`? Try installing the packages we need by hand: `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
+> - If you get an error about a problem installing a specific package or with the `tidyverse`, try installing packages invidiually
+>     - `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
+>     - e.g., `install.packages("dplyr")` or in the Install Packages Menu
 > - Email Steffi <sel@steffilazerte.ca>
 
-#### **4. RStudio R primers (optional)**
+#### **4. A big of background (optional)**
 
-If you have time, please complete the [RStudio Programming Basics Primer](https://rstudio.cloud/learn/primers/1.2). 
+If you have time, consider reading the first couple of sections of [R for cats](https://rforcats.net/)
+("Using the R console" to "lists"). 
 
-You can complete it online and it'll give you a quick introduction to R coding which 
+This is a quick introduction to R coding which 
 is will be a great way to get up to speed on the basics before we jump in.
-
-Feel free to run through other [RStudio Primers](https://rstudio.cloud/learn/primers).
-
 
 
 __Congratulations! Now you're ready to get into the fun stuff :)__

@@ -19,6 +19,7 @@ library(palmerpenguins)
 library(tidyverse)
 library(patchwork)
 library(here)
+source("0_figs.R")
 ```
 
 # First things first
@@ -46,22 +47,24 @@ library(here)
 - Customizing plots
 - Annotating plots
 
-![](figures/hex_ggplot2.png){width=20% .absolute top=0 right=0}
+![](figures/hex_ggplot2.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for ggplot2 R package"}
 
 ### 2. Combining figures with `patchwork`
 
 ### 3. Saving figures
 
+![](figures/hex_patchwork.svg){width=20% .absolute bottom=30 right=0 fig-alt="Hex logo for patchwork R package"}
 
-## {data-menu-title="ggplot2" background-image="figures/horst_ggplot2.png" background-size=75% background-position="top"}
+
+## {data-menu-title="ggplot2" background-image="figures/horst_ggplot2.png" background-size=75% background-position="top" title="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads \"ggplot2: build a data masterpiece.\""}
 
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
 
 ## Our data set: Palmer Penguins!
 
-![](figures/horst_lter_penguins.png){width=80%}
-![](figures/hex_palmerpenguins.png){.absolute top=0 right=0 width=20%}
+![](figures/horst_lter_penguins.png){width=80% fig-alt="Cartoons of three penguins labelled 'Chinstrap!', 'Gentoo!', and 'Adelie!'"}
+![](figures/hex_palmerpenguins.png){.absolute top=0 right=0 width=20% fig-alt="Hex logo for palmerpenguins R package"}
 
 [Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
@@ -72,13 +75,13 @@ library(palmerpenguins)
 penguins
 ```
 
-![](figures/hex_palmerpenguins.png){.absolute top="0" right="0" width="12%"}
+![](figures/hex_palmerpenguins.png){.absolute top="0" right="0" width="12%" fig-alt="Hex logo for palmerpenguins R package"}
 
 [Artwork by [\@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
 ::: columns
 ::: {.column width="30%"}
-![](figures/horst_lter_penguins.png)
+![](figures/horst_lter_penguins.png){fig-alt="Cartoons of three penguins labelled 'Chinstrap!', 'Gentoo!', and 'Adelie!'"}
 :::
 
 ::: {.column .fragment width="70%"}
@@ -292,7 +295,8 @@ ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
 #| code-line-numbers: "3"
 ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
   geom_boxplot() +
-  geom_point(size = 2, colour = "red")
+  geom_point(size = 2, colour = "red", 
+             position = position_jitter(width = 0.05))
 ```
 :::
 :::
@@ -307,7 +311,8 @@ ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
 #| fig-width: 5
 #| code-line-numbers: "2"
 ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
-  geom_point(size = 2, colour = "red") +
+  geom_point(size = 2, colour = "red",
+             position = position_jitter(width = 0.05)) +
   geom_boxplot()
 ```
 :::
@@ -324,10 +329,8 @@ ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
 g <- ggplot(data = penguins, aes(x = sex, y = body_mass_g))
 ```
 
-. . .
-
-::: columns
-::: {.column width="50%"}
+::: {.columns}
+::: {.column .fragment width="50%"}
 ```{r}
 #| fig-asp: 0.75
 #| fig-width: 5
@@ -354,6 +357,8 @@ g + geom_boxplot()
 
 ```{r}
 #| fig-align: center
+#| fig-width: 8
+#| fig-asp: 0.5
 #| code-line-numbers: "2"
 ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
   geom_line()
@@ -364,6 +369,8 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 
 ```{r}
 #| fig-align: center
+#| fig-width: 8
+#| fig-asp: 0.5
 #| code-line-numbers: "2"
 ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
   geom_boxplot() 
@@ -374,14 +381,15 @@ ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
 
 ```{r}
 #| fig-align: center
+#| fig-width: 8
+#| fig-asp: 0.5
 #| code-line-numbers: "2"
 ggplot(data = penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 100)
 ```
 
-. . .
 
-> **Note**: We only need 1 aesthetic here
+[**Note**:<br>We only need 1 aesthetic here]{.note .fragment .absolute left=80% top=5% width=30%}
 
 
 ## Geoms: Barplots
@@ -390,7 +398,7 @@ ggplot(data = penguins, aes(x = body_mass_g)) +
 
 ```{r}
 #| fig-align: center
-#| fig-asp: 0.4
+#| fig-asp: 0.6
 #| code-line-numbers: "2"
 ggplot(data = penguins, aes(x = sex)) +
   geom_bar()
@@ -402,7 +410,7 @@ ggplot(data = penguins, aes(x = sex)) +
 
 ```{r}
 #| fig-align: center
-#| fig-asp: 0.4
+#| fig-asp: 0.6
 #| code-line-numbers: "6"
 
 # Create our own data frame
@@ -425,17 +433,19 @@ ggplot(data = ____, aes(x = ____, y = ____)) +
 
 ```{r yt_boxplot}
 #| fig-align: center
+#| fig-asp: 0.6
 #| echo: false
 ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
   geom_boxplot(colour = "blue")
 ```
 
-[**Too Easy?**<br>Plot points on top]{.note .absolute left=80% top=5%}
+[**Too Easy?**<br>Plot points on top<br><small>Why not consider jittering them?</small>]{.note .absolute left=80% top=5%}
 
 ## Your Turn: Create this plot {visibility=`r visibility`}
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.6
 <<yt_boxplot>>
 ```
 
@@ -445,10 +455,23 @@ ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.6
 #| code-line-numbers: "3"
 ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
   geom_boxplot(colour = "blue") +
   geom_point()
+```
+
+## Your Turn: Create this plot {visibility=`r visibility`}
+**Too Easy?**
+
+```{r}
+#| fig-align: center
+#| fig-asp: 0.6
+#| code-line-numbers: "3"
+ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
+  geom_boxplot(colour = "blue") +
+  geom_point(position = position_jitter(width = 0.1))
 ```
 
 
@@ -457,6 +480,7 @@ ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.6
 #| code-line-numbers: "3"
 ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
   geom_boxplot(colour = "blue") +
@@ -606,15 +630,13 @@ ggplot(data = penguins, aes(x = sex, y = body_mass_g)) +
 
 ```{r}
 #| fig-align: center
-#| fig-asp: 0.37
+#| fig-asp: 0.5
 ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point() +
   geom_line()
 ```
 
-. . .
-
-> Not what we're looking for
+[Not what we're looking for]{.note .fragment .absolute bottom=10% left=80% width=30%}
 
 ## Trendlines / Regression lines
 
@@ -624,6 +646,7 @@ Start with basic plot:
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g <- ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
   geom_point()
 g
@@ -638,6 +661,7 @@ g
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g + stat_smooth(method = "lm")
 ```
 
@@ -649,6 +673,7 @@ g + stat_smooth(method = "lm")
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g + stat_smooth(method = "lm", se = FALSE)
 ```
 
@@ -660,6 +685,7 @@ g + stat_smooth(method = "lm", se = FALSE)
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g <- ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point()
 g
@@ -673,6 +699,7 @@ g
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 #| message: false
 g + stat_smooth(method = "lm", se = FALSE)
 ```
@@ -683,6 +710,7 @@ g + stat_smooth(method = "lm", se = FALSE)
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g +
   stat_smooth(method = "lm", se = FALSE) +
   stat_smooth(method = "lm", se = FALSE, colour = "black")
@@ -694,7 +722,9 @@ g +
 -   A scatter plot: Flipper Length by Body Mass grouped by Species
 -   With *a single regression line for the overall trend*
 
-> **Too Easy?** Create a separate plot for each sex as well
+> **Too Easy?** Add regression lines for each species as well  
+> [Can you make the species lines larger?]{.small}  
+> [Can you indicate which points are female and which are male?]{.small}
 
 ## Your Turn: Create this plot {visibility=`r visibility`}
 
@@ -702,11 +732,11 @@ g +
 -   With *a single regression line for the overall trend*
 
 ```{r}
-#| fig-asp: 0.4
+#| fig-asp: 0.5
 #| fig-align: center
 ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) +
   geom_point() +
-  stat_smooth(se = FALSE, colour = "black", method = "lm")
+  stat_smooth(method = "lm", se = FALSE, colour = "black")
 ```
 
 ## Your Turn: Create this plot {visibility=`r visibility`}
@@ -718,8 +748,23 @@ ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = spe
 #| fig-asp: 0.5
 ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) +
   geom_point() +
-  stat_smooth(se = FALSE, colour = "black", method = "lm") +
-  facet_wrap(~sex)
+  stat_smooth(method = "lm", se = FALSE) +
+  stat_smooth(method = "lm", se = FALSE, colour = "black")
+```
+
+## Your Turn: Create this plot {visibility=`r visibility`}
+
+**Too Easy?**
+
+```{r}
+#| fig-align: center
+#| fig-asp: 0.5
+ggplot(data = penguins, aes(x = body_mass_g, y = flipper_length_mm, 
+                            colour = species)) +
+  geom_point(aes(shape = sex), size = 2, fill = "white") +
+  stat_smooth(method = "lm", se = FALSE, linewidth = 2) +
+  stat_smooth(method = "lm", se = FALSE, colour = "black") +
+  scale_shape_manual(values = c(20, 21))
 ```
 
 
@@ -735,8 +780,9 @@ g <- ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = s
 ```
 
 ```{r}
+#| fig-align: center
 #| echo: false
-#| fig.asp: 0.4
+#| fig.asp: 0.5
 #| cache: false
 g
 ```
@@ -752,9 +798,7 @@ g + labs(title = "Bill Length vs. Body Mass",
          colour = "Species", tag = "A")
 ```
 
-. . .
-
-> **Your Turn:** Add proper labels to some of your previous plots
+[**Your Turn:** Add proper labels to some of your previous plots]{.note .fragment .absolute bottom=60% left=80% width="30%"}
 
 
 ## Customizing: Built-in themes
@@ -788,12 +832,17 @@ g + scale_x_continuous(limits = c(0, 15))       # xlim() is a shortcut for this
 g + scale_x_continuous(expand = c(0, 0))        # Space between axis and data
 ```
 
+:::{.spacer}
+Let's take a look...
+:::
+
 ## Customizing: Axes
 
 ### Breaks
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g + scale_x_continuous(breaks = seq(2500, 6500, 500))
 ```
 
@@ -803,6 +852,7 @@ g + scale_x_continuous(breaks = seq(2500, 6500, 500))
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g + scale_x_continuous(limits = c(3000, 4000))
 ```
 
@@ -812,6 +862,7 @@ g + scale_x_continuous(limits = c(3000, 4000))
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 g + scale_x_continuous(expand = c(0, 0))
 ```
 
@@ -823,8 +874,8 @@ g + scale_x_continuous(expand = c(0, 0))
 
 ```{r}
 #| fig-align: center
-#| fig-asp: 0.4
-g + scale_colour_manual(name = "Type", values = c("green", "purple", "yellow"))
+#| fig-asp: 0.5
+g + scale_colour_manual(name = "Type", values = c("green4", "blue4", "gold"))
 ```
 
 ## Customizing: Aesthetics
@@ -835,10 +886,10 @@ Or be very explicit:
 
 ```{r}
 #| fig-align: center
-#| fig-asp: 0.4
+#| fig-asp: 0.5
 g + scale_colour_manual(
   name = "Type",
-  values = c("Adelie" = "green", "Gentoo" = "purple", "Chinstrap" = "yellow"),
+  values = c("Adelie" = "green4", "Gentoo" = "blue4", "Chinstrap" = "gold"),
   na.value = "black")
 ```
 
@@ -851,6 +902,7 @@ g + scale_colour_manual(
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 #| code-line-numbers: "3"
 ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point() +
@@ -865,6 +917,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = specie
 
 ```{r}
 #| fig-align: center
+#| fig-asp: 0.5
 #| code-line-numbers: "3"
 ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = flipper_length_mm)) +
   geom_point() +
@@ -878,14 +931,15 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = flippe
 Remove the association between a variable and an aesthetic
 
 ```{r}
-#| out-width: 100%
+#| fig-align: center
+#| fig-asp: 0.5
 #| code-line-numbers: "2,3"
 ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = sex)) +
   geom_point(colour = "darkblue", size = 1) +
   stat_smooth(method = "lm", se = FALSE, colour = "lightblue")
 ```
 
-[**Note**: When forcing, aesthetic is not inside `aes()`]{.note .absolute left=70% bottom=20%}
+[**Note**: When forcing, aesthetic is not inside `aes()`]{.note .fragment .absolute left=75% bottom=65%}
 
 ## Customizing: Legends placement
 
@@ -920,7 +974,7 @@ g + theme(legend.position = c(0.15, 0.7))
 ```{r yt_hard}
 #| fig-align: center
 #| fig-asp: 0.5
-#| fig-width: 8
+#| fig-width: 10
 #| out-width: "90%"
 #| echo: false
 
@@ -935,8 +989,8 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) 
        colour = "Species")
 ```
 
-[**Too Easy?**<br>Create a plot of your own data
-]{.note .absolute left=80% top=0 width=30%}
+[**Too Easy?**<br>[Play with shape values >20 and fill and colour<br>Or, create a plot of your own data]{.small}
+]{.note .absolute left=85% bottom=-10% width=35%}
 
 
 ## Your Turn: Create this plot {visibility=`r visibility`}
@@ -944,11 +998,30 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) 
 ```{r}
 #| fig-align: center
 #| fig-asp: 0.4
-#| fig-width: 8
-#| out-width: 60%
+#| fig-width: 10
 #| warning: false
 #| message: false
 <<yt_hard>>
+```
+
+## Your Turn: Create this plot {visibility=`r visibility`}
+
+**Too easy?**
+
+```{r}
+#| fig-align: center
+#| fig-asp: 0.4
+#| fig-width: 10
+
+ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, fill = species)) +
+  theme_bw() + 
+  geom_point(shape = 21) +
+  stat_smooth(method = "lm", se = FALSE, colour = "black", fill = NA) + 
+  scale_fill_viridis_d() +
+  facet_wrap(~ sex) +
+  labs(x = "Body Mass (g)",
+       y = "Flipper Length (mm)",
+       colour = "Species")
 ```
 
 
@@ -968,7 +1041,10 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) 
 
 ::::{.columns}
 :::{.column width=50%}
-```{r, fig.asp = 0.5, out.width = "100%"}
+```{r}
+#| fig-align: center
+#| fig-width: 6
+#| fig-asp: 0.7
 #| code-line-numbers: "3"
 ggplot(penguins, aes(x = body_mass_g, 
                      y = flipper_length_mm, 
@@ -980,6 +1056,8 @@ ggplot(penguins, aes(x = body_mass_g,
 :::{.column width=50%}
 ```{r, fig.asp = 0.5, out.width = "100%"}
 #| fig-align: center
+#| fig-width: 6
+#| fig-asp: 0.7
 #| code-line-numbers: "3"
 #| out-extra: "style='padding-top:0.85em'"
 ggplot(penguins, aes(x = body_mass_g, 
@@ -1001,6 +1079,8 @@ ggplot(penguins, aes(x = body_mass_g,
 ```{r, fig.asp = 0.5, out.width = "100%", message = FALSE}
 #| code-line-numbers: "3"
 #| fig-align: center
+#| fig-width: 6
+#| fig-asp: 0.7
 ggplot(penguins, aes(x = body_mass_g, 
                      y = flipper_length_mm, 
                      colour = species)) +
@@ -1013,6 +1093,8 @@ ggplot(penguins, aes(x = body_mass_g,
 #| out-extra: "style='padding-top: 0.85em'"
 #| code-line-numbers: "3"
 #| fig-align: center
+#| fig-width: 6
+#| fig-asp: 0.7
 ggplot(penguins, aes(x = body_mass_g, 
                      y = flipper_length_mm)) +
   geom_point(aes(colour = species)) +
@@ -1021,14 +1103,9 @@ ggplot(penguins, aes(x = body_mass_g,
 :::
 ::::
 
-. . . 
+[Applies to ALL lines in the ggplot<br>including `stat_smooth()`]{.note .fragment .absolute left=25% top=90%}
 
-
-[Applies to ALL lines in the ggplot<br>including `stat_smooth()`]{.note .absolute left=25% top=90%}
-
-. . .
-
-[Applies to only the `geom_point()` in the ggplot<br>not `stat_smooth()`]{.note .absolute left=75% top=90% width=30%}
+[Applies to only the `geom_point()` in the ggplot<br>not `stat_smooth()`]{.note .fragment .absolute left=75% top=90% width=30%}
 
 
 
@@ -1078,9 +1155,15 @@ ggplot(penguins, aes(x = body_mass_g,
 
 
 
-# Combining plots
+# Combining plots with `patchwork`<br>![](figures/hex_patchwork.svg){width=20%}
 
-## Combining plots with `patchwork`
+
+
+## {data-menu-title="patchwork" background-image="figures/horst_patchwork.png" background-size=85% background-position="top" title="Fuzzy cartoon monsters in white gloves and uniforms hanging multiple plots together on a wall, with an artist monster wearing a beret and smock directing them to the correct orientation. There is a blueprint plan on the wall showing how the plots should be arranged. Stylized title font reads \"patchwork - combine & arrange your ggplots!\""}
+
+[Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
+
+## Combining plots
 
 ### Setup
 
@@ -1139,6 +1222,7 @@ g1 / g2
 ```{r}
 #| fig-width: 8
 #| fig-align: center
+#| fig-asp: 0.5
 g2 + (g1 / g3)
 ```
 
@@ -1199,9 +1283,30 @@ g2 / (g1 + g3) +
 :::
 
 
-. . . 
+:::{.fragment}
+[**Your Turn**<br>Combine any 3 figures]{.note .absolute left=10% bottom=20% width=25%}
+[**Too Easy?**<br>[Can you figure out how to collect common axes as well?]{.small}]{.note .absolute left=80% top=25% width=43%}
+:::
 
-[**Your Turn**<br>Combine any 3 figures]{.note .absolute left=75% top=23%}
+## Your Turn: Combine plots {visibility=`r visibility`}
+
+**Too easy?**
+
+```{r}
+#| fig-width: 8
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+
+g1 <- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) +
+  geom_point()
+
+g2 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_depth_mm, colour = species)) +
+  geom_point()
+
+g1 + g2 +
+  plot_layout(guides = "collect", axes = "collect")
+```
 
 
 
@@ -1266,7 +1371,7 @@ unlink("penguins_mass.png")
 
 ## Wrapping up: Common mistakes
 
-### I get an error regarding an object that can't be found or aethetic length?
+### I get an error regarding an object that can't be found or aesthetic length?
 
 You are probably trying to plot two different datasets, and you make references to variables in the `ggplot()` call that don't exist in one of the datasets:
 
@@ -1284,7 +1389,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_length_mm, colour = 
 
 ## Wrapping up: Common mistakes
 
-### I get an error regarding an object that can't be found or aethetic length?
+### I get an error regarding an object that can't be found or aesthetic length?
 
 Either move the aesthetic...
 
@@ -1302,7 +1407,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
 
 ## Wrapping up: Common mistakes
 
-### I get an error regarding an object that can't be found or aethetic length?
+### I get an error regarding an object that can't be found or aesthetic length?
 
 Either move the aesthetic...
 
@@ -1326,7 +1431,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm, colour = species
 - [`ggplot2` book v3](https://ggplot2-book.org) [by Hadley Wickham, Danielle Navarro, and Thomas Lin Pedersen]{.small}
 - [`patchwork` website](https://patchwork.data-imaginist.com/)
 - [Cookbook for R](http://www.cookbook-r.com) [by Winston Chang]{.small}
-- [R for Data Science](https://r4ds.had.co.nz) [by Hadley Wickham and Garret Grolemund]{.small}
-  - [Chapter on Data Visualization](http://r4ds.had.co.nz/data-visualisation.html)
+- [R for Data Science](https://r4ds.hadley.nz/) [by Hadley Wickham and Garret Grolemund]{.small}
+  - [Chapter on Data Visualization](https://r4ds.hadley.nz/data-visualize.html)
 - [Data Visualization: A practical introduction](http://socviz.co/) [by Kieran Healy]{.small}
 

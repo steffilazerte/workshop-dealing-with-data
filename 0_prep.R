@@ -54,6 +54,7 @@ names(r) <- c("River Name", "Site", "Ele", "Amo", "Temperature C°", "Year")
 r$Wea <- sample(c("sunny", "cloudy", "wet", "snowy"), nrow(r), replace = TRUE)
 write_csv(r, "data/rivers_correct.csv")
 write_xlsx(r, "data/rivers_correct.xlsx")
+# NOTE THAT second sheet is added manually
 
 zinke <- read_csv("data/zinke_soil.csv")
 zinke$Code <- "A"
