@@ -234,7 +234,7 @@ library("tidyverse")
 >   - e.g., `install.packages("dplyr")` or in the Install Packages Menu
 > - Email Steffi <sel@steffilazerte.ca>
 
-#### **4. A big of background (optional)**
+#### **4. A bit of background (optional)**
 
 If you have time, consider reading the first couple of sections of [R
 for cats](https://rforcats.net/) (“Using the R console” to “lists”).
