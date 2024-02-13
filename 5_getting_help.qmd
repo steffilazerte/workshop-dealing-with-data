@@ -10,12 +10,14 @@ format:
       data-background-image: figures/horst_communities.png
       data-background-size: "60%"
       data-background-position: "90% 50%"
+cache: false
 ---
 
 ```{r setup}
 #| include: false
 #| cache: false
 source("0_figs.R")
+library(tidyverse)
 
 visibility <- params$answers
 ```
@@ -24,15 +26,8 @@ visibility <- params$answers
 # First things first
 
 :::{style="text-align:left; padding: 15px 200px 15px 200px"}
-{{< fa floppy-disk >}} Save previous script
-
-{{< fa folder-open >}} Open New File <br>
-[(make sure you're in the RStudio Project)]{.small .hang}
-
-{{< fa pen >}} Write `library(tidyverse)` at the top
-
-{{< fa floppy-disk >}} Save this new script <br>
-[(consider names like `troubleshoting.R` or `5_getting_help.R`)]{.small .hang}
+{{< fa floppy-disk >}} Save previous script  
+{{< fa pen >}} Consider taking notes during this section
 :::
 
 
@@ -82,6 +77,8 @@ a + b
 ### Line by line
 
 ```{r, eval = FALSE}
+library(tidyverse)
+
 # Load Data
 size <- read_csv("./data/grain_size2.csv")
 
@@ -108,6 +105,8 @@ size <- size |>
 ### Section by section
 
 ```{r, message = FALSE, error = TRUE}
+library(tidyverse)
+
 size <- read_csv("./data/grain_size2.csv") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
          total_silt = coarse_silt + medium_silt + fine_silt) |>
@@ -123,6 +122,8 @@ size <- read_csv("./data/grain_size2.csv") |>
 ### Section by section
 
 ```{r, message = FALSE, error = TRUE}
+library(tidyverse)
+
 size <- read_csv("./data/grain_size2.csv")
 ```
 
@@ -516,7 +517,7 @@ ggplot(msleep, aes(x = vore, y = awake)) +
 
 "All statistical analyses were performed with R statistical software (v`r paste0(R.Version()$major, ".", R.Version()$minor)`, R Core Team `r citation()$year`)."
 
-### Bibliography
+### Bibliography{.spacer}
 
 ```{r}
 #| results: asis
@@ -548,9 +549,9 @@ cat(capture.output(citation())[1:6], sep = "\n")
 
 ### Inline
 
-"All statistical analyses were performed with R statistical software (v4.0.3, R Core Team 2020). We performed Type III ANOVAs using the 'car' package for R (v3.0.10, Fox and Weisberg)."
+"All statistical analyses were performed with R statistical software (v4.0.3, R Core Team 2020). We performed Type III ANOVAs using the 'car' package for R (v3.0.10, Fox and Weisberg 2019)."
 
-### Bibliography
+### Bibliography {.spacer}
 
 John Fox and Sanford Weisberg (2019). An R Companion to Applied Regression, Third Edition. Thousand Oaks CA: Sage.
 

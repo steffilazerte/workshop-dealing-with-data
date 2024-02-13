@@ -405,19 +405,29 @@ Objects are *things* in the environment
 ### Do things, Return things
 
 #### Does something but returns nothing {.spacer}
-e.g., `write_csv()` - Saves the `mtcars` data frame as a csv file
+e.g., `library()` - Loads an R package so we can use it's functions and other objects it supplies
 
 ```{r, eval = FALSE}
-write_csv(mtcars, path = "mtcars.csv")
+library(palmerpenguins)
 ```
 
+:::{.columns}
 
 #### Does something and returns something {.spacer}
-e.g., `sd()` - returns the standard deviation of a vector 
+e.g., `ggplot()` - Creates and returns a basic plot
 
+:::{.column width=70%}
 ```{r}
-sd(c(4, 10, 21, 55))
+#| fig-asp: 1
+#| fig-width: 4
+#| out-width: 30%
+#| out-extra: "class=absolute style='right:0%;bottom:0%;'"
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm))
 ```
+
+:::
+:::
+
 
 ## functions()
 
@@ -425,7 +435,7 @@ sd(c(4, 10, 21, 55))
 - `data`, `x`, `y`, `colour`
 
 ```{r eval = FALSE}
-ggplot(data = msleep, aes(x = sleep_total, y = sleep_rem, colour = vore)) +
+ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = species)) +
   geom_point()
 ```
 
@@ -498,10 +508,9 @@ Where did **`trim`** come from?
 
 ## Data {.incremental}
 
-Generally kept in `vectors` or `data.frames`
-
+- Generally kept in `vectors` or `data.frames` (also `tibbles`)
 - These are objects with names (like functions)
-- We can use `<-` to assign values to objects (assignment)
+- Here are two **built-in** examples (part of R)
 
 <p>
 
@@ -511,21 +520,19 @@ Generally kept in `vectors` or `data.frames`
 ### Vector (1 dimension)
 
 ```{r}
-my_letters <- c("a", "b", "c")
-my_letters
+#| R.options: 
+#|   width: 50
+month.name
 ```
-
-- Use `c()` to create a vector
 :::
 
 :::{.column width="60%"}
 ### Data frame (2 dimensions)
 
 ```{r}
-my_data <- data.frame(x = c("s1", "s2", "s3", "s4"),
-                      y = c(101, 102, 103, 104),
-                      z = c("a", "b", "c", "d"))
-my_data
+#| R.options: 
+#|   width: 60
+mtcars
 ```
 
 
@@ -534,12 +541,13 @@ my_data
 :::
 ::::
 
-[rows x columns]{.note .absolute bottom=0 left=70%}
+[rows x columns]{.note .absolute bottom=50% left=85% width=15%}
 
 ## Your Turn: Vectors and Data frames
 
 **Try out the following code...**
 
+- Here we will make a vector and a data frame
 - What is the output in your console?
 - How does your `environment` change (upper right panel)?
 
@@ -550,7 +558,7 @@ my_data
 :::{.column width="40%"}
 **Vectors** 
 ```{r, results = "hide"}
-a <- c("apples", 12, "bananas")
+a <- c("apples", 12, "pears", 5, 8)
 a
 ```
 :::
@@ -586,7 +594,7 @@ my_data
 - Can access multiple parts at once
 ```{r yt_vect, eval = FALSE}
 a[2]
-a[2:3]     # What does : do?
+a[2:5]     # What does : do?
 a[c(1, 3)] # What does c() do?
 
 ```

@@ -19,7 +19,7 @@ quarto::quarto_render(cache_refresh = TRUE,
                       execute_params = list(answers = "hidden"))
 
 # Fix and Re-run - Singles
-# i <- 4
+# i <- 2
 # quarto::quarto_render(input = f$qmd[i], cache_refresh = TRUE,
 #                        execute_params = list(answers = "hidden"))
 # quarto::quarto_render(input = f$qmd[i], output_file = f$answer[i],

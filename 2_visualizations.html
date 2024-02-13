@@ -12,7 +12,7 @@
 <link href="2_visualizations_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-07">
+  <meta name="dcterms.date" content="2024-02-13">
   <title>Visualizing Data in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
   
   
   
-    <p class="date">Compiled: 2024-02-07</p>
+    <p class="date">Compiled: 2024-02-13</p>
   </section>
 <section>
 <section id="first-things-first" class="title-slide slide level1 center">
@@ -1395,7 +1395,6 @@
 <section id="combining-plots-with-patchwork-8" class="slide level2">
 <h2>Combining plots with <code>patchwork</code></h2>
 <h3 id="annotate">Annotate</h3>
-<div class="small">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a>g2 <span class="sc">/</span> (g1 <span class="sc">+</span> g3) <span class="sc">+</span></span>
 <span id="cb75-2"><a href=""></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
@@ -1403,16 +1402,9 @@
 <span id="cb75-4"><a href=""></a>                  <span class="at">caption =</span> <span class="st">"Fig 1. Penguins Data Summary"</span>,</span>
 <span id="cb75-5"><a href=""></a>                  <span class="at">tag_levels =</span> <span class="st">"A"</span>,</span>
 <span id="cb75-6"><a href=""></a>                  <span class="at">tag_suffix =</span> <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="2_visualizations_files/figure-revealjs/unnamed-chunk-79-1.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
-</figure>
+
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
+<img data-src="2_visualizations_files/figure-revealjs/unnamed-chunk-79-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div class="fragment">
 <p><span class="note absolute" style="left: 10%; bottom: 20%; width: 25%; "><strong>Your Turn</strong><br>Combine any 3 figures</span> <span class="note absolute" style="top: 25%; left: 80%; width: 43%; "><strong>Too Easy?</strong><br><span class="small">Can you figure out how to collect common axes as well?</span></span></p>
 </div>
 </section>

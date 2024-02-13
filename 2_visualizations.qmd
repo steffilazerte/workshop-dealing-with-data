@@ -10,6 +10,7 @@ format:
       data-background-image: figures/viz_fig.png
       data-background-size: "55%"
       data-background-position: "95% 50%"
+cache: false
 ---
 
 ```{r setup, include = FALSE}
@@ -1267,7 +1268,6 @@ g2 / (g1 + g3 + plot_layout(guides = "collect"))
 
 ### Annotate
 
-::: small
 ```{r}
 #| fig-width: 8
 #| fig-asp: 0.6
@@ -1280,7 +1280,6 @@ g2 / (g1 + g3) +
                   tag_levels = "A",
                   tag_suffix = ")")
 ```
-:::
 
 
 :::{.fragment}
@@ -1304,8 +1303,7 @@ g1 <- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour 
 g2 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_depth_mm, colour = species)) +
   geom_point()
 
-g1 + g2 +
-  plot_layout(guides = "collect", axes = "collect")
+g1 + g2 + plot_layout(guides = "collect", axes = "collect")
 ```
 
 
@@ -1318,7 +1316,7 @@ g1 + g2 +
 
 ***Demo***
 
-::: fragment
+:::{.fragment}
 ### `ggsave()`
 
 ```{r}

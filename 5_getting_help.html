@@ -12,7 +12,7 @@
 <link href="5_getting_help_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-07">
+  <meta name="dcterms.date" content="2024-02-13">
   <title>Getting Help with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,16 +410,14 @@
   
   
   
-    <p class="date">Compiled: 2024-02-07</p>
+    <p class="date">Compiled: 2024-02-13</p>
   </section>
 <section>
 <section id="first-things-first" class="title-slide slide level1 center">
 <h1>First things first</h1>
 <div style="text-align:left; padding: 15px 200px 15px 200px">
-<p><i class="fa-solid fa-floppy-disk" aria-label="floppy-disk"></i> Save previous script</p>
-<p><i class="fa-solid fa-folder-open" aria-label="folder-open"></i> Open New File <br> <span class="small hang">(make sure you’re in the RStudio Project)</span></p>
-<p><i class="fa-solid fa-pen" aria-label="pen"></i> Write <code>library(tidyverse)</code> at the top</p>
-<p><i class="fa-solid fa-floppy-disk" aria-label="floppy-disk"></i> Save this new script <br> <span class="small hang">(consider names like <code>troubleshoting.R</code> or <code>5_getting_help.R</code>)</span></p>
+<p><i class="fa-solid fa-floppy-disk" aria-label="floppy-disk"></i> Save previous script<br>
+<i class="fa-solid fa-pen" aria-label="pen"></i> Consider taking notes during this section</p>
 </div>
 </section>
 <section id="section" class="slide level2" data-menu-title="What next?" data-background-image="figures/horst_knowing_so_little.png" title="Illustrated line plot of &quot;How much I think I know about R&quot; on the y-axis, and &quot;Time&quot; on the x-axis. Along the line are emoji-style faces, showing the non-linear progression of R knowledge over time. At first, a nervous face becomes a happy face early on in learning, then a &quot;grimace&quot; face at an intermediate peak before a steep decline (with an exhausted face at the local minimum). Then, a determined face charges back up a hill, reaching another peak with a &quot;mind blown&quot; face and text annotation &quot;join R community on twitter&quot; followed by another decline, but this time the faces look happy even though their &quot;How much I think I know about R&quot; value is declining.">
@@ -468,22 +466,24 @@
 <h2>Bit by bit</h2>
 <h3 id="line-by-line-1">Line by line</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Load Data</span></span>
-<span id="cb5-2"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>)</span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="co"># First modification</span></span>
-<span id="cb5-5"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">mutate</span>(size, </span>
-<span id="cb5-6"><a href=""></a>               <span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb5-7"><a href=""></a>               <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
-<span id="cb5-8"><a href=""></a></span>
-<span id="cb5-9"><a href=""></a><span class="co"># Second modification</span></span>
-<span id="cb5-10"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb5-11"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb5-12"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-13"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
-<span id="cb5-14"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
-<span id="cb5-15"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
-<span id="cb5-16"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href=""></a></span>
+<span id="cb5-3"><a href=""></a><span class="co"># Load Data</span></span>
+<span id="cb5-4"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>)</span>
+<span id="cb5-5"><a href=""></a></span>
+<span id="cb5-6"><a href=""></a><span class="co"># First modification</span></span>
+<span id="cb5-7"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">mutate</span>(size, </span>
+<span id="cb5-8"><a href=""></a>               <span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb5-9"><a href=""></a>               <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
+<span id="cb5-10"><a href=""></a></span>
+<span id="cb5-11"><a href=""></a><span class="co"># Second modification</span></span>
+<span id="cb5-12"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-15"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
+<span id="cb5-16"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
+<span id="cb5-17"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
+<span id="cb5-18"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span class="note fragment absolute" style="left: 75%; bottom: 60%; ">Especially important if loading and modifying data</span></p>
 <p><span class="note fragment absolute" style="left: 65%; bottom: 10%; ">Can’t run 1st modification<br>after 2nd modification</span></p>
@@ -492,17 +492,23 @@
 <h2>Bit by bit</h2>
 <h3 id="section-by-section">Section by section</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb6-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb6-6"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
-<span id="cb6-7"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(totall_sand),</span>
-<span id="cb6-8"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
-<span id="cb6-9"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb6-5"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb6-8"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
+<span id="cb6-9"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(totall_sand),</span>
+<span id="cb6-10"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
+<span id="cb6-11"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in read_csv("./data/grain_size2.csv"): could not find function "read_csv"</code></pre>
+<pre><code>Error in `summarize()`:
+ℹ In argument: `mean_sand = mean(totall_sand)`.
+ℹ In group 1: `plot = "CSP01"`.
+Caused by error:
+! object 'totall_sand' not found</code></pre>
 </div>
 </div>
 </section>
@@ -510,32 +516,25 @@
 <h2>Bit by bit</h2>
 <h3 id="section-by-section-1">Section by section</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in read_csv("./data/grain_size2.csv"): could not find function "read_csv"</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href=""></a></span>
+<span id="cb8-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>No error</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb9-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No error</p>
+</div>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb10-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in read_csv("./data/grain_size2.csv"): could not find function "read_csv"</code></pre>
-</div>
-</div>
-<p>No error</p>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb12-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href=""></a>  <span class="fu">group_by</span>(plot) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in read_csv("./data/grain_size2.csv"): could not find function "read_csv"</code></pre>
-</div>
+<span id="cb10-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">group_by</span>(plot) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>No error</p>
 </div>
@@ -544,17 +543,21 @@
 <h2>Bit by bit</h2>
 <h3 id="section-by-section-2">Section by section</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb14-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb14-6"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
-<span id="cb14-7"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(totall_sand),</span>
-<span id="cb14-8"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
-<span id="cb14-9"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb11-3"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-6"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
+<span id="cb11-7"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(totall_sand),</span>
+<span id="cb11-8"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
+<span id="cb11-9"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in read_csv("./data/grain_size2.csv"): could not find function "read_csv"</code></pre>
+<pre><code>Error in `summarize()`:
+ℹ In argument: `mean_sand = mean(totall_sand)`.
+ℹ In group 1: `plot = "CSP01"`.
+Caused by error:
+! object 'totall_sand' not found</code></pre>
 </div>
 </div>
 <p>Ah ha!</p>
@@ -626,7 +629,7 @@ And the problem is <code>object 'totall_sand' not found</code>.</p>
 <p>Many packages come with vignettes (tutorials)</p>
 <h3 id="list-vignettes">List Vignettes</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">vignette</span>(<span class="at">package =</span> <span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>Vignettes in package ‘ggplot2’:
 
@@ -637,7 +640,7 @@ profiling                          Profiling Performance (source, html)</code></
 <!-- -->
 <h3 id="load-vignettes">Load Vignettes</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">vignette</span>(<span class="st">"ggplot2-specs"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">vignette</span>(<span class="st">"ggplot2-specs"</span>, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span class="note absolute" style="">Try it!</span></p>
 </div>
@@ -700,11 +703,7 @@ profiling                          Profiling Performance (source, html)</code></
 <h2>Examples</h2>
 <h3 id="in-r">In R</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>?geom_boxplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>No documentation for 'geom_boxplot' in specified packages and libraries:
-you could try '??geom_boxplot'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>?geom_boxplot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <blockquote>
 <p>Copy and paste the examples into your console</p>
@@ -815,15 +814,15 @@ you could try '??geom_boxplot'</code></pre>
 <h3 id="how-do-i-change-the-order-of-vore">How do I change the order of <code>vore</code>?</h3>
 <h3 id="not-reproducible">Not reproducible</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> m, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake, <span class="at">fill =</span> <span class="st">`</span><span class="at">Body Size</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb25-3"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb25-4"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb25-5"><a href=""></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb25-6"><a href=""></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Awake time (hrs)"</span>,</span>
-<span id="cb25-7"><a href=""></a>       <span class="at">title =</span> <span class="st">"Awake time by Diet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> m, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake, <span class="at">fill =</span> <span class="st">`</span><span class="at">Body Size</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb21-4"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href=""></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href=""></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Awake time (hrs)"</span>,</span>
+<span id="cb21-7"><a href=""></a>       <span class="at">title =</span> <span class="st">"Awake time by Diet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(data = m, aes(x = vore, y = awake, fill = `Body Size`)): could not find function "ggplot"</code></pre>
+<pre><code>Error in eval(expr, envir, enclos): object 'm' not found</code></pre>
 </div>
 </div>
 <ul>
@@ -838,19 +837,19 @@ you could try '??geom_boxplot'</code></pre>
 <div class="small">
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="1,3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb27-2"><a href=""></a></span>
-<span id="cb27-3"><a href=""></a>m <span class="ot">&lt;-</span> msleep <span class="sc">|&gt;</span></span>
-<span id="cb27-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Body Size</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">if_else</span>(bodywt <span class="sc">&gt;</span> <span class="fu">median</span>(bodywt),</span>
-<span id="cb27-5"><a href=""></a>                               <span class="st">"Large"</span>, <span class="st">"Small"</span>))</span>
-<span id="cb27-6"><a href=""></a></span>
-<span id="cb27-7"><a href=""></a><span class="fu">ggplot</span>(m, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake, <span class="at">fill =</span> <span class="st">`</span><span class="at">Body Size</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb27-8"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb27-9"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb27-10"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb27-11"><a href=""></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb27-12"><a href=""></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Awake time (hrs)"</span>,</span>
-<span id="cb27-13"><a href=""></a>       <span class="at">title =</span> <span class="st">"Awake time by Diet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="1,3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-2"><a href=""></a></span>
+<span id="cb23-3"><a href=""></a>m <span class="ot">&lt;-</span> msleep <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Body Size</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">if_else</span>(bodywt <span class="sc">&gt;</span> <span class="fu">median</span>(bodywt),</span>
+<span id="cb23-5"><a href=""></a>                               <span class="st">"Large"</span>, <span class="st">"Small"</span>))</span>
+<span id="cb23-6"><a href=""></a></span>
+<span id="cb23-7"><a href=""></a><span class="fu">ggplot</span>(m, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake, <span class="at">fill =</span> <span class="st">`</span><span class="at">Body Size</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb23-8"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb23-9"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb23-10"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb23-11"><a href=""></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb23-12"><a href=""></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Awake time (hrs)"</span>,</span>
+<span id="cb23-13"><a href=""></a>       <span class="at">title =</span> <span class="st">"Awake time by Diet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -869,10 +868,10 @@ you could try '??geom_boxplot'</code></pre>
 <h3 id="reproducible-and-minimal">Reproducible AND Minimal</h3>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb28-2"><a href=""></a></span>
-<span id="cb28-3"><a href=""></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake)) <span class="sc">+</span></span>
-<span id="cb28-4"><a href=""></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-2"><a href=""></a></span>
+<span id="cb24-3"><a href=""></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="at">x =</span> vore, <span class="at">y =</span> awake)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href=""></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -910,21 +909,21 @@ you could try '??geom_boxplot'</code></pre>
 <h2>Citing R</h2>
 <h3 id="inline">Inline</h3>
 <p>“All statistical analyses were performed with R statistical software (v4.3.2, R Core Team 2023).”</p>
-<h3 id="bibliography-1">Bibliography</h3>
+<h3 class="spacer" id="bibliography-1">Bibliography</h3>
 <p>R Core Team (2023). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing, Vienna, Austria. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
 </section>
 <section id="citing-r-1" class="slide level2">
 <h2>Citing R</h2>
 <h3 id="version-information">Version information</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">R.Version</span>()<span class="sc">$</span>version.string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">R.Version</span>()<span class="sc">$</span>version.string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "R version 4.3.2 (2023-10-31)"</code></pre>
 </div>
 </div>
 <h3 id="citation-information">Citation information</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">citation</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">citation</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -939,22 +938,22 @@ you could try '??geom_boxplot'</code></pre>
 <section id="citing-r-packages" class="slide level2">
 <h2>Citing R Packages</h2>
 <h3 id="inline-1">Inline</h3>
-<p>“All statistical analyses were performed with R statistical software (v4.0.3, R Core Team 2020). We performed Type III ANOVAs using the ‘car’ package for R (v3.0.10, Fox and Weisberg).”</p>
-<h3 id="bibliography-2">Bibliography</h3>
+<p>“All statistical analyses were performed with R statistical software (v4.0.3, R Core Team 2020). We performed Type III ANOVAs using the ‘car’ package for R (v3.0.10, Fox and Weisberg 2019).”</p>
+<h3 class="spacer" id="bibliography-2">Bibliography</h3>
 <p>John Fox and Sanford Weisberg (2019). An R Companion to Applied Regression, Third Edition. Thousand Oaks CA: Sage.</p>
 </section>
 <section id="citing-r-packages-1" class="slide level2">
 <h2>Citing R Packages</h2>
 <h3 id="version-information-1">Version information</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">packageVersion</span>(<span class="st">"car"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">packageVersion</span>(<span class="st">"car"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] '3.1.2'</code></pre>
 </div>
 </div>
 <h3 id="citation-information-1">Citation information</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">citation</span>(<span class="st">"car"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">citation</span>(<span class="st">"car"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">

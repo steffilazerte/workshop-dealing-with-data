@@ -12,7 +12,7 @@
 <link href="1_intro_to_R_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-07">
+  <meta name="dcterms.date" content="2024-02-13">
   <title>Getting Started with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
   
   
   
-    <p class="date">Compiled: 2024-02-07</p>
+    <p class="date">Compiled: 2024-02-13</p>
   </section>
 <section id="these-are-me-and-my-creatures" class="slide level2 pic" data-background-color="black" data-background-image="figures/creatures.jpg" title="Three pictures. One showing Steffi with a cat on her backpack in the woods. One showing a cat and a man looking out of the car window. One showing a leashed cat looking out over the water from the front of a canoe">
 <h2>These are me and my creatures <i class="fa-solid fa-cat" aria-label="cat"></i></h2>
@@ -860,16 +860,24 @@
 <h2>functions()</h2>
 <h3 id="do-things-return-things">Do things, Return things</h3>
 <h4 class="spacer" id="does-something-but-returns-nothing">Does something but returns nothing</h4>
-<p>e.g., <code>write_csv()</code> - Saves the <code>mtcars</code> data frame as a csv file</p>
+<p>e.g., <code>library()</code> - Loads an R package so we can use it’s functions and other objects it supplies</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">write_csv</span>(mtcars, <span class="at">path =</span> <span class="st">"mtcars.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="columns">
 <h4 class="spacer" id="does-something-and-returns-something">Does something and returns something</h4>
-<p>e.g., <code>sd()</code> - returns the standard deviation of a vector</p>
+<p>e.g., <code>ggplot()</code> - Creates and returns a basic plot</p>
+<div class="column" style="width:70%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">sd</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">21</span>, <span class="dv">55</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 22.78157</code></pre>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> bill_length_mm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="1_intro_to_R_files/figure-revealjs/unnamed-chunk-14-1.png" class="absolute" style="right:0%;bottom:0%;width: 30%; "></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -880,8 +888,8 @@
 <li><code>data</code>, <code>x</code>, <code>y</code>, <code>colour</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href=""></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> bill_length_mm, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
@@ -892,7 +900,7 @@
 <div class="column" style="width:50%;">
 <h3 id="by-name">By name:</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.333333</code></pre>
 </div>
@@ -900,7 +908,7 @@
 </div><div class="column" style="width:50%;">
 <h3 id="by-order">By order:</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.333333</code></pre>
 </div>
@@ -916,8 +924,8 @@
 <div class="column" style="width:40%;">
 <h4 id="by-name-1">By name:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>), </span>
-<span id="cb33-2"><a href=""></a>     <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>), </span>
+<span id="cb32-2"><a href=""></a>     <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.333333</code></pre>
 </div>
@@ -926,8 +934,8 @@
 <!-- -->
 <h4 id="by-order-1">By order:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>), </span>
-<span id="cb35-2"><a href=""></a>     <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>), </span>
+<span id="cb34-2"><a href=""></a>     <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in mean.default(c(1, 5, 10, NA), TRUE): 'trim' must be numeric of length one</code></pre>
 </div>
@@ -942,7 +950,7 @@
 <section id="r-documentation" class="slide level2">
 <h2>R documentation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>?mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a>?mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><img data-src="figures/mean_docs.png" class="absolute" style="bottom: 5%; right: 0%; height: 83%; " alt="A screenshot of the documenation produced by running ?mean in the R console"></p>
@@ -950,38 +958,95 @@
 </section>
 <section id="data" class="slide level2 incremental">
 <h2>Data</h2>
-<p>Generally kept in <code>vectors</code> or <code>data.frames</code></p>
 <ul>
+<li>Generally kept in <code>vectors</code> or <code>data.frames</code> (also <code>tibbles</code>)</li>
 <li>These are objects with names (like functions)</li>
-<li>We can use <code>&lt;-</code> to assign values to objects (assignment)</li>
+<li>Here are two <strong>built-in</strong> examples (part of R)</li>
 </ul>
 <p>
 </p><div class="columns">
 <div class="column" style="width:40%;">
 <h3 id="vector-1-dimension">Vector (1 dimension)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>my_letters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)</span>
-<span id="cb38-2"><a href=""></a>my_letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>month.name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "a" "b" "c"</code></pre>
+<pre><code> [1] "January"   "February"  "March"    
+ [4] "April"     "May"       "June"     
+ [7] "July"      "August"    "September"
+[10] "October"   "November"  "December" </code></pre>
 </div>
 </div>
-<ul>
-<li>Use <code>c()</code> to create a vector</li>
-</ul>
 </div><div class="column" style="width:60%;">
 <h3 id="data-frame-2-dimensions">Data frame (2 dimensions)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a>my_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span>, <span class="st">"s4"</span>),</span>
-<span id="cb40-2"><a href=""></a>                      <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>),</span>
-<span id="cb40-3"><a href=""></a>                      <span class="at">z =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>))</span>
-<span id="cb40-4"><a href=""></a>my_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   x   y z
-1 s1 101 a
-2 s2 102 b
-3 s3 103 c
-4 s4 104 d</code></pre>
+<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1
+                    am gear carb
+Mazda RX4            1    4    4
+Mazda RX4 Wag        1    4    4
+Datsun 710           1    4    1
+Hornet 4 Drive       0    3    1
+Hornet Sportabout    0    3    2
+Valiant              0    3    1
+Duster 360           0    3    4
+Merc 240D            0    4    2
+Merc 230             0    4    2
+Merc 280             0    4    4
+Merc 280C            0    4    4
+Merc 450SE           0    3    3
+Merc 450SL           0    3    3
+Merc 450SLC          0    3    3
+Cadillac Fleetwood   0    3    4
+Lincoln Continental  0    3    4
+Chrysler Imperial    0    3    4
+Fiat 128             1    4    1
+Honda Civic          1    4    2
+Toyota Corolla       1    4    1
+Toyota Corona        0    3    1
+Dodge Challenger     0    3    2
+AMC Javelin          0    3    2
+Camaro Z28           0    3    4
+Pontiac Firebird     0    3    2
+Fiat X1-9            1    4    1
+Porsche 914-2        1    5    2
+Lotus Europa         1    5    2
+Ford Pantera L       1    5    4
+Ferrari Dino         1    5    6
+Maserati Bora        1    5    8
+Volvo 142E           1    4    2</code></pre>
 </div>
 </div>
 <ul>
@@ -989,12 +1054,13 @@
 </ul>
 </div>
 </div>
-<p><span class="note absolute" style="left: 70%; bottom: 0px; ">rows x columns</span></p>
+<p><span class="note absolute" style="left: 85%; bottom: 50%; width: 15%; ">rows x columns</span></p>
 </section>
 <section id="your-turn-vectors-and-data-frames" class="slide level2">
 <h2>Your Turn: Vectors and Data frames</h2>
 <p><strong>Try out the following code…</strong></p>
 <ul>
+<li>Here we will make a vector and a data frame</li>
 <li>What is the output in your console?</li>
 <li>How does your <code>environment</code> change (upper right panel)?</li>
 </ul>
@@ -1003,16 +1069,16 @@
 <div class="column" style="width:40%;">
 <p><strong>Vectors</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apples"</span>, <span class="dv">12</span>, <span class="st">"bananas"</span>)</span>
-<span id="cb42-2"><a href=""></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"apples"</span>, <span class="dv">12</span>, <span class="st">"pears"</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb41-2"><a href=""></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:60%;">
 <p><strong>Data frames</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>my_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span>, <span class="st">"s4"</span>),</span>
-<span id="cb43-2"><a href=""></a>                      <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>),</span>
-<span id="cb43-3"><a href=""></a>                      <span class="at">z =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>))</span>
-<span id="cb43-4"><a href=""></a>my_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>my_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span>, <span class="st">"s4"</span>),</span>
+<span id="cb42-2"><a href=""></a>                      <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>),</span>
+<span id="cb42-3"><a href=""></a>                      <span class="at">z =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>))</span>
+<span id="cb42-4"><a href=""></a>my_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1034,9 +1100,9 @@
 <li>Can access multiple parts at once</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a>a[<span class="dv">2</span>]</span>
-<span id="cb44-2"><a href=""></a>a[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]     <span class="co"># What does : do?</span></span>
-<span id="cb44-3"><a href=""></a>a[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)] <span class="co"># What does c() do?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>a[<span class="dv">2</span>]</span>
+<span id="cb43-2"><a href=""></a>a[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]     <span class="co"># What does : do?</span></span>
+<span id="cb43-3"><a href=""></a>a[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)] <span class="co"># What does c() do?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><strong>Data frames</strong></p>
@@ -1045,9 +1111,9 @@
 <li><code>x[row, col]</code> to access rows/columns</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a>my_data[<span class="dv">3</span>, ]   <span class="co"># Why the comma?</span></span>
-<span id="cb45-2"><a href=""></a>my_data[<span class="dv">3</span>, <span class="dv">1</span>]</span>
-<span id="cb45-3"><a href=""></a>my_data[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a>my_data[<span class="dv">3</span>, ]   <span class="co"># Why the comma?</span></span>
+<span id="cb44-2"><a href=""></a>my_data[<span class="dv">3</span>, <span class="dv">1</span>]</span>
+<span id="cb44-3"><a href=""></a>my_data[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1074,11 +1140,11 @@
 </ul>
 <p>This is correct:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>))  <span class="co"># [1] 7.333333</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>))  <span class="co"># [1] 7.333333</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is <strong>not</strong> correct:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="center spacer fragment">
 <p><span class="note">&gt;80% of learning R is learning to <strong>troubleshoot</strong>!</span></p>
@@ -1088,31 +1154,31 @@
 <h2>R has spelling and punctuation</h2>
 <h4 id="spaces-usually-dont-matter-unless-they-change-meanings">Spaces usually don’t matter unless they change meanings</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a><span class="dv">5</span><span class="sc">&gt;=</span><span class="dv">6</span>    <span class="co"># [1] FALSE</span></span>
-<span id="cb60-2"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;=</span><span class="dv">6</span>   <span class="co"># [1] FALSE</span></span>
-<span id="cb60-3"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">6</span>  <span class="co"># [1] FALSE</span></span>
-<span id="cb60-4"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;</span> <span class="er">=</span> <span class="dv">6</span> <span class="co"># Error: unexpected '=' in "5 &gt; ="</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a><span class="dv">5</span><span class="sc">&gt;=</span><span class="dv">6</span>    <span class="co"># [1] FALSE</span></span>
+<span id="cb59-2"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;=</span><span class="dv">6</span>   <span class="co"># [1] FALSE</span></span>
+<span id="cb59-3"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">6</span>  <span class="co"># [1] FALSE</span></span>
+<span id="cb59-4"><a href=""></a><span class="dv">5</span> <span class="sc">&gt;</span> <span class="er">=</span> <span class="dv">6</span> <span class="co"># Error: unexpected '=' in "5 &gt; ="</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="periods-dont-matter-either-but-can-be-used-in-the-same-way-as-letters">Periods don’t matter either, but can be used in the same way as letters</h4>
 <p>(But don’t)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href=""></a>apple.oranges <span class="ot">&lt;-</span> <span class="st">"fruit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a>apple.oranges <span class="ot">&lt;-</span> <span class="st">"fruit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="assignments-and-equal-signs" class="slide level2">
 <h2>Assignments and Equal signs</h2>
 <h4 id="use---to-assign-values-to-objects">Use <code>&lt;-</code> to assign values to objects</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="st">"hello"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="st">"hello"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="use-to-set-function-arguments">Use <code>=</code> to set function arguments</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href=""></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="use-to-determine-equivalence-logical">Use <code>==</code> to determine equivalence (logical)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href=""></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">10</span> <span class="co"># [1] TRUE</span></span>
-<span id="cb64-2"><a href=""></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">9</span>  <span class="co"># [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href=""></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">10</span> <span class="co"># [1] TRUE</span></span>
+<span id="cb63-2"><a href=""></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">9</span>  <span class="co"># [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bracesbrackets" class="slide level2">
@@ -1122,9 +1188,9 @@
 <li>Identify functions (even if there are no arguments)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href=""></a><span class="fu">Sys.Date</span>() <span class="co"># Get the Current Date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href=""></a><span class="fu">Sys.Date</span>() <span class="co"># Get the Current Date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-02-07"</code></pre>
+<pre><code>[1] "2024-02-13"</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1132,11 +1198,11 @@
 <li>Without the <code>()</code>, R spits out information on the function:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a>Sys.Date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href=""></a>Sys.Date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function () 
 as.Date(as.POSIXlt(Sys.time()))
-&lt;bytecode: 0x55dfac85fd28&gt;
+&lt;bytecode: 0x55b55841d340&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>
@@ -1151,16 +1217,16 @@ as.Date(as.POSIXlt(Sys.time()))
 <li>Extract parts of objects</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a>LETTERS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a>LETTERS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
 [20] "T" "U" "V" "W" "X" "Y" "Z"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a>LETTERS[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href=""></a>LETTERS[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "A"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href=""></a>LETTERS[<span class="dv">26</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href=""></a>LETTERS[<span class="dv">26</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Z"</code></pre>
 </div>
@@ -1175,11 +1241,11 @@ as.Date(as.POSIXlt(Sys.time()))
 <h2>Improving code readability</h2>
 <h4 id="use-spaces-like-you-would-in-sentences">Use spaces like you would in sentences:</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>is easier to read than</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>a<span class="ot">&lt;-</span><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a>a<span class="ot">&lt;-</span><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(But the same, coding-wise)</p>
 </section>
@@ -1188,13 +1254,13 @@ as.Date(as.POSIXlt(Sys.time()))
 <h4 id="dont-be-afraid-to-use-line-breaks-enters-to-make-the-code-more-readable">Don’t be afraid to use line breaks (‘Enters’) to make the code more readable</h4>
 <p><strong>Hard to read</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">exp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">sub =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A3"</span>), <span class="at">res =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">exp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">sub =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A3"</span>), <span class="at">res =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Easier to read</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">exp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>), </span>
-<span id="cb78-2"><a href=""></a>                <span class="at">sub =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A3"</span>), </span>
-<span id="cb78-3"><a href=""></a>                <span class="at">res =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">exp =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>), </span>
+<span id="cb77-2"><a href=""></a>                <span class="at">sub =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"A3"</span>), </span>
+<span id="cb77-3"><a href=""></a>                <span class="at">res =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>(But the same, coding-wise)</p>
 </section>

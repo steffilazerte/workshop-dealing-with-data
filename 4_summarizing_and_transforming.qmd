@@ -1059,7 +1059,7 @@ Statistic | Function(s)
 sample sizes / total counts  | `n()`*
 means  | `mean(x)`
 standard deviations  | `sd(x)`
-standard errors  | `sd(x)` / `sqrt(n(x))`**
+standard errors  | `sd(x)` / `sqrt(n())`**
 total values  | `sum(x)`
 :::
 
@@ -1121,15 +1121,14 @@ size |>
 
 ### For each plot and habitat, calculate
 
-- sample sizes with `n()`
-- means for **total_sand** and **total_silt** with `mean(x)`
-- standard deviations for **total_sand** and **total_silt** with `sd(x)`
-- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n(x))`
+- means for **total_silt** with `mean(x)`
+- standard deviations for **total_silt** with `sd(x)`
+- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n())`
 
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "10"
+#| code-line-numbers: "13-14"
 meta <- read_csv("data/grain_meta.csv")
 
 size <- read_csv("data/grain_size2.csv") |>
@@ -1139,7 +1138,11 @@ size <- read_csv("data/grain_size2.csv") |>
 
 size_sum <- size |>
   group_by(plot, habitat) |>
-  ???
+  summarize(sample_size = n(),                         
+            mean_sand = mean(total_sand),          
+            sd_sand = sd(total_sand),    
+            se_sand = ???,
+            ???)
 ```
 
 
@@ -1348,6 +1351,7 @@ ggplot(data = table1,
 
 
 ```{r}
+#| echo: false
 size_long <- size |>
   pivot_longer(cols = c(-plot, -depth, -habitat, -technician, -date),
                names_to = "type", values_to = "amount")
@@ -1360,6 +1364,8 @@ size_long <- size |>
 
 ```{r, echo = FALSE}
 #| echo: false
+#| R.options: 
+#|   tibble.print_min: 15
 select(size, plot, depth,  contains("silt"))
 ```
 :::
@@ -1369,6 +1375,8 @@ select(size, plot, depth,  contains("silt"))
 #### ... to long
 ```{r}
 #| echo: false
+#| R.options: 
+#|   tibble.print_min: 20
 select(size_long, plot, depth, type, amount) |>
   filter(stringr::str_detect(type, "silt"))
 ```
@@ -1455,9 +1463,11 @@ sand_sum
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "2"
+#| code-line-numbers: "2-4"
 sand_long <- pivot_longer(sand_sum, 
-                          ???)
+                          cols = ???,
+                          names_to = ???,
+                          values_to = ???)
 ```
 
 
@@ -1477,6 +1487,8 @@ sand_long <- pivot_longer(sand_sum,
 :::{.column width=45%}
 ```{r}
 #| echo: false
+#| R.options: 
+#|   tibble.print_min: 15
 sand_long
 ```
 :::
@@ -1506,9 +1518,8 @@ Could also use...
 
 
 ```{r}
-size_long <- size |>
-  pivot_longer(names_to = "type", values_to = "amount", 
-               cols = c(-plot, -depth, -habitat, -technician, -date))
+#| echo: false
+size_wide <- pivot_wider(size_long, names_from = "type", values_from = "amount")
 ```
 
 ::::{.columns}
@@ -1518,6 +1529,8 @@ size_long <- size |>
 
 ```{r}
 #| echo: false
+#| R.options: 
+#|   tibble.print_min: 20
 select(size_long, plot, depth, type, amount) |>
   filter(stringr::str_detect(type, "silt")) 
 ```
@@ -1528,6 +1541,8 @@ select(size_long, plot, depth, type, amount) |>
 #### ... to wide
 ```{r}
 #| echo: false
+#| R.options: 
+#|   tibble.print_min: 15
 select(size, plot, depth,  contains("silt"))
 ```
 :::
@@ -1561,7 +1576,7 @@ pivot_wider(data,
 
 :::{.fragment}
 ### In our example:   
-- **data** = `size`  
+- **data** = `size_long`  
 - **names_from** = `type`  
 - **values_from** = `amount`   
 :::
@@ -1569,8 +1584,7 @@ pivot_wider(data,
 ## Going wide
 
 ```{r}
-size_wide <- size_long |>
-  pivot_wider(names_from = type, values_from = amount)
+size_wide <- pivot_wider(size_long, names_from = type, values_from = amount)
 ```
 
 ```{r}
@@ -1674,9 +1688,8 @@ Plot the number of Tuberculosis `cases` vs. the `population` in data frame `tabl
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "2,4-5"
-temp <- table2 |>
-  ???(???)                    
+#| code-line-numbers: "1,3-4"
+temp <- pivot_???(table2, ???)                    
 
 ggplot(data = temp, ???) +    
   ???                         
@@ -1688,11 +1701,10 @@ ggplot(data = temp, ???) +
 Plot the number of Tuberculosis cases (`cases`) vs. the `population` in data frame `table2`
 
 ```{r}
-#| code-line-numbers: "2,4-6"
+#| code-line-numbers: "1,3-5"
 #| fig-asp: 0.45
 #| fig-align: center
-temp <- table2 |>
-  pivot_wider(names_from = "type", values_from = "count") 
+temp <- pivot_wider(table2, names_from = "type", values_from = "count") 
 
 ggplot(data = temp, aes(x = population, y = cases)) + 
   geom_point() + 

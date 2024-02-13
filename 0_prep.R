@@ -38,7 +38,7 @@ ggplot(data = palmerpenguins::penguins,
 ggsave("figures/viz_fig.png", width = 8, height = 6)
 
 # Create data ------------------------------
-r <- read_csv("data/rivers.csv") %>%
+r <- read_csv("data/Originals/rivers.csv") %>%
   mutate(River = as.character(River),
          Site = as.character(Site),
          Temperature = withr::with_seed(111, rnorm(300, 10, sd = 4)),
@@ -52,27 +52,27 @@ r$River[104] <- "raquette"
 
 names(r) <- c("River Name", "Site", "Ele", "Amo", "Temperature C°", "Year")
 r$Wea <- sample(c("sunny", "cloudy", "wet", "snowy"), nrow(r), replace = TRUE)
-write_csv(r, "data/rivers_correct.csv")
-write_xlsx(r, "data/rivers_correct.xlsx")
+write_csv(r, "data/rivers_raw.csv")
+#write_xlsx(r, "data/rivers_correct.xlsx")
 # NOTE THAT second sheet is added manually
 
-zinke <- read_csv("data/zinke_soil.csv")
-zinke$Code <- "A"
-zinke$Code[2000:3000] <- "B"
-zinke$Code[3001:4118] <- "C"
-zinke$Code[14] <- "a"
-zinke$Code[1000] <- "Aa"
-write_csv(zinke, "data/zinke.csv")
+# zinke <- read_csv("data/zinke_soil.csv")
+# zinke$Code <- "A"
+# zinke$Code[2000:3000] <- "B"
+# zinke$Code[3001:4118] <- "C"
+# zinke$Code[14] <- "a"
+# zinke$Code[1000] <- "Aa"
+# write_csv(zinke, "data/zinke.csv")
 
 geo <- read_csv("~/Projects/cavityuse - project/Data/detailed/c17 female_000.csv",
                 n_max = 100, skip = 1,
                 col_names = FALSE) %>%
   select(X2, X4) %>%
-  slice(20:40) %>%
+  #slice(20:40) %>%
   write_csv(file = "data/geolocators.csv", col_names = FALSE)
 
 
-g <- read_csv("data/SP6 CSP_grain size distribution_profiles-horizonwise_final.csv") %>%
+g <- read_csv("data/Originals/SP6 CSP_grain size distribution_profiles-horizonwise_final.csv") %>%
   select(-silt_sum, -sand_sum, -sample_num, -lab_num) %>%
   rename(plot = CSP,
          depth = depth_lb,

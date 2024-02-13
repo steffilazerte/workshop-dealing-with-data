@@ -12,7 +12,7 @@
 <link href="3_loading_and_cleaning_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-07">
+  <meta name="dcterms.date" content="2024-02-13">
   <title>Loading &amp; Cleaning Data in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
   
   
   
-    <p class="date">Compiled: 2024-02-07</p>
+    <p class="date">Compiled: 2024-02-13</p>
   </section>
 <section id="first-things-first" class="title-slide slide level1 center">
 <h1>First things first</h1>
@@ -815,12 +815,23 @@ Use relative symbols (e.g., <code>../</code>)</p>
 
 <section id="how-do-i-know-which-function-to-use" class="slide level2 space-list">
 <h2>How do I know which function to use?</h2>
+<h3 id="program-specific-files">Program-specific files</h3>
+<ul>
+<li>Files which only normally open in a particular program (e.g., Excel)</li>
+<li><strong>Load with function from specific package (e.g.&nbsp;<code>read_excel</code> from readxl package)</strong></li>
+</ul>
+<h3 id="text-files">Text files</h3>
+<ul>
+<li>Files which open in notepad</li>
+<li>Files which open in RStudio when you click on them in the Files Pane</li>
+<li><strong>Load with function from readr package (e.g.&nbsp;<code>read_csv()</code>, <code>read_tsv()</code>, etc.)</strong></li>
+</ul>
 <h3 id="look-at-the-file-extension">Look at the file extension:</h3>
 <ul>
-<li><p><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/rivers_correct.csv"><code>rivers_correct.csv</code></a></p></li>
-<li><p><code>.csv</code> <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> Comma-separated-variables <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> <code>read_csv()</code></p></li>
+<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/rivers_correct.xlsx"><code>rivers_correct.xlsx</code></a> <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> Excel file <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> <code>read_excel()</code></li>
+<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/rivers_raw.csv"><code>rivers_raw.csv</code></a> <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> Comma-separated-variables <i class="fa-solid fa-arrow-right" aria-label="arrow-right"></i> <code>read_csv()</code></li>
 </ul>
-<p><span class="note fragment">But not always obvious…</span></p>
+<p><span class="note absolute fragment" style="left: 80%; bottom: 10%; width: 30%; ">But sometimes not clear…</span></p>
 </section>
 <section id="how-do-i-know-which-function-to-use-1" class="slide level2 space-list">
 <h2>How do I know which function to use?</h2>
@@ -1329,46 +1340,64 @@ Group variables            None
 <section>
 <section id="example-of-problematic-data" class="title-slide slide level1 center">
 <h1>Example of problematic data</h1>
-<p><span class="large"><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/rivers_correct.csv"><code>rivers_correct.csv</code></a></span></p>
+<p><span class="large"><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/rivers_raw.csv"><code>rivers_raw.csv</code></a></span></p>
 </section>
 <section id="look-at-the-data-2" class="slide level2">
 <h2>Look at the data</h2>
-<div class="small">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
 <span id="cb53-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 7
    `River Name` Site        Ele       Amo `Temperature C°`  Year Wea   
    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
- 1 Grasse       Up stream   Al     0.606            10.9    2019 cloudy
- 2 Grasse       Mid stream  Al     0.425             8.68   2020 cloudy
- 3 Grase        Down stream Al     0.194             8.75   2021 snowy 
- 4 Oswegatchie  Up stream   Al     1                 0.791  2022 sunny 
- 5 Oswegatchie  Mid stream  Al     0.161             9.32   2023 cloudy
- 6 Oswegatchie  Down stream Al     0.0333           10.6    2019 cloudy
- 7 Raquette     Up stream   Al     0.292             4.01   2020 sunny 
- 8 Raquette     Mid stream  Al     0.0389            5.96   2021 cloudy
- 9 Raquette     Down stream Al    NA                 6.21   2022 cloudy
+ 1 Grasse       Up stream   Al     0.606            10.9    2019 sunny 
+ 2 Grasse       Mid stream  Al     0.425             8.68   2020 sunny 
+ 3 Grase        Down stream Al     0.194             8.75   2021 sunny 
+ 4 Oswegatchie  Up stream   Al     1                 0.791  2022 snowy 
+ 5 Oswegatchie  Mid stream  Al     0.161             9.32   2023 sunny 
+ 6 Oswegatchie  Down stream Al     0.0333           10.6    2019 wet   
+ 7 Raquette     Up stream   Al     0.292             4.01   2020 cloudy
+ 8 Raquette     Mid stream  Al     0.0389            5.96   2021 wet   
+ 9 Raquette     Down stream Al    NA                 6.21   2022 wet   
 10 St. Regis    Up stream   Al     0.681             8.02   2023 cloudy
 # ℹ 290 more rows</code></pre>
 </div>
 </div>
-</div>
 <ul>
-<li>Column names are not great (<code>River Name</code> and <code>Temperature C°</code> are not R-friendly) or obvious (what is <code>Ele</code>?)</li>
+<li>Column names are not R-friendly (<code>River Name</code> and <code>Temperature C°</code>) or obvious (what is <code>Ele</code>?)</li>
 <li>At least one typo in River (<code>Grase</code> should be <code>Grasse</code>)</li>
 </ul>
 </section>
 <section id="looking-for-problems-2" class="slide level2">
 <h2>Looking for problems</h2>
 <h3 id="your-turn">Your Turn!</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
+<span id="cb55-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 300 × 7
+   `River Name` Site        Ele       Amo `Temperature C°`  Year Wea   
+   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+ 1 Grasse       Up stream   Al     0.606            10.9    2019 sunny 
+ 2 Grasse       Mid stream  Al     0.425             8.68   2020 sunny 
+ 3 Grase        Down stream Al     0.194             8.75   2021 sunny 
+ 4 Oswegatchie  Up stream   Al     1                 0.791  2022 snowy 
+ 5 Oswegatchie  Mid stream  Al     0.161             9.32   2023 sunny 
+ 6 Oswegatchie  Down stream Al     0.0333           10.6    2019 wet   
+ 7 Raquette     Up stream   Al     0.292             4.01   2020 cloudy
+ 8 Raquette     Mid stream  Al     0.0389            5.96   2021 wet   
+ 9 Raquette     Down stream Al    NA                 6.21   2022 wet   
+10 St. Regis    Up stream   Al     0.681             8.02   2023 cloudy
+# ℹ 290 more rows</code></pre>
+</div>
+</div>
 <ul>
 <li><code>skim()</code> the data</li>
 <li><code>count()</code> some columns</li>
 <li>Perhaps make some <code>ggplot()</code>s</li>
 </ul>
-<p><span class="note absolute" style="">Find any problems?</span></p>
+<p><span class="note absolute" style="left: 70%; bottom: 10%; ">Find any problems?</span></p>
 </section>
 
 
@@ -1384,24 +1413,24 @@ Group variables            None
 <h3 class="spacer" id="clean_names-is-from-janitor"><code>clean_names()</code> is from <code>janitor</code>*</h3>
 <p><span class="footnote">* <em>not</em> part of the <code>tidyverse</code> but <code>tidyverse</code>-orientated</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a><span class="fu">library</span>(janitor)</span>
-<span id="cb67-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
-<span id="cb67-3"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a><span class="fu">library</span>(janitor)</span>
+<span id="cb69-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
+<span id="cb69-3"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb68"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb68-1"><a href=""></a># A tibble: 300 × 7</span>
-<span id="cb68-2"><a href=""></a>   river_name  site        ele       amo temperature_c  year wea   </span>
-<span id="cb68-3"><a href=""></a>   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span>
-<span id="cb68-4"><a href=""></a> 1 Grasse      Up stream   Al     0.606         10.9    2019 cloudy</span>
-<span id="cb68-5"><a href=""></a> 2 Grasse      Mid stream  Al     0.425          8.68   2020 cloudy</span>
-<span id="cb68-6"><a href=""></a> 3 Grase       Down stream Al     0.194          8.75   2021 snowy </span>
-<span id="cb68-7"><a href=""></a> 4 Oswegatchie Up stream   Al     1              0.791  2022 sunny </span>
-<span id="cb68-8"><a href=""></a> 5 Oswegatchie Mid stream  Al     0.161          9.32   2023 cloudy</span>
-<span id="cb68-9"><a href=""></a> 6 Oswegatchie Down stream Al     0.0333        10.6    2019 cloudy</span>
-<span id="cb68-10"><a href=""></a> 7 Raquette    Up stream   Al     0.292          4.01   2020 sunny </span>
-<span id="cb68-11"><a href=""></a> 8 Raquette    Mid stream  Al     0.0389         5.96   2021 cloudy</span>
-<span id="cb68-12"><a href=""></a> 9 Raquette    Down stream Al    NA              6.21   2022 cloudy</span>
-<span id="cb68-13"><a href=""></a>10 St. Regis   Up stream   Al     0.681          8.02   2023 cloudy</span>
-<span id="cb68-14"><a href=""></a># ℹ 290 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb70-1"><a href=""></a># A tibble: 300 × 7</span>
+<span id="cb70-2"><a href=""></a>   river_name  site        ele       amo temperature_c  year wea   </span>
+<span id="cb70-3"><a href=""></a>   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span>
+<span id="cb70-4"><a href=""></a> 1 Grasse      Up stream   Al     0.606         10.9    2019 sunny </span>
+<span id="cb70-5"><a href=""></a> 2 Grasse      Mid stream  Al     0.425          8.68   2020 sunny </span>
+<span id="cb70-6"><a href=""></a> 3 Grase       Down stream Al     0.194          8.75   2021 sunny </span>
+<span id="cb70-7"><a href=""></a> 4 Oswegatchie Up stream   Al     1              0.791  2022 snowy </span>
+<span id="cb70-8"><a href=""></a> 5 Oswegatchie Mid stream  Al     0.161          9.32   2023 sunny </span>
+<span id="cb70-9"><a href=""></a> 6 Oswegatchie Down stream Al     0.0333        10.6    2019 wet   </span>
+<span id="cb70-10"><a href=""></a> 7 Raquette    Up stream   Al     0.292          4.01   2020 cloudy</span>
+<span id="cb70-11"><a href=""></a> 8 Raquette    Mid stream  Al     0.0389         5.96   2021 wet   </span>
+<span id="cb70-12"><a href=""></a> 9 Raquette    Down stream Al    NA              6.21   2022 wet   </span>
+<span id="cb70-13"><a href=""></a>10 St. Regis   Up stream   Al     0.681          8.02   2023 cloudy</span>
+<span id="cb70-14"><a href=""></a># ℹ 290 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><img data-src="figures/hex_janitor.png" class="absolute" style="top: 0px; right: 0px; width: 10%; " alt="Hex logo for the janitor R package"> <!-- ![](figures/horst_janitor.png){width=57% .absolute top=20% right=-5%} --></p>
@@ -1419,21 +1448,21 @@ Group variables            None
 <h3 class="spacer" id="rename-is-from-dplyr"><code>rename()</code> is from <code>dplyr</code>*</h3>
 <p><strong><code>rename()</code> columns</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
-<span id="cb69-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
+<span id="cb71-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 7
    river_name  site        element  amount temperature  year wea   
    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
- 1 Grasse      Up stream   Al       0.606       10.9    2019 cloudy
- 2 Grasse      Mid stream  Al       0.425        8.68   2020 cloudy
- 3 Grase       Down stream Al       0.194        8.75   2021 snowy 
- 4 Oswegatchie Up stream   Al       1            0.791  2022 sunny 
- 5 Oswegatchie Mid stream  Al       0.161        9.32   2023 cloudy
- 6 Oswegatchie Down stream Al       0.0333      10.6    2019 cloudy
- 7 Raquette    Up stream   Al       0.292        4.01   2020 sunny 
- 8 Raquette    Mid stream  Al       0.0389       5.96   2021 cloudy
- 9 Raquette    Down stream Al      NA            6.21   2022 cloudy
+ 1 Grasse      Up stream   Al       0.606       10.9    2019 sunny 
+ 2 Grasse      Mid stream  Al       0.425        8.68   2020 sunny 
+ 3 Grase       Down stream Al       0.194        8.75   2021 sunny 
+ 4 Oswegatchie Up stream   Al       1            0.791  2022 snowy 
+ 5 Oswegatchie Mid stream  Al       0.161        9.32   2023 sunny 
+ 6 Oswegatchie Down stream Al       0.0333      10.6    2019 wet   
+ 7 Raquette    Up stream   Al       0.292        4.01   2020 cloudy
+ 8 Raquette    Mid stream  Al       0.0389       5.96   2021 wet   
+ 9 Raquette    Down stream Al      NA            6.21   2022 wet   
 10 St. Regis   Up stream   Al       0.681        8.02   2023 cloudy
 # ℹ 290 more rows</code></pre>
 </div>
@@ -1445,14 +1474,14 @@ Group variables            None
 <h3 class="spacer" id="select-is-from-dplyr"><code>select()</code> is from <code>dplyr</code>*</h3>
 <p><strong><code>select()</code> columns you want </strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, river_name, site, element, amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, river_name, site, element, amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 16%; " alt="Hex logo for the dplyr R package"> <span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="fragment">
 <p><strong>OR, un<code>select()</code> columns you don’t want</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
-<span id="cb72-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
+<span id="cb74-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 6
    river_name  site        element  amount temperature  year
@@ -1476,11 +1505,11 @@ Group variables            None
 <h2>Cleaning columns</h2>
 <h3 id="put-it-all-together">Put it all together</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
-<span id="cb74-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
-<span id="cb74-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
-<span id="cb74-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
-<span id="cb74-5"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
+<span id="cb76-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
+<span id="cb76-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
+<span id="cb76-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
+<span id="cb76-5"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 6
    river_name  site        element  amount temperature  year
@@ -1504,7 +1533,7 @@ Group variables            None
 <h2>Fixing typos</h2>
 <p>Remember the typos…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a><span class="fu">count</span>(rivers, river_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a><span class="fu">count</span>(rivers, river_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   river_name      n
@@ -1524,29 +1553,40 @@ Group variables            None
 <h3 id="replace-typos">Replace typos</h3>
 <p>Combine the <code>if_else</code> function with the <code>mutate()</code> function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">==</span> <span class="st">"Grase"</span>, <span class="st">"Grasse"</span>, river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">==</span> <span class="st">"Grase"</span>, <span class="st">"Grasse"</span>, river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 id="check-that-its-gone">Check that it’s gone:</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href=""></a><span class="fu">filter</span>(rivers, river_name <span class="sc">==</span> <span class="st">"Grase"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href=""></a><span class="fu">count</span>(rivers, river_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 0 × 6
-# ℹ 6 variables: river_name &lt;chr&gt;, site &lt;chr&gt;, element &lt;chr&gt;, amount &lt;dbl&gt;, temperature &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 6 × 2
+  river_name      n
+  &lt;chr&gt;       &lt;int&gt;
+1 Grasse         74
+2 Oswegatchie    75
+3 Raquette       74
+4 St. Regis      75
+5 grasse          1
+6 raquette        1</code></pre>
 </div>
 </div>
-<div class="fragment spacer">
-<!-- -->
-<h3 id="if_else-and-mutate-from-dplyr-package"><code>if_else()</code> and <code>mutate()</code> from <code>dplyr</code> package*</h3>
+</section>
+<section id="fixing-typos-2" class="slide level2">
+<h2>Fixing typos</h2>
+<h3 class="spacer" id="if_else-and-mutate-from-dplyr-package"><code>if_else()</code> and <code>mutate()</code> from <code>dplyr</code> package*</h3>
+<div class="spacer">
 <p><strong><code>mutate()</code></strong> creates or changes columns in a data frame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href=""></a><span class="fu">mutate</span>(dataframe, <span class="at">column =</span> new_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a><span class="fu">mutate</span>(dataframe, <span class="at">column =</span> new_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+<div class="spacer">
 <p><strong><code>if_else()</code></strong> tests for a condition, and returns one value if <code>FALSE</code> and another if <code>TRUE</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href=""></a><span class="fu">if_else</span>(condition, value_if_true, value_if_false)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href=""></a><span class="fu">if_else</span>(condition, value_if_true, value_if_false)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 15%; " alt="Hex logo for the dplyr R package"> <span class="footnote">* part of the <code>tidyverse</code></span></p>
-</div>
 </section>
 <section id="iterative-process" class="slide level2">
 <h2>Iterative process</h2>
@@ -1562,10 +1602,10 @@ Group variables            None
 <div class="spacer">
 <p><strong><code>case_when()</code></strong> tests for multiple conditions, and returns different values depending</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a><span class="fu">case_when</span>(condition1 <span class="sc">~</span> value_if_true1,</span>
-<span id="cb83-2"><a href=""></a>          condition2 <span class="sc">~</span> value_if_true2,</span>
-<span id="cb83-3"><a href=""></a>          condition3 <span class="sc">~</span> value_if_true3,</span>
-<span id="cb83-4"><a href=""></a>          <span class="cn">TRUE</span> <span class="sc">~</span> default_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href=""></a><span class="fu">case_when</span>(condition1 <span class="sc">~</span> value_if_true1,</span>
+<span id="cb85-2"><a href=""></a>          condition2 <span class="sc">~</span> value_if_true2,</span>
+<span id="cb85-3"><a href=""></a>          condition3 <span class="sc">~</span> value_if_true3,</span>
+<span id="cb85-4"><a href=""></a>          <span class="cn">TRUE</span> <span class="sc">~</span> default_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 15%; " alt="Hex logo for the dplyr R package"> <span class="footnote">* part of the <code>tidyverse</code></span></p>
@@ -1578,13 +1618,13 @@ Group variables            None
 <li>Use <code>mutate()</code> and <code>if_else()</code> to fix the typo</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
-<span id="cb84-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
-<span id="cb84-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
-<span id="cb84-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
-<span id="cb84-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">==</span> <span class="st">"Grase"</span>, <span class="st">"Grasse"</span>, river_name))</span>
-<span id="cb84-6"><a href=""></a></span>
-<span id="cb84-7"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(???, ??? <span class="ot">=</span> ???)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
+<span id="cb86-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
+<span id="cb86-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
+<span id="cb86-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
+<span id="cb86-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">==</span> <span class="st">"Grase"</span>, <span class="st">"Grasse"</span>, river_name))</span>
+<span id="cb86-6"><a href=""></a></span>
+<span id="cb86-7"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(???, ??? <span class="ot">=</span> ???)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><span class="note absolute" style="left: 50%; bottom: 20%; "><strong>Too Easy?</strong><br>Examine and fix problems in your own data</span> <span class="note absolute" style="left: 50%; bottom: 0px; width: 60%; "><strong>OR</strong><br>Use <code>case_when()</code> to fix all the river name typos at once…</span></p>
 </section>
@@ -1604,11 +1644,11 @@ Group variables            None
 <li>you can reference any <strong>column</strong> from ‘<strong>data</strong>’</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
-<span id="cb89-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
-<span id="cb89-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
-<span id="cb89-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
-<span id="cb89-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>), <span class="st">"Grasse"</span>,  river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
+<span id="cb91-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
+<span id="cb91-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
+<span id="cb91-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
+<span id="cb91-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">river_name =</span> <span class="fu">if_else</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>), <span class="st">"Grasse"</span>,  river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>rename()</code> changes column names</li>
@@ -1622,36 +1662,7 @@ Group variables            None
 <h3 id="pipes-allow-you-to-string-commands-together">Pipes! <code>|&gt;</code>* Allow you to string commands together</h3>
 <p>Instead of:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
-<span id="cb90-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
-<span id="cb90-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
-<span id="cb90-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
-<span id="cb90-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, </span>
-<span id="cb90-6"><a href=""></a>                 <span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
-<span id="cb90-7"><a href=""></a>                                        river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
-<span id="cb90-8"><a href=""></a>                                        <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><span class="footnote">* <code>|&gt;</code> is the base pipe, <code>%&gt;%</code> is the tidyverse pipe, you can use either</span></p>
-<p><img data-src="figures/hex_tidyverse.png" class="absolute" style="top: 0px; right: 0px; width: 16%; " alt="Hex logo for the tidyverse R package"></p>
-<div class="fragment">
-<p>We have:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb91-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
-<span id="cb91-3"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
-<span id="cb91-4"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
-<span id="cb91-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
-<span id="cb91-6"><a href=""></a>                                river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
-<span id="cb91-7"><a href=""></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-<section id="play-around" class="slide level2">
-<h2>Play around</h2>
-<p>Take a moment to play with this code in your console</p>
-<h3 id="convert-this">Convert this:</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
 <span id="cb92-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
 <span id="cb92-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
 <span id="cb92-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
@@ -1660,15 +1671,44 @@ Group variables            None
 <span id="cb92-7"><a href=""></a>                                        river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
 <span id="cb92-8"><a href=""></a>                                        <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<h3 id="to-this">To this:</h3>
+<p><span class="footnote">* <code>|&gt;</code> is the base pipe, <code>%&gt;%</code> is the tidyverse pipe, you can use either</span></p>
+<p><img data-src="figures/hex_tidyverse.png" class="absolute" style="top: 0px; right: 0px; width: 16%; " alt="Hex logo for the tidyverse R package"></p>
+<div class="fragment">
+<p>We have:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb93-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
 <span id="cb93-3"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
 <span id="cb93-4"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
 <span id="cb93-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
 <span id="cb93-6"><a href=""></a>                                river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
 <span id="cb93-7"><a href=""></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="play-around" class="slide level2">
+<h2>Play around</h2>
+<p>Take a moment to play with this code in your console</p>
+<h3 id="convert-this">Convert this:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>)</span>
+<span id="cb94-2"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(rivers)</span>
+<span id="cb94-3"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">rename</span>(rivers, <span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c)</span>
+<span id="cb94-4"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">select</span>(rivers, <span class="sc">-</span>wea)</span>
+<span id="cb94-5"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, </span>
+<span id="cb94-6"><a href=""></a>                 <span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
+<span id="cb94-7"><a href=""></a>                                        river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
+<span id="cb94-8"><a href=""></a>                                        <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 id="to-this">To this:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb95-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb95-3"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
+<span id="cb95-4"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
+<span id="cb95-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
+<span id="cb95-6"><a href=""></a>                                river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
+<span id="cb95-7"><a href=""></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> river_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="figures/hex_tidyverse.png" class="absolute" style="top: 0px; right: 0px; width: 16%; " alt="Hex logo for the tidyverse R package"></p>
 </section></section>
@@ -1684,7 +1724,7 @@ Group variables            None
 <li>Use <code>filter()</code> to take a closer look</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href=""></a><span class="fu">filter</span>(rivers, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href=""></a><span class="fu">filter</span>(rivers, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 39 × 6
    river_name  site        element amount temperature  year
@@ -1709,22 +1749,22 @@ Group variables            None
 <div class="spacer">
 <p>Omit <code>NA</code>s from the <code>amount</code> column only (drop those rows)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(rivers, amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(rivers, amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Omit <strong>all</strong> <code>NA</code>s from <strong>all</strong> columns (drop those rows)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(rivers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(rivers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment spacer">
 <p>Check…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href=""></a><span class="fu">filter</span>(rivers_no_na, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href=""></a><span class="fu">filter</span>(rivers_no_na, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 6
 # ℹ 6 variables: river_name &lt;chr&gt;, site &lt;chr&gt;, element &lt;chr&gt;, amount &lt;dbl&gt;, temperature &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href=""></a><span class="fu">nrow</span>(rivers_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href=""></a><span class="fu">nrow</span>(rivers_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 261</code></pre>
 </div>
@@ -1738,7 +1778,7 @@ Group variables            None
 <p>If we filter by the column with <code>NA</code>s, they are silently dropped</p>
 <div class="small">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href=""></a><span class="fu">filter</span>(rivers, amount <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href=""></a><span class="fu">filter</span>(rivers, amount <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 6
    river_name  site        element  amount temperature  year
@@ -1760,7 +1800,7 @@ Group variables            None
 <div class="small">
 <p>We need to be explicit if we want to keep them</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href=""></a><span class="fu">filter</span>(rivers, amount <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">|</span> <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href=""></a><span class="fu">filter</span>(rivers, amount <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">|</span> <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 6
    river_name  site        element  amount temperature  year
@@ -1784,17 +1824,17 @@ Group variables            None
 <h2>Replacing <code>NA</code>s</h2>
 <h3 class="spacer" id="replace_na-is-from-tidyr"><code>replace_na()</code> is from <code>tidyr</code>*</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href=""></a>rivers_no_na <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment spacer">
 <p>Check…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href=""></a><span class="fu">filter</span>(rivers_no_na, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href=""></a><span class="fu">filter</span>(rivers_no_na, <span class="fu">is.na</span>(amount))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 6
 # ℹ 6 variables: river_name &lt;chr&gt;, site &lt;chr&gt;, element &lt;chr&gt;, amount &lt;dbl&gt;, temperature &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href=""></a><span class="fu">nrow</span>(rivers_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href=""></a><span class="fu">nrow</span>(rivers_no_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 300</code></pre>
 </div>
@@ -1810,7 +1850,7 @@ Group variables            None
 <h2>Converting <em>to</em> <code>NA</code></h2>
 <p>Remember the problem with <code>temperature</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href=""></a><span class="fu">filter</span>(rivers, temperature <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href=""></a><span class="fu">filter</span>(rivers, temperature <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 6
   river_name  site       element amount temperature  year
@@ -1824,14 +1864,14 @@ Group variables            None
 <!-- -->
 <h3 class="spacer" id="na_if-is-from-dplyr"><code>na_if()</code> is from <code>dplyr</code>*</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 16%; " alt="Hex logo for the dplyr R package"> <span class="footnote">* part of the <code>tidyverse</code></span></p>
 </div>
 <div class="fragment">
 <p>Check…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href=""></a><span class="fu">filter</span>(rivers, <span class="fu">is.na</span>(temperature))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href=""></a><span class="fu">filter</span>(rivers, <span class="fu">is.na</span>(temperature))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 6
   river_name  site       element amount temperature  year
@@ -1891,23 +1931,23 @@ Group variables            None
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"bonjour"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"bonjour"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href=""></a><span class="fu">as.character</span>(a)</span>
-<span id="cb117-2"><a href=""></a><span class="fu">as.numeric</span>(a)</span>
-<span id="cb117-3"><a href=""></a><span class="fu">as.logical</span>(a)</span>
-<span id="cb117-4"><a href=""></a><span class="fu">as.factor</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href=""></a><span class="fu">as.character</span>(a)</span>
+<span id="cb119-2"><a href=""></a><span class="fu">as.numeric</span>(a)</span>
+<span id="cb119-3"><a href=""></a><span class="fu">as.logical</span>(a)</span>
+<span id="cb119-4"><a href=""></a><span class="fu">as.factor</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href=""></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href=""></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href=""></a><span class="fu">as.character</span>(b)</span>
-<span id="cb119-2"><a href=""></a><span class="fu">as.numeric</span>(b)</span>
-<span id="cb119-3"><a href=""></a><span class="fu">as.logical</span>(b)</span>
-<span id="cb119-4"><a href=""></a><span class="fu">as.factor</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href=""></a><span class="fu">as.character</span>(b)</span>
+<span id="cb121-2"><a href=""></a><span class="fu">as.numeric</span>(b)</span>
+<span id="cb121-3"><a href=""></a><span class="fu">as.logical</span>(b)</span>
+<span id="cb121-4"><a href=""></a><span class="fu">as.factor</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1916,7 +1956,7 @@ Group variables            None
 <section id="look-for-problems" class="slide level2">
 <h2>Look for problems</h2>
 <div class="cell" data-highlight.output="3">
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 6
    river_name  site        element  amount temperature  year
@@ -1939,8 +1979,8 @@ Group variables            None
 <section id="convert-to-categorical" class="slide level2">
 <h2>Convert to categorical</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">year =</span> <span class="fu">factor</span>(year))</span>
-<span id="cb140-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">mutate</span>(rivers, <span class="at">year =</span> <span class="fu">factor</span>(year))</span>
+<span id="cb142-2"><a href=""></a>rivers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 300 × 6
    river_name  site        element  amount temperature year 
@@ -1962,16 +2002,16 @@ Group variables            None
 <section id="put-it-all-together-1" class="slide level2">
 <h2>Put it all together…</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb142-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
-<span id="cb142-3"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
-<span id="cb142-4"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
-<span id="cb142-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
-<span id="cb142-6"><a href=""></a>                                river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
-<span id="cb142-7"><a href=""></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> river_name),</span>
-<span id="cb142-8"><a href=""></a>         <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>),</span>
-<span id="cb142-9"><a href=""></a>         <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>),</span>
-<span id="cb142-10"><a href=""></a>         <span class="at">year =</span> <span class="fu">factor</span>(year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb144-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb144-3"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
+<span id="cb144-4"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
+<span id="cb144-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
+<span id="cb144-6"><a href=""></a>                                river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
+<span id="cb144-7"><a href=""></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> river_name),</span>
+<span id="cb144-8"><a href=""></a>         <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>),</span>
+<span id="cb144-9"><a href=""></a>         <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>),</span>
+<span id="cb144-10"><a href=""></a>         <span class="at">year =</span> <span class="fu">factor</span>(year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 class="spacer" id="and-you-have-a-clean-corrected-data-frame-ready-to-use">And you have a clean, corrected data frame ready to use</h3>
 <ul>
@@ -1986,22 +2026,22 @@ Group variables            None
 <h2>Put it all together…</h2>
 <h3 id="feel-free-to-annotate-within-a-pipe">Feel free to annotate within a pipe</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_correct.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb143-2"><a href=""></a>  <span class="co"># Fix column names</span></span>
-<span id="cb143-3"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
-<span id="cb143-4"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
-<span id="cb143-5"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
-<span id="cb143-6"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb143-7"><a href=""></a>    <span class="co"># Correct typos</span></span>
-<span id="cb143-8"><a href=""></a>    <span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
-<span id="cb143-9"><a href=""></a>                           river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
-<span id="cb143-10"><a href=""></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> river_name),</span>
-<span id="cb143-11"><a href=""></a>    <span class="co"># Missing amounts should be 0</span></span>
-<span id="cb143-12"><a href=""></a>    <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>),</span>
-<span id="cb143-13"><a href=""></a>    <span class="co"># Problems with temperature logger, -99 is a mistake</span></span>
-<span id="cb143-14"><a href=""></a>    <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>),</span>
-<span id="cb143-15"><a href=""></a>    <span class="co"># Convert for plotting </span></span>
-<span id="cb143-16"><a href=""></a>    <span class="at">year =</span> <span class="fu">factor</span>(year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href=""></a>rivers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rivers_raw.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb145-2"><a href=""></a>  <span class="co"># Fix column names</span></span>
+<span id="cb145-3"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb145-4"><a href=""></a>  <span class="fu">rename</span>(<span class="at">element =</span> ele, <span class="at">amount =</span> amo, <span class="at">temperature =</span> temperature_c) <span class="sc">|&gt;</span></span>
+<span id="cb145-5"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>wea) <span class="sc">|&gt;</span></span>
+<span id="cb145-6"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb145-7"><a href=""></a>    <span class="co"># Correct typos</span></span>
+<span id="cb145-8"><a href=""></a>    <span class="at">river_name =</span> <span class="fu">case_when</span>(river_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Grase"</span>, <span class="st">"grasse"</span>) <span class="sc">~</span> <span class="st">"Grasse"</span>,</span>
+<span id="cb145-9"><a href=""></a>                           river_name <span class="sc">==</span> <span class="st">"raquette"</span> <span class="sc">~</span> <span class="st">"Raquette"</span>,</span>
+<span id="cb145-10"><a href=""></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> river_name),</span>
+<span id="cb145-11"><a href=""></a>    <span class="co"># Missing amounts should be 0</span></span>
+<span id="cb145-12"><a href=""></a>    <span class="at">amount =</span> <span class="fu">replace_na</span>(amount, <span class="dv">0</span>),</span>
+<span id="cb145-13"><a href=""></a>    <span class="co"># Problems with temperature logger, -99 is a mistake</span></span>
+<span id="cb145-14"><a href=""></a>    <span class="at">temperature =</span> <span class="fu">na_if</span>(temperature, <span class="sc">-</span><span class="dv">99</span>),</span>
+<span id="cb145-15"><a href=""></a>    <span class="co"># Convert for plotting </span></span>
+<span id="cb145-16"><a href=""></a>    <span class="at">year =</span> <span class="fu">factor</span>(year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -2013,10 +2053,11 @@ Group variables            None
 <h2>Dates and Times</h2>
 <ul>
 <li>Date/times aren’t always recognized as date/times</li>
+<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/geolocators.csv">Geolocator data</a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href=""></a>geolocators <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/geolocators.csv"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"light"</span>))</span>
-<span id="cb144-2"><a href=""></a>geolocators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href=""></a>geolocators <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/geolocators.csv"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"light"</span>))</span>
+<span id="cb146-2"><a href=""></a>geolocators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 21 × 2
   time              light
@@ -2046,9 +2087,9 @@ Group variables            None
 <li>Great for converting date/times <span class="small">(i.e.&nbsp;telling R this is a date/time)</span></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href=""></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb146-2"><a href=""></a>geolocators <span class="ot">&lt;-</span> <span class="fu">mutate</span>(geolocators, <span class="at">time_fixed =</span> <span class="fu">dmy_hms</span>(time))</span>
-<span id="cb146-3"><a href=""></a>geolocators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href=""></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb148-2"><a href=""></a>geolocators <span class="ot">&lt;-</span> <span class="fu">mutate</span>(geolocators, <span class="at">time_fixed =</span> <span class="fu">dmy_hms</span>(time))</span>
+<span id="cb148-3"><a href=""></a>geolocators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 21 × 3
   time              light time_fixed         
@@ -2133,7 +2174,7 @@ Group variables            None
 <!-- -->
 <h3 id="save-your-data-to-file">Save your data to file:</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href=""></a><span class="fu">write_csv</span>(rivers, <span class="st">"datasets/rivers_cleaned.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href=""></a><span class="fu">write_csv</span>(rivers, <span class="st">"datasets/rivers_cleaned.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="figures/hex_readr.png" class="absolute" style="bottom: 12%; right: 0px; width: 16%; " alt="Hex logo for the readr R package"></p>
 </div>
@@ -2183,18 +2224,18 @@ Group variables            None
 <li>Pipes (<code>|&gt;</code> or <code>%&gt;%</code>) pass the <em>output</em> from one function as <em>input</em> to the next function:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href=""></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span>                 <span class="co"># Pass my_data</span></span>
-<span id="cb149-2"><a href=""></a>  <span class="fu">filter</span>(my_column <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span>            <span class="co"># Pass my_data, filtered</span></span>
-<span id="cb149-3"><a href=""></a>  <span class="fu">select</span>(my_column, my_second_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href=""></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span>                 <span class="co"># Pass my_data</span></span>
+<span id="cb151-2"><a href=""></a>  <span class="fu">filter</span>(my_column <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span>            <span class="co"># Pass my_data, filtered</span></span>
+<span id="cb151-3"><a href=""></a>  <span class="fu">select</span>(my_column, my_second_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Arguments may be on different lines, but all part of <em>one</em> function</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href=""></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span>                  <span class="co"># Pass my_data</span></span>
-<span id="cb150-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">my_column1 =</span> <span class="fu">if_else</span>(...),    <span class="co"># No passing (no pipes!)</span></span>
-<span id="cb150-3"><a href=""></a>         <span class="at">my_column2 =</span> <span class="fu">if_else</span>(...),    <span class="co"># Instead, give 3 arguments to mutate:</span></span>
-<span id="cb150-4"><a href=""></a>         <span class="at">my_column3 =</span> <span class="fu">if_else</span>(...))    <span class="co"># Arguments separated by ",", and surrounded by ( )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href=""></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span>                  <span class="co"># Pass my_data</span></span>
+<span id="cb152-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">my_column1 =</span> <span class="fu">if_else</span>(...),    <span class="co"># No passing (no pipes!)</span></span>
+<span id="cb152-3"><a href=""></a>         <span class="at">my_column2 =</span> <span class="fu">if_else</span>(...),    <span class="co"># Instead, give 3 arguments to mutate:</span></span>
+<span id="cb152-4"><a href=""></a>         <span class="at">my_column3 =</span> <span class="fu">if_else</span>(...))    <span class="co"># Arguments separated by ",", and surrounded by ( )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wrapping-up-further-reading" class="slide level2">

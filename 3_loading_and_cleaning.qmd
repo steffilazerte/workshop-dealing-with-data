@@ -347,14 +347,20 @@ tail(rivers)
 
 ## How do I know which function to use? {.space-list}
 
+### Program-specific files
+- Files which only normally open in a particular program (e.g., Excel)
+- **Load with function from specific package (e.g. `read_excel` from readxl package)**
+
+### Text files
+- Files which open in notepad
+- Files which open in RStudio when you click on them in the Files Pane
+- **Load with function from readr package (e.g. `read_csv()`, `read_tsv()`, etc.)**
+
 ### Look at the file extension:
+- [`rivers_correct.xlsx`](`r glue("{site}/data/rivers_correct.xlsx")`) {{< fa arrow-right >}} Excel file {{< fa arrow-right >}} `read_excel()`
+- [`rivers_raw.csv`](`r glue("{site}/data/rivers_raw.csv")`) {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
 
-- [`rivers_correct.csv`](`r glue("{site}/data/rivers_correct.csv")`)
-
-- `.csv` {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
-
-[But not always obvious...]{.note .fragment}
-
+[But sometimes not clear...]{.note .absolute .fragment left=80% bottom=10% width=30%}
 
 ## How do I know which function to use? {.space-list}
 
@@ -751,18 +757,18 @@ g4 <- ggplot(data = penguins, aes(x = body_mass_g)) +
 
 
 # Example of problematic data
-[[`rivers_correct.csv`](`r glue("{site}/data/rivers_correct.csv")`)]{.large}
+[[`rivers_raw.csv`](`r glue("{site}/data/rivers_raw.csv")`)]{.large}
 
 
 ## Look at the data
-:::{.small}
+
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers
 ```
-:::
 
-- Column names are not great (`River Name` and `Temperature C°` are not R-friendly) 
+
+- Column names are not R-friendly (`River Name` and `Temperature C°`) 
   or obvious (what is `Ele`?)
 - At least one typo in River (`Grase` should be `Grasse`)
 
@@ -771,11 +777,17 @@ rivers
 
 ### Your Turn!
 
+
+```{r, message = FALSE}
+rivers <- read_csv("data/rivers_raw.csv")
+rivers
+```
+
 - `skim()` the data
 - `count()` some columns
 - Perhaps make some `ggplot()`s
 
-[Find any problems?]{.note .absolute}
+[Find any problems?]{.note .absolute bottom=10% left=70%}
 
 
 ## `skim()` the data {visibility=`r visibility`}
@@ -955,7 +967,7 @@ rivers
 ### Put it all together
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -983,28 +995,34 @@ rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", r
 
 ### Check that it's gone:
 ```{r}
-filter(rivers, river_name == "Grase")
+count(rivers, river_name)
 ```
 
-::::{.fragment .spacer}
+## Fixing typos
 
-### `if_else()` and `mutate()` from `dplyr` package*
+### `if_else()` and `mutate()` from `dplyr` package* {.spacer}
 
 
+:::{.spacer}
 **`mutate()`** creates or changes columns in a data frame:
+
 ```{r, eval = FALSE}
 mutate(dataframe, column = new_values)
 ```
+:::
 
+:::{.spacer}
 **`if_else()`** tests for a condition, and returns one value if `FALSE` and another if `TRUE`
+
 ```{r, eval = FALSE}
 if_else(condition, value_if_true, value_if_false)
 ```
 
+:::
+
 ![](figures/hex_dplyr.png){width=15% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 [* part of the `tidyverse`]{.footnote}
 
-::::
 
 ## Iterative process
 
@@ -1040,7 +1058,7 @@ case_when(condition1 ~ value_if_true1,
 
 ```{r, eval = FALSE}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1061,7 +1079,7 @@ rivers <- mutate(???, ??? = ???)
 
 ```{r, eval = FALSE}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1077,7 +1095,7 @@ rivers <- mutate(rivers, river_name = if_else(river_name == "grasse", "Grasse", 
 
 ```{r, message = FALSE}
 #| code-line-numbers: "5,6"
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1095,7 +1113,7 @@ compares one item to many different ones]{.note .absolute bottom=30%}
 ### One last typo to fix
 ```{r}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1109,7 +1127,7 @@ rivers <- mutate(rivers,
 ### Combine with `case_when()`
 ```{r}
 #| code-line-numbers: "6-8"
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1131,7 +1149,7 @@ rivers <- mutate(rivers,
 - you can reference any **column** from '**data**'
 
 ```{r}
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1150,7 +1168,7 @@ rivers <- mutate(rivers, river_name = if_else(river_name %in% c("Grase", "grasse
 
 Instead of:
 ```{r}
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1170,7 +1188,7 @@ rivers <- mutate(rivers,
 We have:
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_correct.csv") |>
+rivers <- read_csv("data/rivers_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1187,7 +1205,7 @@ Take a moment to play with this code in your console
 
 ### Convert this:
 ```{r}
-rivers <- read_csv("data/rivers_correct.csv")
+rivers <- read_csv("data/rivers_raw.csv")
 rivers <- clean_names(rivers)
 rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
 rivers <- select(rivers, -wea)
@@ -1201,7 +1219,7 @@ rivers <- mutate(rivers,
 ### To this:
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_correct.csv") |>
+rivers <- read_csv("data/rivers_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1420,7 +1438,7 @@ rivers
 ## Put it all together...
 
 ```{r}
-rivers <- read_csv("data/rivers_correct.csv") |>
+rivers <- read_csv("data/rivers_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1445,7 +1463,7 @@ rivers <- read_csv("data/rivers_correct.csv") |>
 
 ### Feel free to annotate within a pipe
 ```{r}
-rivers <- read_csv("data/rivers_correct.csv") |>
+rivers <- read_csv("data/rivers_raw.csv") |>
   # Fix column names
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
@@ -1472,6 +1490,7 @@ rivers <- read_csv("data/rivers_correct.csv") |>
 ## Dates and Times
 
 - Date/times aren't always recognized as date/times
+- [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
 
 ```{r, message = FALSE, R.options = list(tibble.print_max = 6, tibble.print_min = 6)}
 geolocators <- read_csv("data/geolocators.csv", col_names = c("time", "light"))
