@@ -270,7 +270,7 @@ With RStudio 'Projects' only need to use **relative** paths
 ## Keep yourself organized
 
 ### For simple projects
-- Create an 'RStudio Project' for each Project (Chapter, Thesis, etc.)
+- Create an 'RStudio Project' for each Project <!--(Chapter, Thesis, etc.) -->
 - Create a specific "data" folder within each project (one per project)
 
 ```{r eval = FALSE}

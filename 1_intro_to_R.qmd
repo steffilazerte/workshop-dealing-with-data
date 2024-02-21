@@ -36,6 +36,18 @@ source("0_figs.R")
 
 ![](figures/steffi_vivi.jpg){.absolute right=10 top=50 width=40% fig-alt="Steffi smiling and holding a cat in her arms"}
 
+## Introductions  {.nostretch}
+
+### Dr. Alex Koiter [(Today's Teaching Assistant)]{style="font-size:60%"}
+
+-   Physical Geographer
+-   Working with R since 2010
+-   Associate Professor in Geography and Environment,   
+    Brandon University
+
+![](figures/alex.jpg){.absolute right=10 top=50 width=40% fig-alt="Steffi smiling and holding a cat in her arms"}
+
+
 ## What about you?
 
 -   Name
@@ -52,8 +64,20 @@ source("0_figs.R")
 
 -   I will provide you tools and workflow to get started with R
 -   We'll have hands-on activities, lectures, and demonstrations
+-   Video on or off, however works best for you!
 
-### R is hard: But have no fear!
+### Questions
+-   Ask questions by un-muting, or ask in the chat (Alex will monitor)
+    -   Workshop-related questions we'll address together
+    -   Specific, system-related problems, Alex will help you in the "Troubleshooting Room"
+    
+### Getting help
+-   Share your screen
+-   Share your code
+    - In chat
+    - Or in a community notebook: <https://collabedit.com/kxyap>
+
+## R is hard: But have no fear!
 
 -   [Don't expect to remember everything!]{.fragment .highlight-bold}
 -   Copy/Paste is your friend (never apologize for using it!)

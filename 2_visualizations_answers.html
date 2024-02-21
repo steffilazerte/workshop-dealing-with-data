@@ -12,7 +12,7 @@
 <link href="2_visualizations_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-13">
+  <meta name="dcterms.date" content="2024-02-21">
   <title>Visualizing Data in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
   
   
   
-    <p class="date">Compiled: 2024-02-13</p>
+    <p class="date">Compiled: 2024-02-21</p>
   </section>
 <section>
 <section id="first-things-first" class="title-slide slide level1 center">
@@ -436,7 +436,7 @@
 <p><img data-src="figures/hex_ggplot2.png" class="absolute" style="top: 0px; right: 0px; width: 20%; " alt="Hex logo for ggplot2 R package"></p>
 <h3 id="combining-figures-with-patchwork">2. Combining figures with <code>patchwork</code></h3>
 <h3 id="saving-figures">3. Saving figures</h3>
-<p><img data-src="figures/hex_patchwork.svg" class="absolute" style="bottom: 30px; right: 0px; width: 20%; " alt="Hex logo for patchwork R package"></p>
+<p><img data-src="figures/hex_patchwork.png" class="absolute" style="bottom: 30px; right: 0px; width: 20%; " alt="Hex logo for patchwork R package"></p>
 </section>
 <section id="section" class="slide level2" data-menu-title="ggplot2" data-background-image="figures/horst_ggplot2.png" data-background-size="75%" data-background-position="top" title="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads &quot;ggplot2: build a data masterpiece.&quot;">
 <h2></h2>
@@ -507,7 +507,7 @@
 <section id="break-it-down" class="slide level2">
 <h2>Break it down</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1,2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb4-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-3"><a href=""></a></span>
 <span id="cb4-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
@@ -515,7 +515,7 @@
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="librarypalmerpenguins"><code>library(palmerpenguins)</code></h3>
+<h3 id="library"><code>library()</code></h3>
 <ul>
 <li>Load the <code>palmerguins</code> package</li>
 <li>Now we have access to <code>penguins</code> data</li>
@@ -536,7 +536,7 @@
 <section id="break-it-down-1" class="slide level2">
 <h2>Break it down</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1,2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb5-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb5-3"><a href=""></a></span>
 <span id="cb5-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
@@ -544,7 +544,7 @@
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="libraryggplot2"><code>library(ggplot2)</code></h3>
+<h3 id="library-1"><code>library()</code></h3>
 <ul>
 <li>Load the <code>tidyverse</code> packages<br>
 <span class="small">(includes <code>ggplot2</code>)</span></li>
@@ -1429,7 +1429,7 @@
 </section></section>
 <section>
 <section id="combining-plots-with-patchwork" class="title-slide slide level1 center">
-<h1>Combining plots with <code>patchwork</code><br><img data-src="figures/hex_patchwork.svg" style="width:20.0%"></h1>
+<h1>Combining plots with <code>patchwork</code><br><img data-src="figures/hex_patchwork.png" style="width:20.0%"></h1>
 
 </section>
 <section id="section-1" class="slide level2" data-menu-title="patchwork" data-background-image="figures/horst_patchwork.png" data-background-size="85%" data-background-position="top" title="Fuzzy cartoon monsters in white gloves and uniforms hanging multiple plots together on a wall, with an artist monster wearing a beret and smock directing them to the correct orientation. There is a blueprint plan on the wall showing how the plots should be arranged. Stylized title font reads &quot;patchwork - combine &amp; arrange your ggplots!&quot;">

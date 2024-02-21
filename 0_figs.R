@@ -22,6 +22,10 @@ tribble(
   filter(!file.exists(destfile)) |>
   pwalk(download.file)
 
+magick::image_read_svg("figures/hex_patchwork.svg") |>
+  magick::image_write("figures/hex_patchwork.png")
+
+
 # horst_patchwork
 # "Fuzzy cartoon monsters in white gloves and uniforms hanging multiple plots together on a wall, with an artist monster wearing a beret and smock directing them to the correct orientation. There is a blueprint plan on the wall showing how the plots should be arranged. Stylized title font reads \"patchwork - combine & arrange your ggplots!\""
 

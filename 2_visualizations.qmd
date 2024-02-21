@@ -54,7 +54,7 @@ source("0_figs.R")
 
 ### 3. Saving figures
 
-![](figures/hex_patchwork.svg){width=20% .absolute bottom=30 right=0 fig-alt="Hex logo for patchwork R package"}
+![](figures/hex_patchwork.png){width=20% .absolute bottom=30 right=0 fig-alt="Hex logo for patchwork R package"}
 
 
 ## {data-menu-title="ggplot2" background-image="figures/horst_ggplot2.png" background-size=75% background-position="top" title="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads \"ggplot2: build a data masterpiece.\""}
@@ -120,7 +120,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 ## Break it down
 
 ```{r}
-#| code-line-numbers: "1"
+#| code-line-numbers: "1,2"
 #| eval: false
 <<basic_plot>>
 ```
@@ -128,7 +128,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 :::: {.columns}
 
 ::: {.column width="50%"}
-### `library(palmerpenguins)`
+### `library()`
 -   Load the `palmerguins` package
 -   Now we have access to `penguins` data
 :::
@@ -147,7 +147,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 ## Break it down
 
 ```{r}
-#| code-line-numbers: "2"
+#| code-line-numbers: "1,2"
 #| eval: false
 <<basic_plot>>
 ```
@@ -155,7 +155,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
 :::: {.columns}
 
 ::: {.column width="50%"}
-### `library(ggplot2)`
+### `library()`
 - Load the `tidyverse` packages  
   [(includes `ggplot2`)]{.small}
 - Now we have access to the `ggplot()` function
@@ -1156,7 +1156,7 @@ ggplot(penguins, aes(x = body_mass_g,
 
 
 
-# Combining plots with `patchwork`<br>![](figures/hex_patchwork.svg){width=20%}
+# Combining plots with `patchwork`<br>![](figures/hex_patchwork.png){width=20%}
 
 
 
