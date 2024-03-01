@@ -59,27 +59,44 @@ easily copy/paste code and navigate
 1.  Intro to R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf)<!-- | [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)-->)
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf)
+    \|
+    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)
+    \|
+    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf))
 
 2.  Visualizing data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)<!-- | [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf)-->)
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)
+    \|
+    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)
+    \|
+    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))
 
 3.  Loading & Cleaning Data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)<!-- | [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf)-->)
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)
+    \|
+    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)
+    \|
+    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))
 
 4.  Summarizing & Transforming Data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)<!-- | [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf)-->)
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)
+    \|
+    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)
+    \|
+    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))
 
 5.  Getting help with R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf)<!-- | *No answer slides*-->)
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf)
+    \| *No answer slides*)
 
 > Answer slides will be posted after the workshop
 

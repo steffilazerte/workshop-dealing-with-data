@@ -659,6 +659,7 @@ count(penguins, sex)
 :::{.spacer}
 ```{r}
 #| eval: false
+# Replace COLUMN with the column name to explore
 ggplot(data = penguins, aes(x = COLUMN)) + 
   geom_bar()
 ```
@@ -712,8 +713,9 @@ ggplot(data = penguins, aes(x = sex)) +
 :::{.spacer}
 ```{r}
 #| eval: false
+# Replace COLUMN with the column name to explore
 ggplot(data = penguins, aes(x = COLUMN)) + 
-  geom_histogram()()
+  geom_histogram()
 ```
 :::
 
@@ -822,6 +824,7 @@ count(rivers, Ele)
 :::{.spacer}
 ```{r}
 #| eval: false
+# Replace COLUMN with the column name to explore
 ggplot(data = rivers, aes(x = COLUMN)) + 
   geom_bar()
 ```
@@ -864,6 +867,7 @@ g4 <- ggplot(data = rivers, aes(x = Ele)) +
 :::{.spacer}
 ```{r}
 #| eval: false
+# Replace COLUMN with the column name to explore
 ggplot(data = rivers, aes(x = COLUMN)) + 
   geom_histogram()()
 ```

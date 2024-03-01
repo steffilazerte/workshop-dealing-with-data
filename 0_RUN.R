@@ -53,4 +53,5 @@ fs::file_move(list.files(pattern = ".pdf"), "pdf/")
 # - Create signed release
 # - Create certificates
 # - Send out certificates
+
 usethis::use_github_release()

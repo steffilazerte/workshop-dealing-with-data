@@ -12,7 +12,7 @@
 <link href="3_loading_and_cleaning_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.549">
 
-  <meta name="dcterms.date" content="2024-02-21">
+  <meta name="dcterms.date" content="2024-03-01">
   <title>Loading &amp; Cleaning Data in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -410,7 +410,7 @@
   
   
   
-    <p class="date">Compiled: 2024-02-21</p>
+    <p class="date">Compiled: 2024-03-01</p>
   </section>
 <section id="first-things-first" class="title-slide slide level1 center">
 <h1>First things first</h1>
@@ -1365,8 +1365,9 @@ Group variables            None
 <h2>Plot categories</h2>
 <div class="spacer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
-<span id="cb51-2"><a href=""></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a><span class="co"># Replace COLUMN with the column name to explore</span></span>
+<span id="cb51-2"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
+<span id="cb51-3"><a href=""></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="columns" style="font-size: 75%">
@@ -1408,8 +1409,9 @@ Group variables            None
 <h2>Plot numbers</h2>
 <div class="spacer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
-<span id="cb52-2"><a href=""></a>  <span class="fu">geom_histogram</span>()()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a><span class="co"># Replace COLUMN with the column name to explore</span></span>
+<span id="cb52-2"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
+<span id="cb52-3"><a href=""></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div style="font-size: 75%">
@@ -1584,8 +1586,9 @@ Group variables            None
 <h2>Plot categories</h2>
 <div class="spacer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> rivers, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
-<span id="cb67-2"><a href=""></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a><span class="co"># Replace COLUMN with the column name to explore</span></span>
+<span id="cb67-2"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> rivers, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
+<span id="cb67-3"><a href=""></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div style="font-size: 75%">
@@ -1604,8 +1607,9 @@ Group variables            None
 <h2>Plot numbers</h2>
 <div class="spacer">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> rivers, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
-<span id="cb68-2"><a href=""></a>  <span class="fu">geom_histogram</span>()()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a><span class="co"># Replace COLUMN with the column name to explore</span></span>
+<span id="cb68-2"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> rivers, <span class="fu">aes</span>(<span class="at">x =</span> COLUMN)) <span class="sc">+</span> </span>
+<span id="cb68-3"><a href=""></a>  <span class="fu">geom_histogram</span>()()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div style="font-size: 75%">
