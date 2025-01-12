@@ -161,6 +161,47 @@ filter(size, depth > 140 | depth < 4)
 
 ![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
+## `filter()` observations {visibility="hidden"}
+
+### Which values are greater than 100 OR less than 4?
+
+:::{.small}
+```{r}
+#| R.options: 
+#|   width: 115
+size$depth > 140 | size$depth < 4
+```
+:::
+
+### Return only rows with `TRUE`
+
+```{r, eval = FALSE}
+filter(size, depth > 140 | depth < 4)
+```
+
+
+## `filter()` observations
+
+### `filter()` by a combination {{< fa arrow-right >}} use comma for **AND** {.spacer}
+```{r}
+#| code-line-numbers: "2"
+filter(size, 
+       depth > 100,
+       plot %in% c("CSP11", "CSP13"))
+```
+
+:::{.fragment}
+
+### Equivalent to using **&**
+```{r}
+#| code-line-numbers: "2"
+#| eval: false
+filter(size, 
+       depth > 100 &
+       plot %in% c("CSP11", "CSP13"))
+```
+
+:::
 
 # Tangent
 [Logical Operators]{.large}
@@ -168,7 +209,7 @@ filter(size, depth > 140 | depth < 4)
 ## Logical Operators
 
 ::::{.columns}
-:::{.column}
+:::{.column width=40%}
 ### Possible options
 
 Operator   | Code
@@ -185,7 +226,8 @@ Less than or equal to | `<=`
 In    | `%in%`
 :::
 
-:::{.column}
+:::{.column width=60%}
+<!--
 ### Single comparisons
 
 ```{r, eval = FALSE}
@@ -207,57 +249,26 @@ c(1, 2, 1, "apple") == 1 | c(1, 2, 1, "apple") == 2
 
 > **Your turn!**  
 > In each case, what are you asking?<br>Do you expect 1 or 4 values?
+-->
+
+**Your turn!**
+
+What do the following filters do?
+
+```{r, eval = FALSE}
+filter(size, depth == 20)
+filter(size, depth == 20, clay < 20)
+filter(size, depth %in% c(20, 100) & clay == 6)
+filter(size, !plot %in% c("CSP01", "CSP13"))
+filter(size, depth >= 146)
+filter(size, depth > 146)
+filter(size, coarse_silt < 9 | clay < 5)
+```
+
 
 :::
 ::::
 
-# Back to `filter()`ing...
-
-## `filter()` observations
-
-### Which values are greater than 100 OR less than 4?
-
-:::{.small}
-```{r}
-#| R.options: 
-#|   width: 115
-size$depth > 140 | size$depth < 4
-```
-:::
-
-### Return only rows with `TRUE`
-
-```{r, eval = FALSE}
-filter(size, depth > 140 | depth < 4)
-```
-
-
-
-
-## `filter()` observations
-
-### `filter()` by a combination {{< fa arrow-right >}} use comma {.spacer}
-```{r}
-#| code-line-numbers: "2"
-filter(size, 
-       depth > 100,
-       plot %in% c("CSP11", "CSP13"))
-```
-
-:::{.fragment}
-
-### Equivalent {{< fa arrow-right >}} use &
-```{r}
-#| code-line-numbers: "2"
-#| eval: false
-filter(size, 
-       depth > 100 &
-       plot %in% c("CSP11", "CSP13"))
-```
-
-[Separate arguments in `filter()` act like **&**]{.note .absolute bottom=10% left=25%}
-
-:::
 
 ## `select()` variables
 
@@ -715,7 +726,7 @@ size <- read_csv("data/grain_size2.csv") |>
 
 ## Your turn: Creating new columns (Too Easy?) {visibility=`r visibility`}
 
-**What happens if you add `total_sand` and `total_silt` together in the same `mutate()`?**
+- **What happens if you add `total_sand` and `total_silt` together in the same `mutate()`?**
 
 ```{r}
 #| code-line-numbers: "7"
@@ -748,7 +759,7 @@ size <- read_csv("data/grain_size2.csv") |>
 select(size, contains("silt"))
 ```
 
-[Wait... that doesn't add up!]{.note .fragment .absolute}
+[Wait... that doesn't add up!]{.note .fragment .absolute bottom=3%}
 
 
 # Tangent
@@ -1749,9 +1760,9 @@ size_long <- size |>
 ### Save your data
 
 ```{r, eval = FALSE}
-write_csv(size, "Datasets/size_total.csv")
-write_csv(size_sum, "Datasets/size_summary.csv")
-write_csv(size_long, "Datasets/size_long.csv")
+write_csv(size, "datasets/size_total.csv")
+write_csv(size_sum, "datasets/size_summary.csv")
+write_csv(size_long, "datasets/size_long.csv")
 ```
 
 

@@ -303,9 +303,10 @@ vignette("ggplot2-specs", package = "ggplot2")
 ## Communities!
 
 - [rOpenSci](https://ropensci.org/)
-- [#RStats Twitter](https://twitter.com/search?q=%23Rstats&src=hashtag_click)
-- #RStats Mastodon  
-  (e.g., [Fosstodon.org](https://fosstodon.org/tags/rstats) or [Hachyderm.io](https://hachyderm.io/tags/rstats))
+- Social Media
+    - [#RStats Twitter](https://twitter.com/search?q=%23Rstats&src=hashtag_click)
+    - #RStats Mastodon (e.g., [Fosstodon.org](https://fosstodon.org/tags/rstats) or [Hachyderm.io](https://hachyderm.io/tags/rstats))
+- [Data Carpentry Lessons](https://datacarpentry.org/lessons/)
 - [R4DS Online learning community on Slack](https://rfordatascience.slack.com/join/shared_invite/zt-1rjoxgepe-QC2Q5d1ucSW4UQlj7ULnUQ#/shared-invite/email)<br>[(ask any question, they're really nice!)]{.small}
 
 ### Specific Groups

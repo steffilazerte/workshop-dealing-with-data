@@ -33,12 +33,15 @@ f <- list.files(pattern = "html")
 for(i in f) {
 
   # Create PDFs
+  rlang::inform(f)
+  rlang::inform("  PDF")
   pagedown::chrome_print(i, extra_args = "--font-render-hinting=none")
 
   n1 <- fs::path_ext_set(i, 'pdf')
   n2 <- fs::path_ext_remove(i) |>
     paste0("_sm.pdf")
 
+  rlang::inform("  PDF small")
   # Reduce size (prepress = 300 dpi, printer = 300 dpi, ebook = 150 dpi, screen = 72dpi)
   system(glue::glue("gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 ",
                     "-dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH ",
@@ -53,5 +56,4 @@ fs::file_move(list.files(pattern = ".pdf"), "pdf/")
 # - Create signed release
 # - Create certificates
 # - Send out certificates
-
-usethis::use_github_release()
+usethis::use_github_release(publish = FALSE)

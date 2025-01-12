@@ -38,13 +38,14 @@ ggplot(data = palmerpenguins::penguins,
 ggsave("figures/viz_fig.png", width = 8, height = 6)
 
 # Create data ------------------------------
-r <- read_csv("data/Originals/rivers.csv") %>%
+r_clean <- read_csv("data/Originals/rivers.csv") %>%
   mutate(River = as.character(River),
          Site = as.character(Site),
          Temperature = withr::with_seed(111, rnorm(300, 10, sd = 4)),
          Temperature = if_else(Temperature < 0, -99, Temperature),
          Year = rep(2019:2023, 300/5),
          Amount = if_else(Amount == 0, NA_real_, Amount))
+r <- r_clean
 #r$Amount[44] <- "<0.1"
 r$River[3] <- "Grase"
 r$River[98] <- "grasse"
@@ -52,9 +53,21 @@ r$River[104] <- "raquette"
 
 names(r) <- c("River Name", "Site", "Ele", "Amo", "Temperature C°", "Year")
 r$Wea <- sample(c("sunny", "cloudy", "wet", "snowy"), nrow(r), replace = TRUE)
-write_csv(r, "data/rivers_raw.csv")
-#write_xlsx(r, "data/rivers_correct.xlsx")
+write_csv(r, "data/water_raw.csv")
+#write_xlsx(r, "data/water_correct.xlsx")
 # NOTE THAT second sheet is added manually
+
+
+library(openxlsx)
+wb <- createWorkbook()
+addWorksheet(wb, "Sheet1")
+addWorksheet(wb, "Oswegatchie")
+b <- createStyle(textDecoration = "Bold")
+writeData(wb, 1, r_clean |> janitor::clean_names(), startRow = 1, headerStyle = b)
+writeData(wb, 2, "Subset for Oswegatchie only")
+writeData(wb, 2, filter(r_clean, River == "Oswegatchie") |> janitor::clean_names(), startRow = 3, headerStyle = b)
+saveWorkbook(wb, "data/water_cleaned.xlsx", overwrite = TRUE)
+
 
 # zinke <- read_csv("data/zinke_soil.csv")
 # zinke$Code <- "A"

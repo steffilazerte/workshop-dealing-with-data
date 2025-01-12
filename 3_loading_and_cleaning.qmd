@@ -42,7 +42,27 @@ options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
 [(consider names like `cleaning.R` or `3_loading_and_cleaning.R`)]{.small .hang}
 :::
 
+## Download the data we'll use in this workshop
 
+1. Create a '**data**' folder in your RStudio project
+    - In the "Files" pane click on the folder icon **OR**
+    - Navigate to your project folder via your computer's file browser
+    
+![Click on "New Folder"](figures/files.png){fig-alt="Screenshot of the file viewer pane in RStudio with \"New Folder\" circled in red"}
+
+
+[ ]{style="margin-top:10px;"}
+
+2. Right-click "Save Link As.." and download these files to your **data** folder
+    - [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)
+    - [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)
+    - [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
+    - [`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)
+    - [`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)
+    - [grain_size2.csv](`r glue("{site}/data/grain_size2.csv")`)
+    - [grain_meta.csv](`r glue("{site}/data/grain_meta.csv")`)
+    - [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+    
 
 # Side Note
 *R base vs. `tidyverse`*
@@ -87,13 +107,15 @@ options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
 ### 3. Fixing problems
   - Corrections
   - Renaming
+  - Dealing with NA's
 :::
 
 :::{.column width=50%}
 ### 4. Setting formats
-  - Dates
+  - Text, 
   - Numbers
   - Factors
+  - Dates
 
 ### 5. Saving your data
 :::
@@ -297,31 +319,26 @@ d <- read_csv("data/prospect_data_2017-01-01.csv")
 
 
 ## Your turn: Load some data  {.space-list}
+**Working with [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)**
 
 ::::{.columns}
 :::{.column width=60%}
-1. Create a '**data**' folder in your RStudio project
 
-2. Put [`rivers_correct.xlsx`](`r glue("{site}/data/rivers_correct.xlsx")`) file in the
-"**data**" folder
-
-3. Load the package
+1. Load the package
 ```{r, message = FALSE}
 library(readxl)
 ```
-4. Read in the Excel file and assign to object `rivers`
+2. Read in the Excel file  and assign to object `water`
 ```{r, message = FALSE}
-rivers <- read_excel("data/rivers_correct.xlsx")
+water <- read_excel("data/water_cleaned.xlsx")
 ```
-5. Use `head()` and `tail()` functions to look at the data   
-  [e.g., `head(rivers)` and `tail(rivers)`]{.hang .small}
+3. Use `head()` and `tail()` functions to look at the data   
+  [e.g., `head(water)` and `tail(water)`]{.hang .small}
 
-6. Click on the `rivers` object in your "Environment" pane to look at the whole data set
+4. Click on the `water` object in your "Environment" pane to look at the whole data set
 :::
 
 :::{.column width=40%}
-![Click on "New Folder"](figures/files.png){fig-alt="Screenshot of the file viewer pane in RStudio with \"New Folder\" circled in red"}
-
 ![Use the *'tab'* key in RStudio when typing in the file name for auto-complete](figures/tip_file_nav.gif){fig-alt="GIF showing the dropdown menu that appears when you hit the 'tab' key inside the quotes when typing file locations"}
 :::
 
@@ -334,11 +351,11 @@ rivers <- read_excel("data/rivers_correct.xlsx")
 :::{.small}
 ```{r, message = FALSE}
 library(readxl)
-rivers <- read_excel("data/rivers_correct.xlsx")
+water <- read_excel("data/water_cleaned.xlsx")
 ```
 ```{r}
-head(rivers)
-tail(rivers)
+head(water)
+tail(water)
 ```
 :::
 
@@ -357,20 +374,19 @@ tail(rivers)
 - **Load with function from readr package (e.g. `read_csv()`, `read_tsv()`, etc.)**
 
 ### Look at the file extension:
-- [`rivers_correct.xlsx`](`r glue("{site}/data/rivers_correct.xlsx")`) {{< fa arrow-right >}} Excel file {{< fa arrow-right >}} `read_excel()`
-- [`rivers_raw.csv`](`r glue("{site}/data/rivers_raw.csv")`) {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
+- [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`) {{< fa arrow-right >}} Excel file {{< fa arrow-right >}} `read_excel()`
+- [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`) {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
 
 [But sometimes not clear...]{.note .absolute .fragment left=80% bottom=10% width=30%}
 
 ## How do I know which function to use? {.space-list}
 
-### Look at the file: [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
+### Working with: [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
     
-- Put this file in your **`data`** folder
 - In lower right-hand pane, click on **Files**
-  - Click on **data** folder
-  - Click on **master_moch.txt**
-  - Click "View File" [(if asked)]{.small}
+- Click on **data** folder
+- Click on **master_moch.txt**
+- Click "View File" [(if asked)]{.small}
 
 
 ```{r echo = FALSE}
@@ -417,7 +433,7 @@ read_tsv("data/master_moch.txt", n_max = 3)  # note change in function!
 
 ## `col_names`  {.space-list}
 
--  [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
+**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
 
 <p>
 
@@ -442,7 +458,7 @@ Oops?
 
 ## `col_names`
 
--  [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
+**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
 
 <p>
 
@@ -476,7 +492,7 @@ my_data
 
 ## `skip` info rows before data
 
-- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
 
 ```{r, error = TRUE, message = FALSE, highlight.output = c(2, 4:6)}
 my_data <- read_tsv("data/grain_size.txt")
@@ -487,7 +503,7 @@ my_data
 
 ## `skip` info rows before data
 
-- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
 
 
 ```{r, eval = FALSE}
@@ -519,7 +535,8 @@ cat(readChar("data/grain_size.txt", nchars = 320))
 
 ## `skip` info rows before data
 
-- [Grain size data](`r glue("{site}/data/grain_size.txt")`)
+**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
+
 - Add `skip = 3` to skip the first three rows
 
 ```{r, message = FALSE}
@@ -532,7 +549,7 @@ my_data
 
 ## Your turn: Load this data set
 
-Load the telemetry data set: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+**Load Data: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
 
 1. Look at the file
 2. Decide which R function to use based on delimiter [(comma, space, or tab?)]{.small}
@@ -545,13 +562,13 @@ telemetry
 ```
 
 [**Too Easy?**<br>Load some of your own tricky data]{.note .absolute bottom=17% left=80% width=40%}
-[**OR**<br>Try to load the second sheet of `rivers_correct.xlsx` and rename the columns in the same step<br>[(see `?read_excel`)]{.small}]{.note .absolute bottom=-15% left=70% width=60%}
+[**OR**<br>Try to load the second sheet of `water_cleaned.xlsx` and rename the columns in the same step<br>[(see `?read_excel`)]{.small}]{.note .absolute bottom=-15% left=70% width=60%}
 
 
 
 ## Your turn: Load this data set {visibility=`r visibility`}
 
-Load the telemetry data set: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+**Load Data: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
 
 ```{r, ref.label="yt_load", message = FALSE, R.options = list(tibble.print_max = 7, tibble.print_min = 7)}
 ```
@@ -562,15 +579,12 @@ Load the telemetry data set: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/
 **Too Easy?**
 
 - Use `sheet` argument to access specific sheet [(`excel_sheets()` lists them all)]{.small}
-- skip the first *three* rows (including the headers)
-- provide new header names
+- skip the first *two* rows (including the headers)
 
 ```{r}
-excel_sheets("data/rivers_correct.xlsx")  # Or look yourself ;)
+excel_sheets("data/water_cleaned.xlsx")  # Or look yourself ;)
 
-read_excel("data/rivers_correct.xlsx", sheet = "Oswegatchie", skip = 3, 
-           col_names = c("name", "site", "element", "amount", 
-                         "temp", "year", "weather"))
+read_excel("data/water_cleaned.xlsx", sheet = "Oswegatchie", skip = 2)
 ```
 
 
@@ -759,14 +773,15 @@ g4 <- ggplot(data = penguins, aes(x = body_mass_g)) +
 
 
 # Example of problematic data
-[[`rivers_raw.csv`](`r glue("{site}/data/rivers_raw.csv")`)]{.large}
 
 
 ## Look at the data
 
+**Working with: [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)**
+
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers
+water <- read_csv("data/water_raw.csv")
+water
 ```
 
 
@@ -781,8 +796,8 @@ rivers
 
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers
+water <- read_csv("data/water_raw.csv")
+water
 ```
 
 - `skim()` the data
@@ -796,7 +811,8 @@ rivers
 ```{r, render = knitr::normal_print}
 #| R.options:
 #|   width: 110
-skim(rivers)
+library(skimr)
+skim(water)
 ```
 
 ## `count()` categories {visibility=`r visibility`}
@@ -804,15 +820,15 @@ skim(rivers)
 ::::{.columns}
 :::{.column}
 ```{r}
-count(rivers, `River Name`)
-count(rivers, Wea)
+count(water, `River Name`)
+count(water, Wea)
 ```
 :::
 
 :::{.column}
 ```{r}
-count(rivers, Site)
-count(rivers, Ele)
+count(water, Site)
+count(water, Ele)
 ```
 :::
 ::::
@@ -825,7 +841,7 @@ count(rivers, Ele)
 ```{r}
 #| eval: false
 # Replace COLUMN with the column name to explore
-ggplot(data = rivers, aes(x = COLUMN)) + 
+ggplot(data = water, aes(x = COLUMN)) + 
   geom_bar()
 ```
 :::
@@ -837,22 +853,22 @@ ggplot(data = rivers, aes(x = COLUMN)) +
 #| out-width: 90%
 #| fig-align: center
 #| echo: false
-g1 <- ggplot(data = rivers, aes(x = `River Name`)) + 
+g1 <- ggplot(data = water, aes(x = `River Name`)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_bar() +
   labs(title = "x = `River Name`")
 
-g2 <- ggplot(data = rivers, aes(x = Site)) + 
+g2 <- ggplot(data = water, aes(x = Site)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_bar() +
   labs(title = "x = Site")
 
-g3 <- ggplot(data = rivers, aes(x = Wea)) + 
+g3 <- ggplot(data = water, aes(x = Wea)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_bar()+
   labs(title = "x = Wea")
 
-g4 <- ggplot(data = rivers, aes(x = Ele)) + 
+g4 <- ggplot(data = water, aes(x = Ele)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_bar()+
   labs(title = "x = Ele")
@@ -868,7 +884,7 @@ g4 <- ggplot(data = rivers, aes(x = Ele)) +
 ```{r}
 #| eval: false
 # Replace COLUMN with the column name to explore
-ggplot(data = rivers, aes(x = COLUMN)) + 
+ggplot(data = water, aes(x = COLUMN)) + 
   geom_histogram()()
 ```
 :::
@@ -881,12 +897,12 @@ ggplot(data = rivers, aes(x = COLUMN)) +
 #| fig-align: center
 #| echo: false
 library(patchwork)
-g1 <- ggplot(data = rivers, aes(x = Amo)) + 
+g1 <- ggplot(data = water, aes(x = Amo)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_histogram() +
   labs(title = "x = Amo")
 
-g2 <- ggplot(data = rivers, aes(x = `Temperature C°`)) + 
+g2 <- ggplot(data = water, aes(x = `Temperature C°`)) + 
   theme(plot.title = element_text(family = "mono")) +
   geom_histogram() +
   labs(title = "x = `Temperature C°`")
@@ -911,8 +927,8 @@ g1 + g2 + theme(plot.margin = unit(c(0,0,0,0), "mm"))
 ```{r, message = FALSE}
 #| class-output: small
 library(janitor)
-rivers <- clean_names(rivers)
-rivers
+water <- clean_names(water)
+water
 ```
 
 ![](figures/hex_janitor.png){width=10% .absolute top=0 right=0 fig-alt="Hex logo for the janitor R package"}
@@ -935,8 +951,8 @@ rivers
 **`rename()` columns**
 
 ```{r}
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water
 ```
 
 ![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
@@ -949,7 +965,7 @@ rivers
 **`select()` columns you want **
 
 ```{r, eval = FALSE}
-rivers <- select(rivers, river_name, site, element, amount)
+water <- select(water, river_name, site, element, amount)
 ```
 
 ![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
@@ -959,8 +975,8 @@ rivers <- select(rivers, river_name, site, element, amount)
 :::{.fragment}
 **OR, un`select()` columns you don't want**
 ```{r}
-rivers <- select(rivers, -wea)
-rivers
+water <- select(water, -wea)
+water
 ```
 :::
 
@@ -971,14 +987,14 @@ rivers
 ### Put it all together
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water
 ```
 
-[Note how code repeats data frame `rivers`...]{.note .fragment .absolute bottom=0}
+[Note how code repeats data frame `water`...]{.note .fragment .absolute bottom=0}
 
 
 ## Fixing typos
@@ -986,7 +1002,7 @@ rivers
 Remember the typos...
 
 ```{r}
-count(rivers, river_name)
+count(water, river_name)
 ```
 ## Fixing typos
 
@@ -994,12 +1010,12 @@ count(rivers, river_name)
 Combine the `if_else` function with the `mutate()` function
 
 ```{r}
-rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+water <- mutate(water, river_name = if_else(river_name == "Grase", "Grasse", river_name))
 ```
 
 ### Check that it's gone:
 ```{r}
-count(rivers, river_name)
+count(water, river_name)
 ```
 
 ## Fixing typos
@@ -1062,13 +1078,13 @@ case_when(condition1 ~ value_if_true1,
 
 ```{r, eval = FALSE}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, river_name = if_else(river_name == "Grase", "Grasse", river_name))
 
-rivers <- mutate(???, ??? = ???)
+water <- mutate(???, ??? = ???)
 ```
 
 [**Too Easy?**<br>Examine and fix problems in your own data]{.note .absolute bottom=20% left=50%}
@@ -1083,13 +1099,13 @@ rivers <- mutate(???, ??? = ???)
 
 ```{r, eval = FALSE}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, river_name = if_else(river_name == "Grase", "Grasse", river_name))
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, river_name = if_else(river_name == "Grase", "Grasse", river_name))
 
-rivers <- mutate(rivers, river_name = if_else(river_name == "grasse", "Grasse", river_name))
+water <- mutate(water, river_name = if_else(river_name == "grasse", "Grasse", river_name))
 ```
 
 
@@ -1099,11 +1115,11 @@ rivers <- mutate(rivers, river_name = if_else(river_name == "grasse", "Grasse", 
 
 ```{r, message = FALSE}
 #| code-line-numbers: "5,6"
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, 
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, 
                  river_name = if_else(river_name %in% c("Grase", "grasse"), "Grasse", river_name))
 ```
 
@@ -1117,11 +1133,11 @@ compares one item to many different ones]{.note .absolute bottom=30%}
 ### One last typo to fix
 ```{r}
 #| code-line-numbers: "7"
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, 
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, 
                  river_name = if_else(river_name %in% c("Grase","grasse"), "Grasse", river_name),
                  river_name = if_else(river_name == "raquette", "Raquette", river_name))
 ```
@@ -1131,11 +1147,11 @@ rivers <- mutate(rivers,
 ### Combine with `case_when()`
 ```{r}
 #| code-line-numbers: "6-8"
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, 
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, 
                  river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
                                         river_name == "raquette" ~ "Raquette",
                                         TRUE ~ river_name))
@@ -1153,11 +1169,11 @@ rivers <- mutate(rivers,
 - you can reference any **column** from '**data**'
 
 ```{r}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, river_name = if_else(river_name %in% c("Grase", "grasse"), "Grasse",  river_name))
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, river_name = if_else(river_name %in% c("Grase", "grasse"), "Grasse",  river_name))
 ```
 
 - `rename()` changes column names
@@ -1172,11 +1188,11 @@ rivers <- mutate(rivers, river_name = if_else(river_name %in% c("Grase", "grasse
 
 Instead of:
 ```{r}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, 
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, 
                  river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
                                         river_name == "raquette" ~ "Raquette",
                                         TRUE ~ river_name))
@@ -1192,7 +1208,7 @@ rivers <- mutate(rivers,
 We have:
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_raw.csv") |>
+water <- read_csv("data/water_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1209,11 +1225,11 @@ Take a moment to play with this code in your console
 
 ### Convert this:
 ```{r}
-rivers <- read_csv("data/rivers_raw.csv")
-rivers <- clean_names(rivers)
-rivers <- rename(rivers, element = ele, amount = amo, temperature = temperature_c)
-rivers <- select(rivers, -wea)
-rivers <- mutate(rivers, 
+water <- read_csv("data/water_raw.csv")
+water <- clean_names(water)
+water <- rename(water, element = ele, amount = amo, temperature = temperature_c)
+water <- select(water, -wea)
+water <- mutate(water, 
                  river_name = case_when(river_name %in% c("Grase", "grasse") ~ "Grasse",
                                         river_name == "raquette" ~ "Raquette",
                                         TRUE ~ river_name))
@@ -1223,7 +1239,7 @@ rivers <- mutate(rivers,
 ### To this:
 
 ```{r, message = FALSE}
-rivers <- read_csv("data/rivers_raw.csv") |>
+water <- read_csv("data/water_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1245,7 +1261,7 @@ rivers <- read_csv("data/rivers_raw.csv") |>
 - Use `filter()` to take a closer look
 
 ```{r}
-filter(rivers, is.na(amount))
+filter(water, is.na(amount))
 ```
 
 ## Omitting `NA`s
@@ -1256,20 +1272,20 @@ filter(rivers, is.na(amount))
 :::{.spacer}
 Omit `NA`s from the `amount` column only (drop those rows)
 ```{r}
-rivers_no_na <- drop_na(rivers, amount)
+water_no_na <- drop_na(water, amount)
 ```
 
 Omit **all** `NA`s from **all** columns (drop those rows)
 ```{r}
-rivers_no_na <- drop_na(rivers)
+water_no_na <- drop_na(water)
 ```
 :::
 
 :::{.fragment .spacer}
 Check...
 ```{r}
-filter(rivers_no_na, is.na(amount))
-nrow(rivers_no_na)
+filter(water_no_na, is.na(amount))
+nrow(water_no_na)
 ```
 
 [No more `NA`s!<br>Fewer rows]{.note .absolute bottom=-10%}
@@ -1284,14 +1300,14 @@ If we filter by the column with `NA`s, they are silently dropped
 
 :::{.small}
 ```{r}
-filter(rivers, amount < 0.05)
+filter(water, amount < 0.05)
 ```
 :::
 
 :::{.small}
 We need to be explicit if we want to keep them
 ```{r}
-filter(rivers, amount < 0.05 | is.na(amount))
+filter(water, amount < 0.05 | is.na(amount))
 ```
 :::
 
@@ -1302,14 +1318,14 @@ filter(rivers, amount < 0.05 | is.na(amount))
 ### `replace_na()` is from `tidyr`* {.spacer}
 
 ```{r}
-rivers_no_na <- mutate(rivers, amount = replace_na(amount, 0))
+water_no_na <- mutate(water, amount = replace_na(amount, 0))
 ```
 
 :::{.fragment .spacer}
 Check...
 ```{r}
-filter(rivers_no_na, is.na(amount))
-nrow(rivers_no_na)
+filter(water_no_na, is.na(amount))
+nrow(water_no_na)
 ```
 
 [No more `NA`s!<br>Same number of rows]{.note .absolute bottom=25%}
@@ -1330,14 +1346,14 @@ nrow(rivers_no_na)
 Remember the problem with `temperature`?
 
 ```{r}
-filter(rivers, temperature < -10)
+filter(water, temperature < -10)
 ```
 
 :::{.fragment}
 ### `na_if()` is from `dplyr`*   {.spacer}
 
 ```{r}
-rivers <- mutate(rivers, temperature = na_if(temperature, -99))
+water <- mutate(water, temperature = na_if(temperature, -99))
 ```
 
 ![](figures/hex_dplyr.png){width=16% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
@@ -1347,7 +1363,7 @@ rivers <- mutate(rivers, temperature = na_if(temperature, -99))
 :::{.fragment}
 Check...
 ```{r}
-filter(rivers, is.na(temperature))
+filter(water, is.na(temperature))
 ```
 :::
 
@@ -1355,6 +1371,37 @@ filter(rivers, is.na(temperature))
 
 
 # Fixing formats
+
+## Fixing formats
+
+::::{.columns}
+:::{.column width=40%}
+### Basic data types
+- Text (Characters or Strings)
+- Numbers (Doubles, Integers)
+- Logical (TRUE or FALSE)
+- Factor (Categories)
+- Dates
+- Date/Times
+:::
+:::{.column .fragment width=60%}
+
+### Look for problems
+
+```{r, highlight.output = 3}
+water
+```
+
+[Year could be categorical (factor)<br>Better for plotting!<br>[(although it really depends)]{.small}]{.note .absolute left=70% bottom=-5% width=40%}
+:::
+::::
+
+## Convert to categorical
+
+```{r}
+water <- mutate(water, year = as.factor(year))
+water
+```
 
 ## Changing classes
 
@@ -1366,83 +1413,14 @@ Function  |  Input | Output
 `as.factor()`    |  Any vector | Categories
 
 
-[We'll deal with dates and times later...]{.note .absolute bottom=33%}
-
-### Your turn, try the following...{style="margin-top:10%"}
-::::{.columns}
-:::{.column}
-```{r formats1}
-a <- c("hi", "hello", "bonjour")
-```
-```{r formats2}
-#| eval: false
-as.character(a)
-as.numeric(a)
-as.logical(a)
-as.factor(a)
-```
-:::
-:::{.column}
-```{r formats3}
-b <- c(1, 0, 20)
-```
-```{r formats4}
-#| eval: false
-as.character(b)
-as.numeric(b)
-as.logical(b)
-as.factor(b)
-```
-:::
-::::
-
-## Changing classes {visibility=`r visibility`}
-
-### Your turn, try the following...
-
-::::{.columns}
-:::{.column}
-
-```{r}
-<<formats1>>
-```
-
-```{r}
-<<formats2>>
-```
-:::
-
-:::{.column}
-```{r}
-<<formats3>>
-```
-```{r}
-<<formats4>>
-```
-:::
-::::
-
-## Look for problems
-
-```{r, highlight.output = 3}
-rivers
-```
-
-[Year could be categorical (factor)<br>Better for plotting!<br>[(although it really depends)]{.small}]{.note .absolute bottom=5%}
-
-## Convert to categorical
-
-```{r}
-rivers <- mutate(rivers, year = factor(year))
-rivers
-```
+[We'll deal with dates and times later...]{.note .absolute bottom=20%}
 
 
 
 ## Put it all together...
 
 ```{r}
-rivers <- read_csv("data/rivers_raw.csv") |>
+water <- read_csv("data/water_raw.csv") |>
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
   select(-wea) |>
@@ -1451,7 +1429,7 @@ rivers <- read_csv("data/rivers_raw.csv") |>
                                 TRUE ~ river_name),
          amount = replace_na(amount, 0),
          temperature = na_if(temperature, -99),
-         year = factor(year)) 
+         year = as.factor(year)) 
 ```
 
 
@@ -1467,7 +1445,7 @@ rivers <- read_csv("data/rivers_raw.csv") |>
 
 ### Feel free to annotate within a pipe
 ```{r}
-rivers <- read_csv("data/rivers_raw.csv") |>
+water <- read_csv("data/water_raw.csv") |>
   # Fix column names
   clean_names() |>
   rename(element = ele, amount = amo, temperature = temperature_c) |>
@@ -1482,7 +1460,7 @@ rivers <- read_csv("data/rivers_raw.csv") |>
     # Problems with temperature logger, -99 is a mistake
     temperature = na_if(temperature, -99),
     # Convert for plotting 
-    year = factor(year)) 
+    year = as.factor(year)) 
 ```
 
 
@@ -1493,8 +1471,10 @@ rivers <- read_csv("data/rivers_raw.csv") |>
 
 ## Dates and Times
 
+**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
+
 - Date/times aren't always recognized as date/times
-- [Geolocator data](`r glue("{site}/data/geolocators.csv")`)
+
 
 ```{r, message = FALSE, R.options = list(tibble.print_max = 6, tibble.print_min = 6)}
 geolocators <- read_csv("data/geolocators.csv", col_names = c("time", "light"))
@@ -1511,7 +1491,7 @@ geolocators
 [Artwork by [@allison_horst](https://github.com/allisonhorst/stats-illustrations)]{.footnote}
 
 
-## `lubridate` package *
+## `lubridate` package*
 
 - Part of `tidyverse`, but needs to be loaded separately
 - Great for converting date/times [(i.e. telling R this is a date/time)]{.small}
@@ -1530,7 +1510,7 @@ geolocators
 ![](figures/hex_lubridate.png){width=16% .absolute top=0 right=0 fig-alt="Hex logo for the lubridate R package"}
 [* part of the `tidyverse`]{.footnote}
 
-## `lubridate` package *
+## `lubridate` package*
 
 
 ![](figures/hex_lubridate.png){width=16% .absolute top=0 right=0 fig-alt="Hex logo for the lubridate R package"}
@@ -1566,7 +1546,7 @@ but dates don't have to have times (`Date`)<br>
 ## Saving data
 
 ### Keep yourself organized
-- Keep your R-created data in a **different** folder from your 'raw' data *
+- Keep your R-created data in a **different** folder from your 'raw' data*
 - If you have a lot going on, split your work into several scripts, and number the both the scripts AND the data sets produced:
  - `1_cleaned.csv`
  - `2_summarized.csv`
@@ -1574,8 +1554,11 @@ but dates don't have to have times (`Date`)<br>
 
 :::{.fragment}
 ### Save your data to file:
+
+- First create the *datasets* folder 
+
 ```{r, eval = FALSE}
-write_csv(rivers, "datasets/rivers_cleaned.csv")
+write_csv(water, "datasets/water_cleaned.csv")
 ```
 ![](figures/hex_readr.png){width=16% .absolute bottom=12% right=0 fig-alt="Hex logo for the readr R package"}
 :::
@@ -1599,13 +1582,15 @@ write_csv(rivers, "datasets/rivers_cleaned.csv")
 ### 3. Fixing problems
   - Corrections
   - Renaming
+  - Dealing with NA's
 :::
 
 :::{.column width=50%}
 ### 4. Setting formats
-  - Dates
+  - Text
   - Numbers
   - Factors
+  - Dates
 
 ### 5. Saving your data
 :::
