@@ -5,12 +5,13 @@
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**:
-Online<br><!--Brodie Building Rm 3-47, Brandon University<br> -->
-**Date/time**: Tues/Wed February 27-28th 2024, 8:30am-4:30pm Pacific<br>
+**Location**: Brodie Building Rm 3-47, Brandon University<br>
+**Date/time**: Sat/Sun January 18-19th 2025, 9:00am-5:00pm<br>
 
-This workshop is being run for staff in BC Government. Contact
-[Julie-Ann Ishikawa](mailto:JulieAnn.Ishikawa@gov.bc.ca) to register.
+This workshop is being run on behalf of the MELS program at Brandon
+University. MELS students are given priority but anyone is welcome to
+register and attend, spacing permitting. Contact [Heather
+Teeple](mailto:TeepleH@BrandonU.CA) to register.
 
 > **⚠️Important!⚠️**
 >
@@ -60,37 +61,24 @@ easily copy/paste code and navigate
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)
     \|
     [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf)
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf))
+    <!--| [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf))-->
 
 2.  Visualizing data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)
     \|
     [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))
+    <!--| [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))-->
 
 3.  Loading & Cleaning Data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)
     \|
     [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))
+    <!--| [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))-->
 
 4.  Summarizing & Transforming Data in R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)
     \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))
+    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)<!-- | [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))-->
 
 5.  Getting help with R
     ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)
@@ -171,8 +159,8 @@ R for you in the ‘Console’ pane
 **Verify your version of R by looking at the first line of the console
 (left or lower left pane), you should see something like this:**
 
-    R version 4.3.2 (2023-10-31) -- Eye Holes
-    Copyright (C) 2023 The R Foundation for Statistical Computing
+    R version 4.4.2 (2024-10-31) -- Pile of Leaves
+    Copyright (C) 2024 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -189,8 +177,8 @@ R for you in the ‘Console’ pane
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.3.2 (2023-10-31) – Eye
-Holes
+The important line is the first one: R version 4.4.2 (2024-10-31) – Pile
+of Leaves
 
 ### **3. Install/Update Packages**
 
@@ -244,8 +232,8 @@ library("tidyverse")
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ✔ dplyr     1.1.4     ✔ readr     2.1.5
     ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-    ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+    ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+    ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
     ✔ purrr     1.0.2     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
