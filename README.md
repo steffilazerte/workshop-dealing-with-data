@@ -169,8 +169,8 @@ R for you in the ‘Console’ pane
 **Verify your version of R by looking at the first line of the console
 (left or lower left pane), you should see something like this:**
 
-    R version 4.4.2 (2024-10-31) -- Pile of Leaves
-    Copyright (C) 2024 The R Foundation for Statistical Computing
+    R version 4.5.1 (2025-06-13) -- Great Square Root
+    Copyright (C) 2025 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -187,8 +187,8 @@ R for you in the ‘Console’ pane
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.4.2 (2024-10-31) – Pile
-of Leaves
+The important line is the first one: R version 4.5.1 (2025-06-13) –
+Great Square Root
 
 ### **3. Install/Update Packages**
 
@@ -242,9 +242,9 @@ library("tidyverse")
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ✔ dplyr     1.1.4     ✔ readr     2.1.5
     ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+    ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
     ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-    ✔ purrr     1.0.2     
+    ✔ purrr     1.1.0     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
@@ -269,3 +269,20 @@ This is a quick introduction to R coding which is will be a great way to
 get up to speed on the basics before we jump in.
 
 **Congratulations! Now you’re ready to get into the fun stuff :)**
+
+# Use of this material for teaching
+
+Are you an R educator? Do you want to give this workshop?
+
+Go for it! I would love for you to adapt this material for your own use.
+It’s licensed as GPLv3 which means you can free to copy, adapt, and use
+this material, but any modifications you make must also be shared under
+the GPLv3 licence.
+
+Essentially if you use/adapt this material, I hope that you’ll pay it
+forward and share with others.
+
+I’d love to hear if you use this, how the workshop when (what worked,
+what didn’t, and how you made changes), but that’s not a requirement.
+
+Have fun!
