@@ -5,13 +5,11 @@
 *An introduction to R for data management and manipulation*
 
 **Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Brodie Building Rm 3-47, Brandon University<br>
-**Date/time**: Sat/Sun January 18-19th 2025, 9:00am-5:00pm<br>
+**Location**: Online<br> **Date/time**: Tues/Thurs February 24/26 2026,
+10:00am-6:00pm Eastern<br>
 
-This workshop is being run on behalf of the MELS program at Brandon
-University. MELS students are given priority but anyone is welcome to
-register and attend, spacing permitting. Contact [Heather
-Teeple](mailto:TeepleH@BrandonU.CA) to register.
+This workshop is being run on behalf of the University of Waterloo
+Hydrobiogeochemistry lab.
 
 > **⚠️Important!⚠️**
 >
@@ -33,13 +31,13 @@ on teaching the use of RStudio and the tidyverse suite of packages
 visualizations, load, clean and summarize data, and generally
 troubleshoot R. This workshop is geared towards raw beginners, those
 with a basic familiarity with R, and towards intermediate R users
-unfamiliar with the tidyverse suite of packages or those wanting to up
-their game.
+unfamiliar with the tidyverse suite of packages, or those simply wanting
+a refresher or a chance to dive into the details.
 
 **Each day includes an hour for you to work on your own data, with
 support from the instructor to work through your own R problems and
-learn how to do analyses specific to your work. Please bring your work
-if you would like to take advantage of this.**
+learn how to do analyses specific to your work. Please have work
+available if you would like to take advantage of this.**
 
 This GitHub repository holds all the information relating to our
 workshop.
@@ -57,44 +55,7 @@ activities are be posted after the workshop.
 the most accurate with respect to formatting and will allow you to
 easily copy/paste code and navigate
 
-1.  Intro to R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html)
-    \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))
-    <!--| [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf))-->
-
-2.  Visualizing data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html)
-    \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf))
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf))
-
-3.  Loading & Cleaning Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html)
-    \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf))
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf))
-
-4.  Summarizing & Transforming Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html)
-    \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf))
-    \|
-    [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html)
-    \|
-    [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf))
-
-5.  Getting help with R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html)
-    \|
-    [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf)
-    \| *No answer slides*)
+🚧 Slides will be available by the date of the workshop 🚧
 
 > Answer slides will be posted after the workshop
 
@@ -169,7 +130,7 @@ R for you in the ‘Console’ pane
 **Verify your version of R by looking at the first line of the console
 (left or lower left pane), you should see something like this:**
 
-    R version 4.5.1 (2025-06-13) -- Great Square Root
+    R version 4.5.2 (2025-10-31) -- [Not] Part in a Rumble
     Copyright (C) 2025 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -187,8 +148,8 @@ R for you in the ‘Console’ pane
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.5.1 (2025-06-13) –
-Great Square Root
+The important line is the first one: R version 4.5.2 (2025-10-31) –
+\[Not\] Part in a Rumble
 
 ### **3. Install/Update Packages**
 
@@ -240,11 +201,11 @@ library("tidyverse")
 ```
 
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ✔ dplyr     1.1.4     ✔ readr     2.1.5
-    ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-    ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-    ✔ purrr     1.1.0     
+    ✔ dplyr     1.2.0     ✔ readr     2.1.5
+    ✔ forcats   1.0.0     ✔ stringr   1.6.0
+    ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+    ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+    ✔ purrr     1.2.1     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
