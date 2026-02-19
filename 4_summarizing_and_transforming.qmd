@@ -61,13 +61,13 @@ options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
 - Creating categories 
 - Column calculations
 - By group
-- `mutate()` and `group_by()`
+- `mutate()` (and `group_by()`)
 :::
 
 :::{.column}
 ### 4. **Summarize existing columns**
 - Summarizing by group
-- `summarize()` and `group_by()`
+- `summarize()`
 
 ### 5. **Transpose**
 - Going between **wide** and **long** data formats
@@ -94,8 +94,8 @@ size
 
 :::{.column}
 ### Using data sets:
-- [grain_size2.csv](`r glue("{site}/data/grain_size2.csv")`)
-- [grain_meta.csv](`r glue("{site}/data/grain_meta.csv")`)
+- [🔗`grain_size2.csv`](`r glue("{site}/data/grain_size2.csv")`)
+- [🔗`grain_meta.csv`](`r glue("{site}/data/grain_meta.csv")`)
 :::
 ::::
 
@@ -256,6 +256,8 @@ c(1, 2, 1, "apple") == 1 | c(1, 2, 1, "apple") == 2
 What do the following filters do?
 
 ```{r, eval = FALSE}
+size <- read_csv("data/grain_size2.csv")
+
 filter(size, depth == 20)
 filter(size, depth == 20, clay < 20)
 filter(size, depth %in% c(20, 100) & clay == 6)
@@ -764,7 +766,7 @@ select(size, contains("silt"))
 
 # Tangent
 
-[Decimal points]{.large}
+[Tibbles]{.large}
 
 ## Where are...
 
@@ -809,6 +811,69 @@ print(size, n = Inf)
 
 ## Mutating by group
 
+
+
+### `mutate()` is from `dplyr`* {style="margin-bottom:75px"}
+
+### `mutate()` has a `.by` argument {.spacer}
+
+[* part of the `tidyverse`]{.footnote}
+
+```{r}
+#| eval: false
+mutate(data, column1 = expression1, column2 = expression2, ..., .by = c(group1, group2))
+```
+
+:::{.spacer}
+- Applies splits data frame by grouping columns *before* calculations
+:::
+
+![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
+
+
+## Mutating by group
+
+::::{.columns}
+
+:::{.column}
+### `mutate()` without grouping
+
+```{r}
+size <- size |>
+  mutate(mean_sand_all = mean(total_sand))
+```
+
+```{r, echo=FALSE}
+select(size, plot, total_sand, mean_sand_all)
+```
+
+> Overall mean calculated
+
+:::
+
+:::{.column .fragment}
+### Grouping via `.by = COLUMN`:
+
+```{r}
+#| code-line-numbers: "3"
+size <- size |>
+  mutate(mean_sand_plot = mean(total_sand), 
+         .by = plot)
+```
+
+
+```{r, echo = FALSE, R.options = list(tibble.print_min = 9)}
+select(size, plot, total_sand, mean_sand_plot)
+```
+
+> Mean calculated for each group (i.e. plot)
+
+:::
+::::
+
+
+## Mutating by group (alternative)
+
 ### `group_by()` and `ungroup()` are from `dplyr`* {.spacer}
 
 [* part of the `tidyverse`]{.footnote}
@@ -828,7 +893,7 @@ ungroup(data)
 ![](figures/hex_dplyr.png){width=20% .absolute top=0 right=0 fig-alt="Hex logo for the dplyr R package"}
 
 
-## Mutating by group
+## Mutating by group (alternative)
 
 ::::{.columns}
 
@@ -869,8 +934,7 @@ select(size, plot, total_sand, mean_sand_plot)
 :::
 ::::
 
-[Always remember to **`ungroup()`** your data!
-]{.fragment .small .note .absolute left=85% top=35% width=20%}
+[Always remember to **`ungroup()`** your data!]{.fragment .small .note .absolute left=85% top=35% width=20%}
 
 
 
@@ -892,18 +956,36 @@ size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
          total_silt = coarse_silt + medium_silt + fine_silt) |>
-  ??? |>   
-  ??? |>   
-  ???       
+  ???     
 ```
 
-[**Too Easy?**<br>See `?mutate`<br>Can you do the same thing without using `group_by()`?]{.note .absolute bottom=10% width=60%}
+[**Too Easy?**<br>Try both methods<br>Try grouping by multiple columns]{.note .absolute bottom=10% width=60%}
 
 
 ## Your turn: Mutating by group {visibility=`r visibility`}
 
 Add a column containing the **mean amount of total silt _per_ plot**
 
+```{r}
+#| code-line-numbers: "7"
+meta <- read_csv("data/grain_meta.csv")
+
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  mutate(mean_silt = mean(total_silt), .by = plot)
+```
+
+```{r}
+#| echo: false
+select(size, plot, contains("silt"))
+```
+
+
+## Your turn: Mutating by group {visibility=`r visibility`}
+
+Add a column containing the **mean amount of total silt _per_ plot**
 ```{r}
 #| code-line-numbers: "7-9"
 meta <- read_csv("data/grain_meta.csv")
@@ -923,7 +1005,45 @@ size <- read_csv("data/grain_size2.csv") |>
 select(size, plot, contains("silt"))
 ```
 
-[**Too Easy?** [You could also use<br>[`mutate(mean_silt = mean(total_silt), .by = "plot")`]{.small}]{.small}]{.note .absolute bottom=50% width=50% left=80%}
+## Your turn: Mutating by group {visibility=`r visibility`}
+
+Group by multiple columns
+```{r}
+#| code-line-numbers: "7"
+meta <- read_csv("data/grain_meta.csv")
+
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  mutate(mean_silt = mean(total_silt), .by = c(habitat, technician))
+```
+
+```{r}
+#| echo: false
+select(size, habitat, technician, contains("silt"))
+```
+
+## Your turn: Mutating by group {visibility=`r visibility`}
+
+Group by multiple columns
+```{r}
+#| code-line-numbers: "7"
+meta <- read_csv("data/grain_meta.csv")
+
+size <- read_csv("data/grain_size2.csv") |>
+  left_join(meta, by = "plot") |>
+  mutate(total_sand = coarse_sand + medium_sand + fine_sand,
+         total_silt = coarse_silt + medium_silt + fine_silt) |>
+  group_by(habitat, technician) |>
+  mutate(mean_silt = mean(total_silt)) |>
+  ungroup()
+```
+
+```{r}
+#| echo: false
+select(size, habitat, technician, contains("silt"))
+```
 
 
 ## Put it all together
@@ -935,10 +1055,9 @@ size <- read_csv("data/grain_size2.csv") |>
   left_join(meta, by = "plot") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand,
          total_silt = coarse_silt + medium_silt + fine_silt) |>
-  group_by(plot) |>
   mutate(mean_sand = mean(total_sand),
-         mean_silt = mean(total_silt)) |> 
-  ungroup()
+         mean_silt = mean(total_silt),
+         .by = plot)
 ```
 
 :::{.fragment}
@@ -959,7 +1078,9 @@ select(size, plot, depth, total_sand, total_silt, mean_sand, mean_silt)
 
 ```{r}
 #| eval: false
-summarize(data, column1 = expression1, column2 = expression2)
+summarize(data, 
+          column1 = expression1, column2 = expression2, ..., 
+          .by = c(group1, group2))
 ```
 
 :::{.spacer}
@@ -980,11 +1101,9 @@ summarize(data, column1 = expression1, column2 = expression2)
 ### `mutate()`
 
 ```{r}
-#| code-line-numbers: "3"
+#| code-line-numbers: "2"
 size <- size |>
-  group_by(plot) |>
-  mutate(mean_sand = mean(total_sand)) |>
-  ungroup()
+  mutate(mean_sand = mean(total_sand), .by = plot)
 
 select(size, plot, contains("sand"))
 ```
@@ -999,17 +1118,14 @@ select(size, plot, contains("sand"))
 ### `summarize()`
 
 ```{r}
-#| code-line-numbers: "3"
+#| code-line-numbers: "2"
 size <- size |>
-  group_by(plot) |>
-  summarize(mean_sand = mean(total_sand), .groups = "drop")
+  summarize(mean_sand = mean(total_sand), .by = plot)
 
 size
 ```
 
 [No repeated values **and**<br>drops unused columns]{.note .absolute bottom=20% left=68%}
-
-[**Note:**<br>We use `.groups = "drop"` to ungroup and avoid messages<br> You could also just use `ungroup()`]{.note .small .absolute bottom=56% left=80% width=50%}
 
 ## Summarizing by group
 
@@ -1022,14 +1138,13 @@ size <- read_csv("data/grain_size2.csv") |>
 ```
 
 
-- Keep other id columns by adding them to `group_by()`
+- Keep other id columns by adding them to `.by`
 - Beware: think carefully about grouping variables!
 
 
 ```{r}
 size |> 
-  group_by(plot, depth) |>
-  summarize(mean_sand = mean(total_sand), .groups = "drop")
+  summarize(mean_sand = mean(total_sand), .by = c(plot, depth))
 ```
 
 
@@ -1043,8 +1158,7 @@ size |>
 
 ```{r}
 size |> 
-  group_by(plot, habitat) |>
-  summarize(mean_sand = mean(total_sand), .groups = "drop")
+  summarize(mean_sand = mean(total_sand), .by = c(plot, habitat))
 ```
 
 
@@ -1112,9 +1226,7 @@ n()
 ```{r n}
 #| eval: false
 size |>
-  group_by(plot) |>
-  summarize(samples_total = n(), 
-            .groups = "drop")
+  summarize(samples_total = n(), .by = plot)
 ```
 :::
 :::{.column}
@@ -1132,14 +1244,17 @@ size |>
 
 ### For each plot and habitat, calculate
 
-- means for **total_silt** with `mean(x)`
-- standard deviations for **total_silt** with `sd(x)`
-- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n())`
+- standard error for **total_sand**
+- mean for **total_silt**
+- standard deviation for **total_silt**
+- standard error for **total_silt**
+
+
 
 
 ```{r}
 #| eval: false
-#| code-line-numbers: "13-14"
+#| code-line-numbers: "12-13"
 meta <- read_csv("data/grain_meta.csv")
 
 size <- read_csv("data/grain_size2.csv") |>
@@ -1148,14 +1263,16 @@ size <- read_csv("data/grain_size2.csv") |>
          total_silt = coarse_silt + medium_silt + fine_silt)
 
 size_sum <- size |>
-  group_by(plot, habitat) |>
   summarize(sample_size = n(),                         
             mean_sand = mean(total_sand),          
             sd_sand = sd(total_sand),    
             se_sand = ???,
-            ???)
+            ???, 
+            .by = c(plot, habitat))
 ```
 
+
+[**Hint**<br>[Use `sd(x)`/`sqrt(n())` for standard error calculations]{.small}]{.note .absolute left=85% bottom=60% width=40%}
 
 [**Too Easy?**<br>[Can you recycle some of the calculated values into the next
 statistic?]{.small}]{.note .absolute left=85% bottom=20% width=40%}
@@ -1168,14 +1285,14 @@ statistic?]{.small}]{.note .absolute left=85% bottom=20% width=40%}
 
 ### For each plot and habitat, calculate
 
-- sample sizes with `n()`
-- means for **total_sand** and **total_silt** with `mean(x)`
-- standard deviations for **total_sand** and **total_silt** with `sd(x)`
-- standard errors for **total_sand** and **total_silt** with `sd(x)`/`sqrt(n(x))`
+- standard error for **total_sand**
+- mean for **total_silt**
+- standard deviation for **total_silt**
+- standard error for **total_silt**
 
 
 ```{r}
-#| code-line-numbers: "10-16"
+#| code-line-numbers: "12-15"
 meta <- read_csv("data/grain_meta.csv")
 
 size <- read_csv("data/grain_size2.csv") |>
@@ -1184,14 +1301,14 @@ size <- read_csv("data/grain_size2.csv") |>
          total_silt = coarse_silt + medium_silt + fine_silt)
 
 size_sum <- size |>
-  group_by(plot, habitat) |>
   summarize(sample_size = n(),                         
             mean_sand = mean(total_sand),          
             sd_sand = sd(total_sand),              
             se_sand = sd_sand / sqrt(sample_size),     
             mean_silt = mean(total_silt),          
             sd_silt = sd(total_silt),              
-            se_silt = sd_silt / sqrt(sample_size))     
+            se_silt = sd_silt / sqrt(sample_size),
+            .by = c(plot, habitat))
 ```
 
 
@@ -1373,7 +1490,7 @@ size_long <- size |>
 
 #### From wide ...
 
-```{r, echo = FALSE}
+```{r}
 #| echo: false
 #| R.options: 
 #|   tibble.print_min: 15
@@ -1458,11 +1575,11 @@ size_long
 ```{r}
 sand_sum <- read_csv("data/grain_size2.csv") |>
   mutate(total_sand = coarse_sand + medium_sand + fine_sand) |>
-  group_by(plot) |>
   summarize(sample_size = n(),
             mean_sand = mean(total_sand),
             sd_sand = sd(total_sand),
-            se_sand = sd_sand / sqrt(sample_size))
+            se_sand = sd_sand / sqrt(sample_size), 
+            .by = plot)
 
 sand_sum
 ```
@@ -1736,7 +1853,6 @@ size <- read_csv("data/grain_size2.csv") |>
          total_silt = coarse_silt + medium_silt + fine_silt)
 
 size_sum <- size |>
-  group_by(plot, habitat) |>
   summarize(sample_size = n(),
             total_sand = sum(total_sand),
             mean_sand = mean(total_sand),
@@ -1745,7 +1861,8 @@ size_sum <- size |>
             total_silt = sum(total_silt),
             mean_silt = mean(total_silt),
             sd_silt = sd(total_silt),
-            se_silt = sd_silt / sqrt(sample_size))
+            se_silt = sd_silt / sqrt(sample_size),
+            .by = c(plot, habitat))
 
 size_long <- size |>
   pivot_longer(cols = c(-plot, -depth, -technician, -habitat, -date, -clay), 
@@ -1775,26 +1892,38 @@ write_csv(size_long, "datasets/size_long.csv")
 
   
 
+## Wrapping up: Common mistakes
+
+#### `select()` doesn't work
+
+- You may have the `MASS` package loaded, it also has a `select()` function
+- Make sure you loaded `tidyverse` or `dplyr` packages
+- Try using `dplyr::select()`
+
+::: {.fragment}
+#### I can't figure out how to `pivot_wider()` my data in the way I want it
+
+- Sometimes you need to `pivot_longer()` before you can widen it
+:::
+
+::: {.fragment}
+#### `mutate()` is giving me weird results
+
+- Is your data grouped when it shouldn't be? (try using `ungroup()`)
+:::
+
+::: {.fragment}
+#### Joins use `by`, mutate/summarizes use `.by`
+:::
+
 ## Wrapping up: Common mistakes {.space-list}
 
-- `select()` doesn't work
-    - You may have the `MASS` package loaded, it also has a `select()` function
-    - Make sure you loaded `tidyverse` or `dplyr` packages
-    - Try using `dplyr::select()`
-
-- I can't figure out how to `pivot_wider()` my data in the way I want it
-    - Sometimes you need to `pivot_longer()` before you can widen it
-    
-- `mutate()` is giving me weird results
-    - Is your data grouped when it shouldn't be?
-    - Try using `ungroup()` first
-
-- I get a warning when I join data sets
-  - Can be because multiple joins
-  - Can be because mismatched factor levels
-    - If the category levels in one data frame do not match the other data frame
-    - They will be transformed to character
-    - If that's a problem, use `as.factor()` to turn them back
+#### I get a warning when I join data sets
+- Can be because multiple joins
+- Can be because mismatched factor levels
+  - If the category levels in one data frame do not match the other data frame
+  - They will be transformed to character
+  - If that's a problem, use `as.factor()` to turn them back
 
 
 ## Wrapping up: Further reading {.space-list}

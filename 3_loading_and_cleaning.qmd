@@ -48,21 +48,27 @@ options(tibble.print_max = 10, tibble.print_min = 10, width = 200)
     - In the "Files" pane click on the folder icon **OR**
     - Navigate to your project folder via your computer's file browser
     
-![Click on "New Folder"](figures/files.png){fig-alt="Screenshot of the file viewer pane in RStudio with \"New Folder\" circled in red"}
+![Click on "New Folder"](figures/files.png){fig-alt="Screenshot of the file viewer pane in RStudio with \"New Folder\" circled in red" width=30%}
 
 
 [ ]{style="margin-top:10px;"}
 
 2. Right-click "Save Link As.." and download these files to your **data** folder
-    - [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)
-    - [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)
-    - [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
-    - [`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)
-    - [`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)
-    - [grain_size2.csv](`r glue("{site}/data/grain_size2.csv")`)
-    - [grain_meta.csv](`r glue("{site}/data/grain_meta.csv")`)
-    - [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
-    
+
+::::{.columns}
+:::{.column}
+- [🔗`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)
+- [🔗`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)
+- [🔗`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
+- [🔗`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)
+:::
+:::{.column}
+- [🔗`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)
+- [🔗`grain_size2.csv`](`r glue("{site}/data/grain_size2.csv")`)
+- [🔗`grain_meta.csv`](`r glue("{site}/data/grain_meta.csv")`)
+- [🔗`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)
+:::
+::::
 
 # Side Note
 *R base vs. `tidyverse`*
@@ -315,11 +321,28 @@ d <- read_csv("data/prospect_data_2017-01-01.csv")
 :::
 
 
-# Let's Load Some Data!
+# Let's load some data!
+
+## A reminder about Assignments!
+
+- `<-`
+- "Assign" an object to a handle/name
+
+```{r eval = FALSE}
+my_figure <- ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm)) +
+    geom_point()
+
+my_data <- read_csv("my_data_spreadsheet.csv")
+```
+
+- `my_figure` is an R object, specifically a ggplot2 figure
+- `my_data` is an R object, specifically a data.frame 
+
+> To *use* your data, you need to load it *and* assign it to a handle/name
 
 
 ## Your turn: Load some data  {.space-list}
-**Working with [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)**
+**Working with [🔗`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`)**
 
 ::::{.columns}
 :::{.column width=60%}
@@ -374,14 +397,14 @@ tail(water)
 - **Load with function from readr package (e.g. `read_csv()`, `read_tsv()`, etc.)**
 
 ### Look at the file extension:
-- [`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`) {{< fa arrow-right >}} Excel file {{< fa arrow-right >}} `read_excel()`
-- [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`) {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
+- [🔗`water_cleaned.xlsx`](`r glue("{site}/data/water_cleaned.xlsx")`) {{< fa arrow-right >}} Excel file {{< fa arrow-right >}} `read_excel()`
+- [🔗`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`) {{< fa arrow-right >}} Comma-separated-variables {{< fa arrow-right >}} `read_csv()`
 
 [But sometimes not clear...]{.note .absolute .fragment left=80% bottom=10% width=30%}
 
 ## How do I know which function to use? {.space-list}
 
-### Working with: [`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
+### Working with: [🔗`master_moch.txt`](`r glue("{site}/data/master_moch.txt")`)
     
 - In lower right-hand pane, click on **Files**
 - Click on **data** folder
@@ -433,7 +456,7 @@ read_tsv("data/master_moch.txt", n_max = 3)  # note change in function!
 
 ## `col_names`  {.space-list}
 
-**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
+**Working with [🔗`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)**
 
 <p>
 
@@ -458,7 +481,7 @@ Oops?
 
 ## `col_names`
 
-**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
+**Working with [🔗`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)**
 
 <p>
 
@@ -492,7 +515,7 @@ my_data
 
 ## `skip` info rows before data
 
-**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
+**Working with [🔗`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)**
 
 ```{r, error = TRUE, message = FALSE, highlight.output = c(2, 4:6)}
 my_data <- read_tsv("data/grain_size.txt")
@@ -503,7 +526,7 @@ my_data
 
 ## `skip` info rows before data
 
-**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
+**Working with [🔗`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)**
 
 
 ```{r, eval = FALSE}
@@ -535,7 +558,7 @@ cat(readChar("data/grain_size.txt", nchars = 320))
 
 ## `skip` info rows before data
 
-**Working with [Grain size data](`r glue("{site}/data/grain_size.txt")`)**
+**Working with [🔗`grain_size.txt`](`r glue("{site}/data/grain_size.txt")`)**
 
 - Add `skip = 3` to skip the first three rows
 
@@ -549,7 +572,7 @@ my_data
 
 ## Your turn: Load this data set
 
-**Load Data: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
+**Load Data: [🔗`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
 
 1. Look at the file
 2. Decide which R function to use based on delimiter [(comma, space, or tab?)]{.small}
@@ -562,13 +585,13 @@ telemetry
 ```
 
 [**Too Easy?**<br>Load some of your own tricky data]{.note .absolute bottom=17% left=80% width=40%}
-[**OR**<br>Try to load the second sheet of `water_cleaned.xlsx` and rename the columns in the same step<br>[(see `?read_excel`)]{.small}]{.note .absolute bottom=-15% left=70% width=60%}
+[**OR**<br>Try to load the second sheet of `water_cleaned.xlsx`]{.note .absolute bottom=0 left=70% width=60%}
 
 
 
 ## Your turn: Load this data set {visibility=`r visibility`}
 
-**Load Data: [`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
+**Load Data: [🔗`Sta A Data 2006-11-07.dmp`](`r glue("{site}/data/Sta%20A%20Data%202006-11-07.dmp")`)**
 
 ```{r, ref.label="yt_load", message = FALSE, R.options = list(tibble.print_max = 7, tibble.print_min = 7)}
 ```
@@ -584,7 +607,8 @@ telemetry
 ```{r}
 excel_sheets("data/water_cleaned.xlsx")  # Or look yourself ;)
 
-read_excel("data/water_cleaned.xlsx", sheet = "Oswegatchie", skip = 2)
+water2 <- read_excel("data/water_cleaned.xlsx", sheet = "Oswegatchie", skip = 2)
+water2
 ```
 
 
@@ -777,7 +801,7 @@ g4 <- ggplot(data = penguins, aes(x = body_mass_g)) +
 
 ## Look at the data
 
-**Working with: [`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)**
+**Working with: [🔗`water_raw.csv`](`r glue("{site}/data/water_raw.csv")`)**
 
 ```{r, message = FALSE}
 water <- read_csv("data/water_raw.csv")
@@ -1409,7 +1433,7 @@ Function  |  Input | Output
 --------- | -------------- | ------
 `as.character()` |  Any vector | Text (Characters)
 `as.numeric()`   |  Any vector (but returns NAs if not numbers) | Numbers
-`as.logical()`   |  TRUE, FALSE, T, F, 0 (FALSE), any other number (all TRUE) | TRUE or FALSE
+`as.logical()`   |  TRUE, FALSE, T, F, 1, 0 (FALSE), any other number (all TRUE) | TRUE or FALSE
 `as.factor()`    |  Any vector | Categories
 
 
@@ -1471,7 +1495,7 @@ water <- read_csv("data/water_raw.csv") |>
 
 ## Dates and Times
 
-**Working with [Geolocator data](`r glue("{site}/data/geolocators.csv")`)**
+**Working with [🔗`geolocators.csv`](`r glue("{site}/data/geolocators.csv")`)**
 
 - Date/times aren't always recognized as date/times
 
@@ -1539,7 +1563,7 @@ but dates don't have to have times (`Date`)<br>
 
 # Saving data
 
-[(For the love of all that is good don't *lose* that data!!!)*]{.large}
+[For the love of all that is good don't *lose* that data!!!*]{.large}
 
 [* but if you've been paying attention, you know that you only need the script `r emo::ji("wink")`]{.small style="color:grey;display:block;margin-top:60px"}
 
@@ -1607,7 +1631,7 @@ write_csv(water, "datasets/water_cleaned.csv")
 
 ## Wrapping up: Common mistakes
 ### Confusing pipes with function arguments
-- Pipes (`|>` or `%>%`) pass the _output_ from one function as _input_ to the next function:
+- Pipes (`|>` or `%>%`) pass the _output_ from one function as _input_ (first argument) to the next function
 
 ```{r, eval = FALSE}
 my_data <- my_data |>                 # Pass my_data

@@ -11,7 +11,7 @@
 <link href="5_getting_help_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
-  <meta name="dcterms.date" content="2025-01-12">
+  <meta name="dcterms.date" content="2026-02-19">
   <title>Getting Help with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -211,7 +211,7 @@
   
   
   
-    <p class="date">Compiled: 2025-01-12</p>
+    <p class="date">Compiled: 2026-02-19</p>
   </section>
 <section>
 <section id="first-things-first" class="title-slide slide level1 center">
@@ -246,7 +246,8 @@
 <span id="cb1-2"><a href=""></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb1-3"><a href=""></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error: object 'a' not found</code></pre>
+<pre><code>Error:
+! object 'a' not found</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -568,8 +569,44 @@ profiling                          Profiling Performance (source, html)</code></
 <li>What is actually required to answer <em>your</em> question?</li>
 </ul>
 </section>
-<section id="asking-for-help" class="slide level2">
-<h2>Asking for Help</h2>
+<section id="ai-specifically-llms" class="slide level2">
+<h2>AI (specifically LLMs) ✨</h2>
+<h3 id="general-cautions">General Cautions</h3>
+<ul>
+<li>Can be useful, can be painful</li>
+<li>Free models are so-so</li>
+<li>R changes fast, so AI answers can be out of date</li>
+<li>Own your work</li>
+</ul>
+<p><img data-src="figures/ai_meme2.jpeg" class="absolute" style="top: 10%; right: -5%; width: 45%; " alt=""></p>
+</section>
+<section id="ai-specifically-llms-1" class="slide level2">
+<h2>AI (specifically LLMs) ✨</h2>
+<div class="columns">
+<div class="column">
+<h3 id="good-usecases-use-ai-to">Good usecases: Use AI to…</h3>
+<ul>
+<li><em>Support</em> your work, not <em>do</em> you work</li>
+<li>Remind yourself (enhanced search)</li>
+<li>Help troubleshooting
+<ul>
+<li>Rubber duck that answers back</li>
+<li>Even incorrect answers can help</li>
+</ul></li>
+<li>Ask for suggestions for improvement</li>
+</ul>
+</div><div class="column">
+<h3 id="bad-usecases-do-not-use-ai-to">Bad usecases: Do NOT use AI to…</h3>
+<ul>
+<li>Create code you can’t evaluate (Too soon)</li>
+<li>Have AI create code you don’t evaluate (Too fast)</li>
+<li>Work with private/sensitive data</li>
+</ul>
+</div></div>
+<p><img data-src="figures/ai_meme1.jpeg" class="absolute" style="bottom: 0px; right: 10%; width: 30%; " alt=""></p>
+</section>
+<section id="asking-people-for-help" class="slide level2">
+<h2>Asking people for Help</h2>
 <h3 id="not-useful">Not useful</h3>
 <ul>
 <li>“I got an error”</li>
@@ -622,7 +659,8 @@ profiling                          Profiling Performance (source, html)</code></
 <span id="cb21-6"><a href=""></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Awake time (hrs)"</span>,</span>
 <span id="cb21-7"><a href=""></a>       <span class="at">title =</span> <span class="st">"Awake time by Diet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error: object 'm' not found</code></pre>
+<pre><code>Error in `ggplot()`:
+! could not find function "ggplot"</code></pre>
 </div>
 </div>
 <ul>
@@ -706,9 +744,9 @@ profiling                          Profiling Performance (source, html)</code></
 <section id="citing-r" class="slide level2">
 <h2>Citing R</h2>
 <h3 id="inline">Inline</h3>
-<p>“All statistical analyses were performed with R statistical software (v4.4.2, R Core Team 2024).”</p>
+<p>“All statistical analyses were performed with R statistical software (v4.5.2, R Core Team 2025).”</p>
 <h3 class="spacer" id="bibliography-1">Bibliography</h3>
-<p>R Core Team (2024). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing, Vienna, Austria. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+<p>R Core Team (2025). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing, Vienna, Austria. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
 </section>
 <section id="citing-r-1" class="slide level2">
 <h2>Citing R</h2>
@@ -716,7 +754,7 @@ profiling                          Profiling Performance (source, html)</code></
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">R.Version</span>()<span class="sc">$</span>version.string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "R version 4.4.2 (2024-10-31)"</code></pre>
+<pre><code>[1] "R version 4.5.2 (2025-10-31)"</code></pre>
 </div>
 </div>
 <h3 id="citation-information">Citation information</h3>
@@ -727,7 +765,7 @@ profiling                          Profiling Performance (source, html)</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>To cite R in publications use:
 
-  R Core Team (2024). _R: A Language and Environment for Statistical
+  R Core Team (2025). _R: A Language and Environment for Statistical
   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
   &lt;https://www.R-project.org/&gt;.</code></pre>
 </div>
@@ -746,7 +784,7 @@ profiling                          Profiling Performance (source, html)</code></
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">packageVersion</span>(<span class="st">"car"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '3.1.3'</code></pre>
+<pre><code>[1] '3.1.5'</code></pre>
 </div>
 </div>
 <h3 id="citation-information-1">Citation information</h3>

@@ -27,28 +27,36 @@ quarto::quarto_render(cache_refresh = TRUE,
 #                       execute_params = list(answers = "visible"))
 
 
-f <- list.files(pattern = "html")
 
-# Pdf
-for(i in f) {
+
+# Print to pdf
+#
+# Use decktape docker image
+#
+#
+# RUN IN TERMINAL
+# for i in *.html; do pdf="${i%.html}.pdf"; sudo docker run --rm -t -v "$(pwd):/slides" -v ".:/home/user" ghcr.io/astefanutti/decktape reveal --fragments /home/user/"$i" "$pdf"; done
+#
+# Note the use of 'reveal --fragments' which may or may not be necessary in future (see https://github.com/astefanutti/decktape/issues/353)
+
+# Pdf to small
+for(i in list.files(pattern = "html")) {
 
   # Create PDFs
-  rlang::inform(f)
-  rlang::inform("  PDF")
-  pagedown::chrome_print(i, extra_args = "--font-render-hinting=none")
+  rlang::inform(i)
+  rlang::inform("  PDF small")
 
   n1 <- fs::path_ext_set(i, 'pdf')
   n2 <- fs::path_ext_remove(i) |>
     paste0("_sm.pdf")
 
-  rlang::inform("  PDF small")
   # Reduce size (prepress = 300 dpi, printer = 300 dpi, ebook = 150 dpi, screen = 72dpi)
   system(glue::glue("gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 ",
                     "-dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH ",
                     "-sOutputFile='{n2}' '{n1}'"))
 }
-
 fs::file_move(list.files(pattern = ".pdf"), "pdf/")
+
 
 # Wrap up ---------------------------------------
 # - Post answers
@@ -56,3 +64,4 @@ fs::file_move(list.files(pattern = ".pdf"), "pdf/")
 # - Create signed release
 # - Create certificates
 # - Send out certificates
+  

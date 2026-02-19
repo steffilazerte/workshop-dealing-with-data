@@ -14,7 +14,14 @@ format:
 ---
 
 ```{r setup, include = FALSE}
+online <- TRUE
+ta <- TRUE
+
 visibility <- params$answers
+
+inperson <- ifelse(!online, "visible", "hidden")
+online <- ifelse(online, "visible", "hidden")
+ta <- ifelse(ta, "visible", "hidden")
 
 library(knitr)
 library(palmerpenguins)
@@ -36,7 +43,7 @@ source("0_figs.R")
 
 ![](figures/steffi_vivi.jpg){.absolute right=10 top=50 width=40% fig-alt="Steffi smiling and holding a cat in her arms"}
 
-## Introductions  {.nostretch visibility=hidden}
+## Introductions  {.nostretch visibility=`r ta`}
 
 ### Dr. Alex Koiter [(Today's Teaching Assistant)]{style="font-size:60%"}
 
@@ -44,8 +51,11 @@ source("0_figs.R")
 -   Working with R since 2010
 -   Associate Professor in Geography and Environment,   
     Brandon University
+-   Developer of R package [mbquartR](https://docs.ropensci.org/mbquartR/)
 
-![](figures/alex.jpg){.absolute right=10 top=50 width=40% fig-alt="Steffi smiling and holding a cat in her arms"}
+![](figures/alex.jpg){.absolute right=10 top=50 width=40% fig-alt="Alex smiling and holding a handful of forage/grass out to the viewer"}
+
+![](figures/mbquartR.png){.absolute left=150 bottom=50 width=15% fig-alt="mbquartR package logo"}
 
 
 ## What about you?
@@ -58,7 +68,7 @@ source("0_figs.R")
 ![](figures/horst_dragons.png){fig-align="center" width=20% fig-alt="Three very different looking dragons stand side by side. On the left, a very small blue dragon with spiky hair and no pattern. In the center, a green striped dragon. On the right, a large purple dragon with spots."}
 
 
-## About this Workshop {visibility=hidden}
+## About this Workshop {visibility=`r online`}
 <!-- Online -->
 
 ### Format
@@ -68,18 +78,19 @@ source("0_figs.R")
 -   Video on or off, however works best for you!
 
 ### Questions
--   Ask questions by un-muting, or ask in the chat (Alex will monitor)
+-   Ask questions by un-muting, or ask in the chat
     -   Workshop-related questions we'll address together
     -   Specific, system-related problems, Alex will help you in the "Troubleshooting Room"
     
 ### Getting help
 -   Share your screen
--   Share your code
-    - In chat
-    - Or in a community notebook: <https://collabedit.com/kxyap>
-    
-### R is hard: But have no fear! {visibility:hidden}
-<!-- online -->
+-   Share your code - <https://codeshare.io/5zY31W>
+
+## About this Workshop {visibility=`r online`}
+<!-- Online -->
+
+### R is hard: But have no fear!
+
 -   [Don't expect to remember everything!]{.fragment .highlight-bold}
 -   Copy/Paste is your friend (never apologize for using it!)
 -   Consider this workshop a resource to return to
@@ -87,7 +98,7 @@ source("0_figs.R")
 
 ![](figures/horst_need_a_moment.png){fig-align="center" width=30% fig-alt="A frustrated little monster sits on the ground with his hat next to him, saying \"I just need a minute.\" Looking on empathetically is the R logo, with the word \"Error\" in many different styles behind it."}
     
-## About this Workshop
+## About this Workshop {visibility=`r inperson`}
 <!-- In person -->
 
 ### Format

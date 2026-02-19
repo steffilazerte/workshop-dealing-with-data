@@ -440,7 +440,7 @@ ggplot(data = penguins, aes(x = island, y = bill_depth_mm)) +
   geom_boxplot(colour = "blue")
 ```
 
-[**Too Easy?**<br>Plot points on top<br><small>Why not consider jittering them?</small>]{.note .absolute left=80% top=5%}
+[**Too Easy?**<br>Plot points on top<br><small>Why not consider jittering them?</small>]{.note .absolute left=80% top=5% width=250}
 
 ## Your Turn: Create this plot {visibility=`r visibility`}
 
@@ -940,7 +940,7 @@ ggplot(data = penguins, aes(x = body_mass_g, y = bill_length_mm, colour = sex)) 
   stat_smooth(method = "lm", se = FALSE, colour = "lightblue")
 ```
 
-[**Note**: When forcing, aesthetic is not inside `aes()`]{.note .fragment .absolute left=75% bottom=65%}
+[**Note**: When forcing, aesthetic is not inside `aes()`]{.note .fragment .absolute left=75% top=5% width=350}
 
 ## Customizing: Legends placement
 
@@ -964,7 +964,7 @@ g + theme(legend.position = "top")
 #| fig-asp: 0.9
 #| fig-width: 5
 #| out-width: 100%
-g + theme(legend.position = c(0.15, 0.7))
+g + theme(legend.position = c(0.85, 0.2))
 ```
 :::
 :::
@@ -1009,6 +1009,8 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, colour = species)) 
 
 **Too easy?**
 
+Shape values > 20 are fillable!
+
 ```{r}
 #| fig-align: center
 #| fig-asp: 0.4
@@ -1023,6 +1025,19 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, fill = species)) +
   labs(x = "Body Mass (g)",
        y = "Flipper Length (mm)",
        colour = "Species")
+```
+
+## Your Turn: Create this plot {visibility=`r visibility`}
+
+**Too easy?**
+
+Shape values > 20 are fillable!
+
+```{r}
+#| fig-align: center
+#| fig-asp: 1
+#| fig-width: 6
+plot(1:25, 1:25, pch = 1:25, bg = "red")
 ```
 
 
@@ -1428,7 +1443,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm, colour = species
 - RStudio > Help > Cheatsheets > Data Visualization with ggplot2
 - [`ggplot2` book v3](https://ggplot2-book.org) [by Hadley Wickham, Danielle Navarro, and Thomas Lin Pedersen]{.small}
 - [`patchwork` website](https://patchwork.data-imaginist.com/)
-- [Cookbook for R](http://www.cookbook-r.com) [by Winston Chang]{.small}
+- [R Graphics Cookbook](https://r-graphics.org/) [by Winston Chang]{.small}
 - [R for Data Science](https://r4ds.hadley.nz/) [by Hadley Wickham and Garret Grolemund]{.small}
   - [Chapter on Data Visualization](https://r4ds.hadley.nz/data-visualize.html)
 - [Data Visualization: A practical introduction](http://socviz.co/) [by Kieran Healy]{.small}

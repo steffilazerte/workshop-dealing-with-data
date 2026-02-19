@@ -11,7 +11,7 @@
 <link href="1_intro_to_R_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
-  <meta name="dcterms.date" content="2025-01-12">
+  <meta name="dcterms.date" content="2026-02-19">
   <title>Getting Started with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -211,7 +211,7 @@
   
   
   
-    <p class="date">Compiled: 2025-01-12</p>
+    <p class="date">Compiled: 2026-02-19</p>
   </section>
 <section id="these-are-me-and-my-creatures" class="slide level2 pic" data-background-color="black" data-background-image="figures/creatures.jpg" title="Three pictures. One showing Steffi with a cat on her backpack in the woods. One showing a cat and a man looking out of the car window. One showing a leashed cat looking out over the water from the front of a canoe">
 <h2>These are me and my creatures <i class="fa-solid fa-cat" aria-label="cat"></i></h2>
@@ -230,7 +230,19 @@
 </ul>
 <p><img data-src="figures/steffi_vivi.jpg" class="absolute" style="top: 50px; right: 10px; width: 40%; " alt="Steffi smiling and holding a cat in her arms"></p>
 </section>
-
+<section id="introductions-1" class="slide level2 nostretch" data-visibility="visible">
+<h2>Introductions</h2>
+<h3 id="dr.-alex-koiter-todays-teaching-assistant">Dr.&nbsp;Alex Koiter <span style="font-size:60%">(Today’s Teaching Assistant)</span></h3>
+<ul>
+<li>Physical Geographer</li>
+<li>Working with R since 2010</li>
+<li>Associate Professor in Geography and Environment,<br>
+Brandon University</li>
+<li>Developer of R package <a href="https://docs.ropensci.org/mbquartR/">mbquartR</a></li>
+</ul>
+<p><img data-src="figures/alex.jpg" class="absolute" style="top: 50px; right: 10px; width: 40%; " alt="Alex smiling and holding a handful of forage/grass out to the viewer"></p>
+<p><img data-src="figures/mbquartR.png" class="absolute" style="left: 150px; bottom: 50px; width: 15%; " alt="mbquartR package logo"></p>
+</section>
 <section id="what-about-you" class="slide level2">
 <h2>What about you?</h2>
 <ul>
@@ -241,23 +253,41 @@
 </ul>
 
 <img data-src="figures/horst_dragons.png" class="quarto-figure quarto-figure-center r-stretch" style="width:20.0%" alt="Three very different looking dragons stand side by side. On the left, a very small blue dragon with spiky hair and no pattern. In the center, a green striped dragon. On the right, a large purple dragon with spots."></section>
-
-<section id="about-this-workshop-1" class="slide level2">
+<section id="about-this-workshop" class="slide level2" data-visibility="visible">
 <h2>About this Workshop</h2>
-<!-- In person -->
-<h3 id="format-1">Format</h3>
+<!-- Online -->
+<h3 id="format">Format</h3>
 <ul>
 <li>I will provide you tools and workflow to get started with R</li>
 <li>We’ll have hands-on activities, lectures, and demonstrations</li>
+<li>Video on or off, however works best for you!</li>
 </ul>
+<h3 id="questions">Questions</h3>
+<ul>
+<li>Ask questions by un-muting, or ask in the chat
+<ul>
+<li>Workshop-related questions we’ll address together</li>
+<li>Specific, system-related problems, Alex will help you in the “Troubleshooting Room”</li>
+</ul></li>
+</ul>
+<h3 id="getting-help">Getting help</h3>
+<ul>
+<li>Share your screen</li>
+<li>Share your code - <a href="https://codeshare.io/5zY31W" class="uri">https://codeshare.io/5zY31W</a></li>
+</ul>
+</section>
+<section id="about-this-workshop-1" class="slide level2" data-visibility="visible">
+<h2>About this Workshop</h2>
+<!-- Online -->
 <h3 id="r-is-hard-but-have-no-fear">R is hard: But have no fear!</h3>
 <ul>
 <li><span class="fragment highlight-bold">Don’t expect to remember everything!</span></li>
 <li>Copy/Paste is your friend (never apologize for using it!)</li>
 <li>Consider this workshop a resource to return to</li>
 </ul>
-<p><img data-src="figures/horst_need_a_moment.png" class="absolute" style="bottom: 0px; right: 0px; width: 45%; " alt="A frustrated little monster sits on the ground with his hat next to him, saying &quot;I just need a minute.&quot; Looking on empathetically is the R logo, with the word &quot;Error&quot; in many different styles behind it."></p>
-</section>
+
+<img data-src="figures/horst_need_a_moment.png" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%" alt="A frustrated little monster sits on the ground with his hat next to him, saying &quot;I just need a minute.&quot; Looking on empathetically is the R logo, with the word &quot;Error&quot; in many different styles behind it."></section>
+
 <section>
 <section id="what-is-r" class="title-slide slide level1 center">
 <h1>What is R?</h1>
@@ -762,7 +792,8 @@
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>), </span>
 <span id="cb36-2"><a href=""></a>     <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in mean.default(c(1, 5, 10, NA), TRUE): 'trim' must be numeric of length one</code></pre>
+<pre><code>Error in `mean.default()`:
+! 'trim' must be numeric of length one</code></pre>
 </div>
 </div>
 </div></div>
@@ -1069,7 +1100,7 @@ Volvo 142E           1    4    2</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href=""></a><span class="fu">Sys.Date</span>() <span class="co"># Get the Current Date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-01-12"</code></pre>
+<pre><code>[1] "2026-02-19"</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1081,7 +1112,7 @@ Volvo 142E           1    4    2</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>function () 
 as.Date(as.POSIXlt(Sys.time()))
-&lt;bytecode: 0x5738c8209fa0&gt;
+&lt;bytecode: 0x593d14eae4e8&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>

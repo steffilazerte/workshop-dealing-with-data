@@ -379,8 +379,43 @@ vignette("ggplot2-specs", package = "ggplot2")
 - What are the example columns?
 - What is actually required to answer *your* question?
 
+## AI (specifically LLMs) ✨
 
-## Asking for Help
+### General Cautions
+- Can be useful, can be painful
+- Free models are so-so
+- R changes fast, so AI answers can be out of date
+- Own your work
+
+![](figures/ai_meme2.jpeg){.absolute right=-5% top=10% width=45% fig-alt=""}
+
+
+## AI (specifically LLMs) ✨
+
+:::: {.columns}
+::: {.column}
+### Good usecases: Use AI to...
+- *Support* your work, not *do* you work
+- Remind yourself (enhanced search)
+- Help troubleshooting
+    - Rubber duck that answers back
+    - Even incorrect answers can help
+- Ask for suggestions for improvement
+:::
+
+::: {.column}
+### Bad usecases: Do NOT use AI to...
+- Create code you can't evaluate (Too soon)
+- Have AI create code you don't evaluate (Too fast)
+- Work with private/sensitive data
+:::
+::::
+
+
+![](figures/ai_meme1.jpeg){.absolute right=10% bottom=0 width=30% fig-alt=""}
+
+
+## Asking people for Help
 
 ### Not useful
 

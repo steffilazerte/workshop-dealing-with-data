@@ -11,7 +11,7 @@
 <link href="4_summarizing_and_transforming_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
-  <meta name="dcterms.date" content="2025-01-12">
+  <meta name="dcterms.date" content="2026-02-19">
   <title>Summarizing &amp; Transforming Data in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -212,7 +212,7 @@
   
   
   
-    <p class="date">Compiled: 2025-01-12</p>
+    <p class="date">Compiled: 2026-02-19</p>
   </section>
 <section>
 <section id="first-things-first" class="title-slide slide level1 center">
@@ -242,13 +242,13 @@
 <li>Creating categories</li>
 <li>Column calculations</li>
 <li>By group</li>
-<li><code>mutate()</code> and <code>group_by()</code></li>
+<li><code>mutate()</code> (and <code>group_by()</code>)</li>
 </ul>
 </div><div class="column">
 <h3 id="summarize-existing-columns">4. <strong>Summarize existing columns</strong></h3>
 <ul>
 <li>Summarizing by group</li>
-<li><code>summarize()</code> and <code>group_by()</code></li>
+<li><code>summarize()</code></li>
 </ul>
 <h3 id="transpose">5. <strong>Transpose</strong></h3>
 <ul>
@@ -274,8 +274,8 @@
 </div><div class="column">
 <h3 id="using-data-sets">Using data sets:</h3>
 <ul>
-<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/grain_size2.csv">grain_size2.csv</a></li>
-<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/grain_meta.csv">grain_meta.csv</a></li>
+<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/grain_size2.csv">🔗<code>grain_size2.csv</code></a></li>
+<li><a href="https://steffilazerte.ca/workshop-dealing-with-data/data/grain_meta.csv">🔗<code>grain_meta.csv</code></a></li>
 </ul>
 </div></div>
 <div class="cell">
@@ -494,13 +494,15 @@ c(1, 2, 1, "apple") == 1 | c(1, 2, 1, "apple") == 2
 <p><strong>Your turn!</strong></p>
 <p>What do the following filters do?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">==</span> <span class="dv">20</span>)</span>
-<span id="cb15-2"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">==</span> <span class="dv">20</span>, clay <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
-<span id="cb15-3"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">100</span>) <span class="sc">&amp;</span> clay <span class="sc">==</span> <span class="dv">6</span>)</span>
-<span id="cb15-4"><a href=""></a><span class="fu">filter</span>(size, <span class="sc">!</span>plot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"CSP01"</span>, <span class="st">"CSP13"</span>))</span>
-<span id="cb15-5"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">&gt;=</span> <span class="dv">146</span>)</span>
-<span id="cb15-6"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">&gt;</span> <span class="dv">146</span>)</span>
-<span id="cb15-7"><a href=""></a><span class="fu">filter</span>(size, coarse_silt <span class="sc">&lt;</span> <span class="dv">9</span> <span class="sc">|</span> clay <span class="sc">&lt;</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>)</span>
+<span id="cb15-2"><a href=""></a></span>
+<span id="cb15-3"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">==</span> <span class="dv">20</span>)</span>
+<span id="cb15-4"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">==</span> <span class="dv">20</span>, clay <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
+<span id="cb15-5"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">100</span>) <span class="sc">&amp;</span> clay <span class="sc">==</span> <span class="dv">6</span>)</span>
+<span id="cb15-6"><a href=""></a><span class="fu">filter</span>(size, <span class="sc">!</span>plot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"CSP01"</span>, <span class="st">"CSP13"</span>))</span>
+<span id="cb15-7"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">&gt;=</span> <span class="dv">146</span>)</span>
+<span id="cb15-8"><a href=""></a><span class="fu">filter</span>(size, depth <span class="sc">&gt;</span> <span class="dv">146</span>)</span>
+<span id="cb15-9"><a href=""></a><span class="fu">filter</span>(size, coarse_silt <span class="sc">&lt;</span> <span class="dv">9</span> <span class="sc">|</span> clay <span class="sc">&lt;</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
 </section>
@@ -692,23 +694,23 @@ Caused by error:
 <h3 id="measurements">Measurements</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="vizkqrclcf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vizkqrclcf table {
+<div id="rbwdbghsmn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rbwdbghsmn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vizkqrclcf thead, #vizkqrclcf tbody, #vizkqrclcf tfoot, #vizkqrclcf tr, #vizkqrclcf td, #vizkqrclcf th {
+#rbwdbghsmn thead, #rbwdbghsmn tbody, #rbwdbghsmn tfoot, #rbwdbghsmn tr, #rbwdbghsmn td, #rbwdbghsmn th {
   border-style: none;
 }
 
-#vizkqrclcf p {
+#rbwdbghsmn p {
   margin: 0;
   padding: 0;
 }
 
-#vizkqrclcf .gt_table {
+#rbwdbghsmn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -734,12 +736,12 @@ Caused by error:
   border-left-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_caption {
+#rbwdbghsmn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vizkqrclcf .gt_title {
+#rbwdbghsmn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -751,7 +753,7 @@ Caused by error:
   border-bottom-width: 0;
 }
 
-#vizkqrclcf .gt_subtitle {
+#rbwdbghsmn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -763,7 +765,7 @@ Caused by error:
   border-top-width: 0;
 }
 
-#vizkqrclcf .gt_heading {
+#rbwdbghsmn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -775,13 +777,13 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_bottom_border {
+#rbwdbghsmn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_col_headings {
+#rbwdbghsmn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -796,7 +798,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_col_heading {
+#rbwdbghsmn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -816,7 +818,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#vizkqrclcf .gt_column_spanner_outer {
+#rbwdbghsmn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -828,15 +830,15 @@ Caused by error:
   padding-right: 4px;
 }
 
-#vizkqrclcf .gt_column_spanner_outer:first-child {
+#rbwdbghsmn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vizkqrclcf .gt_column_spanner_outer:last-child {
+#rbwdbghsmn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vizkqrclcf .gt_column_spanner {
+#rbwdbghsmn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -848,11 +850,11 @@ Caused by error:
   width: 100%;
 }
 
-#vizkqrclcf .gt_spanner_row {
+#rbwdbghsmn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vizkqrclcf .gt_group_heading {
+#rbwdbghsmn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -878,7 +880,7 @@ Caused by error:
   text-align: left;
 }
 
-#vizkqrclcf .gt_empty_group_heading {
+#rbwdbghsmn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -893,15 +895,15 @@ Caused by error:
   vertical-align: middle;
 }
 
-#vizkqrclcf .gt_from_md > :first-child {
+#rbwdbghsmn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vizkqrclcf .gt_from_md > :last-child {
+#rbwdbghsmn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vizkqrclcf .gt_row {
+#rbwdbghsmn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -920,7 +922,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#vizkqrclcf .gt_stub {
+#rbwdbghsmn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -933,7 +935,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#vizkqrclcf .gt_stub_row_group {
+#rbwdbghsmn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -947,15 +949,15 @@ Caused by error:
   vertical-align: top;
 }
 
-#vizkqrclcf .gt_row_group_first td {
+#rbwdbghsmn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vizkqrclcf .gt_row_group_first th {
+#rbwdbghsmn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vizkqrclcf .gt_summary_row {
+#rbwdbghsmn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -965,16 +967,16 @@ Caused by error:
   padding-right: 5px;
 }
 
-#vizkqrclcf .gt_first_summary_row {
+#rbwdbghsmn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_first_summary_row.thick {
+#rbwdbghsmn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vizkqrclcf .gt_last_summary_row {
+#rbwdbghsmn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -984,7 +986,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_grand_summary_row {
+#rbwdbghsmn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -994,7 +996,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#vizkqrclcf .gt_first_grand_summary_row {
+#rbwdbghsmn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1004,7 +1006,7 @@ Caused by error:
   border-top-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_last_grand_summary_row_top {
+#rbwdbghsmn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1014,11 +1016,11 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_striped {
+#rbwdbghsmn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vizkqrclcf .gt_table_body {
+#rbwdbghsmn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1027,7 +1029,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_footnotes {
+#rbwdbghsmn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1041,7 +1043,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_footnote {
+#rbwdbghsmn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1050,7 +1052,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#vizkqrclcf .gt_sourcenotes {
+#rbwdbghsmn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1064,7 +1066,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#vizkqrclcf .gt_sourcenote {
+#rbwdbghsmn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1072,72 +1074,72 @@ Caused by error:
   padding-right: 5px;
 }
 
-#vizkqrclcf .gt_left {
+#rbwdbghsmn .gt_left {
   text-align: left;
 }
 
-#vizkqrclcf .gt_center {
+#rbwdbghsmn .gt_center {
   text-align: center;
 }
 
-#vizkqrclcf .gt_right {
+#rbwdbghsmn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vizkqrclcf .gt_font_normal {
+#rbwdbghsmn .gt_font_normal {
   font-weight: normal;
 }
 
-#vizkqrclcf .gt_font_bold {
+#rbwdbghsmn .gt_font_bold {
   font-weight: bold;
 }
 
-#vizkqrclcf .gt_font_italic {
+#rbwdbghsmn .gt_font_italic {
   font-style: italic;
 }
 
-#vizkqrclcf .gt_super {
+#rbwdbghsmn .gt_super {
   font-size: 65%;
 }
 
-#vizkqrclcf .gt_footnote_marks {
+#rbwdbghsmn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vizkqrclcf .gt_asterisk {
+#rbwdbghsmn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vizkqrclcf .gt_indent_1 {
+#rbwdbghsmn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vizkqrclcf .gt_indent_2 {
+#rbwdbghsmn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vizkqrclcf .gt_indent_3 {
+#rbwdbghsmn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vizkqrclcf .gt_indent_4 {
+#rbwdbghsmn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vizkqrclcf .gt_indent_5 {
+#rbwdbghsmn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vizkqrclcf .katex-display {
+#rbwdbghsmn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vizkqrclcf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rbwdbghsmn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1153,32 +1155,32 @@ Caused by error:
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-01-12</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-02-19</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">1</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-02-05</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-03-15</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">11</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-03-01</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-04-08</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">2</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-03-25</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-05-02</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">4</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-04-18</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-05-26</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">10</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-05-12</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-06-19</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">21</td>
 </tr>
 </tbody>
@@ -1190,23 +1192,23 @@ Caused by error:
 <h3 id="metadata">Metadata</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="uejwgqrmyx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uejwgqrmyx table {
+<div id="tqxheojuga" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tqxheojuga table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uejwgqrmyx thead, #uejwgqrmyx tbody, #uejwgqrmyx tfoot, #uejwgqrmyx tr, #uejwgqrmyx td, #uejwgqrmyx th {
+#tqxheojuga thead, #tqxheojuga tbody, #tqxheojuga tfoot, #tqxheojuga tr, #tqxheojuga td, #tqxheojuga th {
   border-style: none;
 }
 
-#uejwgqrmyx p {
+#tqxheojuga p {
   margin: 0;
   padding: 0;
 }
 
-#uejwgqrmyx .gt_table {
+#tqxheojuga .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1232,12 +1234,12 @@ Caused by error:
   border-left-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_caption {
+#tqxheojuga .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uejwgqrmyx .gt_title {
+#tqxheojuga .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1249,7 +1251,7 @@ Caused by error:
   border-bottom-width: 0;
 }
 
-#uejwgqrmyx .gt_subtitle {
+#tqxheojuga .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1261,7 +1263,7 @@ Caused by error:
   border-top-width: 0;
 }
 
-#uejwgqrmyx .gt_heading {
+#tqxheojuga .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1273,13 +1275,13 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_bottom_border {
+#tqxheojuga .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_col_headings {
+#tqxheojuga .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1294,7 +1296,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_col_heading {
+#tqxheojuga .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1314,7 +1316,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#uejwgqrmyx .gt_column_spanner_outer {
+#tqxheojuga .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1326,15 +1328,15 @@ Caused by error:
   padding-right: 4px;
 }
 
-#uejwgqrmyx .gt_column_spanner_outer:first-child {
+#tqxheojuga .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uejwgqrmyx .gt_column_spanner_outer:last-child {
+#tqxheojuga .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uejwgqrmyx .gt_column_spanner {
+#tqxheojuga .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1346,11 +1348,11 @@ Caused by error:
   width: 100%;
 }
 
-#uejwgqrmyx .gt_spanner_row {
+#tqxheojuga .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uejwgqrmyx .gt_group_heading {
+#tqxheojuga .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1376,7 +1378,7 @@ Caused by error:
   text-align: left;
 }
 
-#uejwgqrmyx .gt_empty_group_heading {
+#tqxheojuga .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1391,15 +1393,15 @@ Caused by error:
   vertical-align: middle;
 }
 
-#uejwgqrmyx .gt_from_md > :first-child {
+#tqxheojuga .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uejwgqrmyx .gt_from_md > :last-child {
+#tqxheojuga .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uejwgqrmyx .gt_row {
+#tqxheojuga .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1418,7 +1420,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#uejwgqrmyx .gt_stub {
+#tqxheojuga .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1431,7 +1433,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#uejwgqrmyx .gt_stub_row_group {
+#tqxheojuga .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1445,15 +1447,15 @@ Caused by error:
   vertical-align: top;
 }
 
-#uejwgqrmyx .gt_row_group_first td {
+#tqxheojuga .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uejwgqrmyx .gt_row_group_first th {
+#tqxheojuga .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uejwgqrmyx .gt_summary_row {
+#tqxheojuga .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1463,16 +1465,16 @@ Caused by error:
   padding-right: 5px;
 }
 
-#uejwgqrmyx .gt_first_summary_row {
+#tqxheojuga .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_first_summary_row.thick {
+#tqxheojuga .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uejwgqrmyx .gt_last_summary_row {
+#tqxheojuga .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1482,7 +1484,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_grand_summary_row {
+#tqxheojuga .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1492,7 +1494,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#uejwgqrmyx .gt_first_grand_summary_row {
+#tqxheojuga .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1502,7 +1504,7 @@ Caused by error:
   border-top-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_last_grand_summary_row_top {
+#tqxheojuga .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1512,11 +1514,11 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_striped {
+#tqxheojuga .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uejwgqrmyx .gt_table_body {
+#tqxheojuga .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1525,7 +1527,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_footnotes {
+#tqxheojuga .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1539,7 +1541,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_footnote {
+#tqxheojuga .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1548,7 +1550,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#uejwgqrmyx .gt_sourcenotes {
+#tqxheojuga .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1562,7 +1564,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#uejwgqrmyx .gt_sourcenote {
+#tqxheojuga .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1570,72 +1572,72 @@ Caused by error:
   padding-right: 5px;
 }
 
-#uejwgqrmyx .gt_left {
+#tqxheojuga .gt_left {
   text-align: left;
 }
 
-#uejwgqrmyx .gt_center {
+#tqxheojuga .gt_center {
   text-align: center;
 }
 
-#uejwgqrmyx .gt_right {
+#tqxheojuga .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uejwgqrmyx .gt_font_normal {
+#tqxheojuga .gt_font_normal {
   font-weight: normal;
 }
 
-#uejwgqrmyx .gt_font_bold {
+#tqxheojuga .gt_font_bold {
   font-weight: bold;
 }
 
-#uejwgqrmyx .gt_font_italic {
+#tqxheojuga .gt_font_italic {
   font-style: italic;
 }
 
-#uejwgqrmyx .gt_super {
+#tqxheojuga .gt_super {
   font-size: 65%;
 }
 
-#uejwgqrmyx .gt_footnote_marks {
+#tqxheojuga .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uejwgqrmyx .gt_asterisk {
+#tqxheojuga .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uejwgqrmyx .gt_indent_1 {
+#tqxheojuga .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uejwgqrmyx .gt_indent_2 {
+#tqxheojuga .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uejwgqrmyx .gt_indent_3 {
+#tqxheojuga .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uejwgqrmyx .gt_indent_4 {
+#tqxheojuga .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uejwgqrmyx .gt_indent_5 {
+#tqxheojuga .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uejwgqrmyx .katex-display {
+#tqxheojuga .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uejwgqrmyx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#tqxheojuga div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1668,23 +1670,23 @@ Caused by error:
 <p><span class="center">Metadata is duplicated to line up with measurements</span></p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="nptmsnyfsb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nptmsnyfsb table {
+<div id="ywmbtpmqrl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ywmbtpmqrl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nptmsnyfsb thead, #nptmsnyfsb tbody, #nptmsnyfsb tfoot, #nptmsnyfsb tr, #nptmsnyfsb td, #nptmsnyfsb th {
+#ywmbtpmqrl thead, #ywmbtpmqrl tbody, #ywmbtpmqrl tfoot, #ywmbtpmqrl tr, #ywmbtpmqrl td, #ywmbtpmqrl th {
   border-style: none;
 }
 
-#nptmsnyfsb p {
+#ywmbtpmqrl p {
   margin: 0;
   padding: 0;
 }
 
-#nptmsnyfsb .gt_table {
+#ywmbtpmqrl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1710,12 +1712,12 @@ Caused by error:
   border-left-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_caption {
+#ywmbtpmqrl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nptmsnyfsb .gt_title {
+#ywmbtpmqrl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1727,7 +1729,7 @@ Caused by error:
   border-bottom-width: 0;
 }
 
-#nptmsnyfsb .gt_subtitle {
+#ywmbtpmqrl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1739,7 +1741,7 @@ Caused by error:
   border-top-width: 0;
 }
 
-#nptmsnyfsb .gt_heading {
+#ywmbtpmqrl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1751,13 +1753,13 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_bottom_border {
+#ywmbtpmqrl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_col_headings {
+#ywmbtpmqrl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1772,7 +1774,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_col_heading {
+#ywmbtpmqrl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1792,7 +1794,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#nptmsnyfsb .gt_column_spanner_outer {
+#ywmbtpmqrl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1804,15 +1806,15 @@ Caused by error:
   padding-right: 4px;
 }
 
-#nptmsnyfsb .gt_column_spanner_outer:first-child {
+#ywmbtpmqrl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nptmsnyfsb .gt_column_spanner_outer:last-child {
+#ywmbtpmqrl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nptmsnyfsb .gt_column_spanner {
+#ywmbtpmqrl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1824,11 +1826,11 @@ Caused by error:
   width: 100%;
 }
 
-#nptmsnyfsb .gt_spanner_row {
+#ywmbtpmqrl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nptmsnyfsb .gt_group_heading {
+#ywmbtpmqrl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1854,7 +1856,7 @@ Caused by error:
   text-align: left;
 }
 
-#nptmsnyfsb .gt_empty_group_heading {
+#ywmbtpmqrl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1869,15 +1871,15 @@ Caused by error:
   vertical-align: middle;
 }
 
-#nptmsnyfsb .gt_from_md > :first-child {
+#ywmbtpmqrl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nptmsnyfsb .gt_from_md > :last-child {
+#ywmbtpmqrl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nptmsnyfsb .gt_row {
+#ywmbtpmqrl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1896,7 +1898,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#nptmsnyfsb .gt_stub {
+#ywmbtpmqrl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1909,7 +1911,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#nptmsnyfsb .gt_stub_row_group {
+#ywmbtpmqrl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1923,15 +1925,15 @@ Caused by error:
   vertical-align: top;
 }
 
-#nptmsnyfsb .gt_row_group_first td {
+#ywmbtpmqrl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nptmsnyfsb .gt_row_group_first th {
+#ywmbtpmqrl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nptmsnyfsb .gt_summary_row {
+#ywmbtpmqrl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1941,16 +1943,16 @@ Caused by error:
   padding-right: 5px;
 }
 
-#nptmsnyfsb .gt_first_summary_row {
+#ywmbtpmqrl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_first_summary_row.thick {
+#ywmbtpmqrl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nptmsnyfsb .gt_last_summary_row {
+#ywmbtpmqrl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1960,7 +1962,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_grand_summary_row {
+#ywmbtpmqrl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1970,7 +1972,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#nptmsnyfsb .gt_first_grand_summary_row {
+#ywmbtpmqrl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1980,7 +1982,7 @@ Caused by error:
   border-top-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_last_grand_summary_row_top {
+#ywmbtpmqrl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1990,11 +1992,11 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_striped {
+#ywmbtpmqrl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nptmsnyfsb .gt_table_body {
+#ywmbtpmqrl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2003,7 +2005,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_footnotes {
+#ywmbtpmqrl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2017,7 +2019,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_footnote {
+#ywmbtpmqrl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2026,7 +2028,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#nptmsnyfsb .gt_sourcenotes {
+#ywmbtpmqrl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2040,7 +2042,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#nptmsnyfsb .gt_sourcenote {
+#ywmbtpmqrl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2048,72 +2050,72 @@ Caused by error:
   padding-right: 5px;
 }
 
-#nptmsnyfsb .gt_left {
+#ywmbtpmqrl .gt_left {
   text-align: left;
 }
 
-#nptmsnyfsb .gt_center {
+#ywmbtpmqrl .gt_center {
   text-align: center;
 }
 
-#nptmsnyfsb .gt_right {
+#ywmbtpmqrl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nptmsnyfsb .gt_font_normal {
+#ywmbtpmqrl .gt_font_normal {
   font-weight: normal;
 }
 
-#nptmsnyfsb .gt_font_bold {
+#ywmbtpmqrl .gt_font_bold {
   font-weight: bold;
 }
 
-#nptmsnyfsb .gt_font_italic {
+#ywmbtpmqrl .gt_font_italic {
   font-style: italic;
 }
 
-#nptmsnyfsb .gt_super {
+#ywmbtpmqrl .gt_super {
   font-size: 65%;
 }
 
-#nptmsnyfsb .gt_footnote_marks {
+#ywmbtpmqrl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nptmsnyfsb .gt_asterisk {
+#ywmbtpmqrl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nptmsnyfsb .gt_indent_1 {
+#ywmbtpmqrl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nptmsnyfsb .gt_indent_2 {
+#ywmbtpmqrl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nptmsnyfsb .gt_indent_3 {
+#ywmbtpmqrl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nptmsnyfsb .gt_indent_4 {
+#ywmbtpmqrl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nptmsnyfsb .gt_indent_5 {
+#ywmbtpmqrl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nptmsnyfsb .katex-display {
+#ywmbtpmqrl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nptmsnyfsb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ywmbtpmqrl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2130,37 +2132,37 @@ Caused by error:
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-01-12</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-02-19</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">1</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: #D1A1FF; color: #000000">50</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-02-05</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-03-15</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">11</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: #D1A1FF; color: #000000">50</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">A</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-03-01</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-04-08</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">2</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: #D1A1FF; color: #000000">50</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-03-25</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-05-02</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">4</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: rgba(209,161,255,0.31); color: #000000">76</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-04-18</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-05-26</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">10</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: rgba(209,161,255,0.31); color: #000000">76</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_center" headers="Plot" style="background-color: #C2FFA1; color: #000000">B</td>
-<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2025-05-12</td>
+<td class="gt_row gt_center" headers="Date" style="background-color: #FFF4A1; color: #000000">2026-06-19</td>
 <td class="gt_row gt_center" headers="n_birds" style="background-color: #FFF4A1; color: #000000">21</td>
 <td class="gt_row gt_center" headers="Vegetation Density" style="background-color: rgba(209,161,255,0.31); color: #000000">76</td>
 </tr>
@@ -2494,7 +2496,7 @@ Caused by error:
 <section>
 <section id="tangent-2" class="title-slide slide level1 center">
 <h1>Tangent</h1>
-<p><span class="large">Decimal points</span></p>
+<p><span class="large">Tibbles</span></p>
 </section>
 <section id="where-are" class="slide level2">
 <h2>Where are…</h2>
@@ -2897,17 +2899,15 @@ Caused by error:
 </section>
 <section id="mutating-by-group" class="slide level2">
 <h2>Mutating by group</h2>
-<h3 class="spacer" id="group_by-and-ungroup-are-from-dplyr"><code>group_by()</code> and <code>ungroup()</code> are from <code>dplyr</code>*</h3>
+<h3 style="margin-bottom:75px" id="mutate-is-from-dplyr-1"><code>mutate()</code> is from <code>dplyr</code>*</h3>
+<h3 class="spacer" id="mutate-has-a-.by-argument"><code>mutate()</code> has a <code>.by</code> argument</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a><span class="fu">group_by</span>(data, column1, column2)</span>
-<span id="cb51-2"><a href=""></a><span class="fu">ungroup</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a><span class="fu">mutate</span>(data, <span class="at">column1 =</span> expression1, <span class="at">column2 =</span> expression2, ..., <span class="at">.by =</span> <span class="fu">c</span>(group1, group2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="spacer">
 <ul>
-<li><code>tidyverse</code> functions always start with data</li>
-<li><code>group_by()</code> applies grouping according to specified <code>data</code> <code>columns</code></li>
-<li><code>ungroup()</code> removes grouping from <code>data</code></li>
+<li>Applies splits data frame by grouping columns <em>before</em> calculations</li>
 </ul>
 </div>
 <p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 20%; " alt="Hex logo for the dplyr R package"></p>
@@ -2943,12 +2943,88 @@ Caused by error:
 <p>Overall mean calculated</p>
 </blockquote>
 </div><div class="column fragment">
+<h3 id="grouping-via-.by-column">Grouping via <code>.by = COLUMN</code>:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand_plot =</span> <span class="fu">mean</span>(total_sand), </span>
+<span id="cb54-3"><a href=""></a>         <span class="at">.by =</span> plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 3
+  plot  total_sand mean_sand_plot
+  &lt;chr&gt;      &lt;dbl&gt;          &lt;dbl&gt;
+1 CSP01       50.1           49.8
+2 CSP01       46.8           49.8
+3 CSP01       46             49.8
+4 CSP01       50.1           49.8
+5 CSP01       53.8           49.8
+6 CSP01       51.9           49.8
+7 CSP08       49.6           49.4
+8 CSP08       49.5           49.4
+9 CSP08       49.2           49.4
+# ℹ 105 more rows</code></pre>
+</div>
+</div>
+<blockquote>
+<p>Mean calculated for each group (i.e.&nbsp;plot)</p>
+</blockquote>
+</div></div>
+</section>
+<section id="mutating-by-group-alternative" class="slide level2">
+<h2>Mutating by group (alternative)</h2>
+<h3 class="spacer" id="group_by-and-ungroup-are-from-dplyr"><code>group_by()</code> and <code>ungroup()</code> are from <code>dplyr</code>*</h3>
+<p><span class="footnote">* part of the <code>tidyverse</code></span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href=""></a><span class="fu">group_by</span>(data, column1, column2)</span>
+<span id="cb56-2"><a href=""></a><span class="fu">ungroup</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="spacer">
+<ul>
+<li><code>tidyverse</code> functions always start with data</li>
+<li><code>group_by()</code> applies grouping according to specified <code>data</code> <code>columns</code></li>
+<li><code>ungroup()</code> removes grouping from <code>data</code></li>
+</ul>
+</div>
+<p><img data-src="figures/hex_dplyr.png" class="absolute" style="top: 0px; right: 0px; width: 20%; " alt="Hex logo for the dplyr R package"></p>
+</section>
+<section id="mutating-by-group-alternative-1" class="slide level2">
+<h2>Mutating by group (alternative)</h2>
+<div class="columns">
+<div class="column">
+<h3 id="mutate-without-grouping-1"><code>mutate()</code> without grouping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand_all =</span> <span class="fu">mean</span>(total_sand))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 3
+   plot  total_sand mean_sand_all
+   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+ 1 CSP01       50.1          39.6
+ 2 CSP01       46.8          39.6
+ 3 CSP01       46            39.6
+ 4 CSP01       50.1          39.6
+ 5 CSP01       53.8          39.6
+ 6 CSP01       51.9          39.6
+ 7 CSP08       49.6          39.6
+ 8 CSP08       49.5          39.6
+ 9 CSP08       49.2          39.6
+10 CSP02       26.0          39.6
+# ℹ 104 more rows</code></pre>
+</div>
+</div>
+<blockquote>
+<p>Overall mean calculated</p>
+</blockquote>
+</div><div class="column fragment">
 <h3 id="grouping-via-group_by">Grouping via <code>group_by()</code>:</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54" data-code-line-numbers="2,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb54-2"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb54-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand_plot =</span> <span class="fu">mean</span>(total_sand)) <span class="sc">|&gt;</span></span>
-<span id="cb54-4"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59" data-code-line-numbers="2,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb59-2"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand_plot =</span> <span class="fu">mean</span>(total_sand)) <span class="sc">|&gt;</span></span>
+<span id="cb59-4"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2980,31 +3056,27 @@ Caused by error:
 <h2>Your turn: Mutating by group</h2>
 <p>Add a column containing the <strong>mean amount of total silt <em>per</em> plot</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56" data-code-line-numbers="7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb56-2"><a href=""></a></span>
-<span id="cb56-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb56-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb56-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb56-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb56-7"><a href=""></a>  ??? <span class="sc">|&gt;</span>   </span>
-<span id="cb56-8"><a href=""></a>  ??? <span class="sc">|&gt;</span>   </span>
-<span id="cb56-9"><a href=""></a>  ???       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61" data-code-line-numbers="7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb61-2"><a href=""></a></span>
+<span id="cb61-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb61-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb61-7"><a href=""></a>  ???     </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><span class="note absolute" style="bottom: 10%; width: 60%; "><strong>Too Easy?</strong><br>See <code>?mutate</code><br>Can you do the same thing without using <code>group_by()</code>?</span></p>
+<p><span class="note absolute" style="bottom: 10%; width: 60%; "><strong>Too Easy?</strong><br>Try both methods<br>Try grouping by multiple columns</span></p>
 </section>
 <section id="your-turn-mutating-by-group-1" class="slide level2" data-visibility="visible">
 <h2>Your turn: Mutating by group</h2>
 <p>Add a column containing the <strong>mean amount of total silt <em>per</em> plot</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb57-2"><a href=""></a></span>
-<span id="cb57-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb57-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb57-7"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb57-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt)) <span class="sc">|&gt;</span></span>
-<span id="cb57-9"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb62-2"><a href=""></a></span>
+<span id="cb62-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb62-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb62-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt), <span class="at">.by =</span> plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3024,26 +3096,121 @@ Caused by error:
 # ℹ 104 more rows</code></pre>
 </div>
 </div>
-<p><span class="note absolute" style="left: 80%; bottom: 50%; width: 50%; "><strong>Too Easy?</strong> <span class="small">You could also use<br><span class="small"><code>mutate(mean_silt = mean(total_silt), .by = "plot")</code></span></span></span></p>
+</section>
+<section id="your-turn-mutating-by-group-2" class="slide level2" data-visibility="visible">
+<h2>Your turn: Mutating by group</h2>
+<p>Add a column containing the <strong>mean amount of total silt <em>per</em> plot</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64" data-code-line-numbers="7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb64-2"><a href=""></a></span>
+<span id="cb64-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb64-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb64-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb64-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb64-7"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
+<span id="cb64-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt)) <span class="sc">|&gt;</span></span>
+<span id="cb64-9"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 6
+   plot  coarse_silt medium_silt fine_silt total_silt mean_silt
+   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 CSP01       14.1        11.2       8.17       33.5      29.5
+ 2 CSP01       14.1        11.7       9.03       34.8      29.5
+ 3 CSP01       10.3         9.51      7.47       27.3      29.5
+ 4 CSP01        9.4         9.1       8.7        27.2      29.5
+ 5 CSP01        9.79        8.79      7.29       25.9      29.5
+ 6 CSP01       10.8         9.4       8.22       28.4      29.5
+ 7 CSP08       16.3         9.55      6.23       32.1      32.4
+ 8 CSP08       14.3        10.4       6.1        30.8      32.4
+ 9 CSP08       15.1        11.5       7.56       34.2      32.4
+10 CSP02       12.0        18.3      15.2        45.4      40.9
+# ℹ 104 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="your-turn-mutating-by-group-3" class="slide level2" data-visibility="visible">
+<h2>Your turn: Mutating by group</h2>
+<p>Group by multiple columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb66-2"><a href=""></a></span>
+<span id="cb66-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb66-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb66-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb66-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb66-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt), <span class="at">.by =</span> <span class="fu">c</span>(habitat, technician))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 7
+   habitat   technician coarse_silt medium_silt fine_silt total_silt mean_silt
+   &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 forest    Catharine        14.1        11.2       8.17       33.5      37.9
+ 2 forest    Catharine        14.1        11.7       9.03       34.8      37.9
+ 3 forest    Catharine        10.3         9.51      7.47       27.3      37.9
+ 4 forest    Catharine         9.4         9.1       8.7        27.2      37.9
+ 5 forest    Catharine         9.79        8.79      7.29       25.9      37.9
+ 6 forest    Catharine        10.8         9.4       8.22       28.4      37.9
+ 7 grassland Catharine        16.3         9.55      6.23       32.1      32.8
+ 8 grassland Catharine        14.3        10.4       6.1        30.8      32.8
+ 9 grassland Catharine        15.1        11.5       7.56       34.2      32.8
+10 forest    Catharine        12.0        18.3      15.2        45.4      37.9
+# ℹ 104 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="your-turn-mutating-by-group-4" class="slide level2" data-visibility="visible">
+<h2>Your turn: Mutating by group</h2>
+<p>Group by multiple columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb68-2"><a href=""></a></span>
+<span id="cb68-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb68-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb68-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb68-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb68-7"><a href=""></a>  <span class="fu">group_by</span>(habitat, technician) <span class="sc">|&gt;</span></span>
+<span id="cb68-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt)) <span class="sc">|&gt;</span></span>
+<span id="cb68-9"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 7
+   habitat   technician coarse_silt medium_silt fine_silt total_silt mean_silt
+   &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 forest    Catharine        14.1        11.2       8.17       33.5      37.9
+ 2 forest    Catharine        14.1        11.7       9.03       34.8      37.9
+ 3 forest    Catharine        10.3         9.51      7.47       27.3      37.9
+ 4 forest    Catharine         9.4         9.1       8.7        27.2      37.9
+ 5 forest    Catharine         9.79        8.79      7.29       25.9      37.9
+ 6 forest    Catharine        10.8         9.4       8.22       28.4      37.9
+ 7 grassland Catharine        16.3         9.55      6.23       32.1      32.8
+ 8 grassland Catharine        14.3        10.4       6.1        30.8      32.8
+ 9 grassland Catharine        15.1        11.5       7.56       34.2      32.8
+10 forest    Catharine        12.0        18.3      15.2        45.4      37.9
+# ℹ 104 more rows</code></pre>
+</div>
+</div>
 </section>
 <section id="put-it-all-together-1" class="slide level2">
 <h2>Put it all together</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb59-2"><a href=""></a></span>
-<span id="cb59-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb59-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb59-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb59-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
-<span id="cb59-7"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb59-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
-<span id="cb59-9"><a href=""></a>         <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt)) <span class="sc">|&gt;</span> </span>
-<span id="cb59-10"><a href=""></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb70-2"><a href=""></a></span>
+<span id="cb70-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb70-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb70-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb70-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt) <span class="sc">|&gt;</span></span>
+<span id="cb70-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
+<span id="cb70-8"><a href=""></a>         <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt),</span>
+<span id="cb70-9"><a href=""></a>         <span class="at">.by =</span> plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <h3 id="check-it-out">Check it out</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a><span class="fu">select</span>(size, plot, depth, total_sand, total_silt, mean_sand, mean_silt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a><span class="fu">select</span>(size, plot, depth, total_sand, total_silt, mean_sand, mean_silt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 114 × 6
    plot  depth total_sand total_silt mean_sand mean_silt
@@ -3073,7 +3240,9 @@ Caused by error:
 <h3 class="spacer" id="summarize-is-from-dplyr"><code>summarize()</code> is from <code>dplyr</code>*</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href=""></a><span class="fu">summarize</span>(data, <span class="at">column1 =</span> expression1, <span class="at">column2 =</span> expression2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href=""></a><span class="fu">summarize</span>(data, </span>
+<span id="cb73-2"><a href=""></a>          <span class="at">column1 =</span> expression1, <span class="at">column2 =</span> expression2, ..., </span>
+<span id="cb73-3"><a href=""></a>          <span class="at">.by =</span> <span class="fu">c</span>(group1, group2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="spacer">
 <ul>
@@ -3092,12 +3261,10 @@ Caused by error:
 </ul>
 <h3 id="mutate"><code>mutate()</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb63-2"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb63-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand)) <span class="sc">|&gt;</span></span>
-<span id="cb63-4"><a href=""></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb63-5"><a href=""></a></span>
-<span id="cb63-6"><a href=""></a><span class="fu">select</span>(size, plot, <span class="fu">contains</span>(<span class="st">"sand"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb74-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.by =</span> plot)</span>
+<span id="cb74-3"><a href=""></a></span>
+<span id="cb74-4"><a href=""></a><span class="fu">select</span>(size, plot, <span class="fu">contains</span>(<span class="st">"sand"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 114 × 6
    plot  coarse_sand medium_sand fine_sand total_sand mean_sand
@@ -3124,41 +3291,38 @@ Caused by error:
 </ul>
 <h3 id="summarize"><code>summarize()</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb65-2"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb65-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
-<span id="cb65-4"><a href=""></a></span>
-<span id="cb65-5"><a href=""></a>size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>size <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb76-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.by =</span> plot)</span>
+<span id="cb76-3"><a href=""></a></span>
+<span id="cb76-4"><a href=""></a>size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27 × 2
    plot  mean_sand
    &lt;chr&gt;     &lt;dbl&gt;
  1 CSP01      49.8
- 2 CSP02      34.7
- 3 CSP03      29.9
+ 2 CSP08      49.4
+ 3 CSP02      34.7
  4 CSP04      30.3
  5 CSP05      44.6
- 6 CSP06      37.8
- 7 CSP07      36.6
- 8 CSP08      49.4
- 9 CSP09      37.9
-10 CSP10      34.6
+ 6 CSP09      37.9
+ 7 CSP12      43.1
+ 8 CSP13      46.6
+ 9 CSP16      43.9
+10 CSP17      41.2
 # ℹ 17 more rows</code></pre>
 </div>
 </div>
 <p><span class="note absolute" style="left: 68%; bottom: 20%; ">No repeated values <strong>and</strong><br>drops unused columns</span></p>
-<p><span class="note small absolute" style="left: 80%; bottom: 56%; width: 50%; "><strong>Note:</strong><br>We use <code>.groups = "drop"</code> to ungroup and avoid messages<br> You could also just use <code>ungroup()</code></span></p>
 </section>
 <section id="summarizing-by-group-3" class="slide level2">
 <h2>Summarizing by group</h2>
 <ul>
-<li>Keep other id columns by adding them to <code>group_by()</code></li>
+<li>Keep other id columns by adding them to <code>.by</code></li>
 <li>Beware: think carefully about grouping variables!</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a>size <span class="sc">|&gt;</span> </span>
-<span id="cb67-2"><a href=""></a>  <span class="fu">group_by</span>(plot, depth) <span class="sc">|&gt;</span></span>
-<span id="cb67-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a>size <span class="sc">|&gt;</span> </span>
+<span id="cb78-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.by =</span> <span class="fu">c</span>(plot, depth))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 114 × 3
    plot  depth mean_sand
@@ -3169,10 +3333,10 @@ Caused by error:
  4 CSP01    53      50.1
  5 CSP01    83      53.8
  6 CSP01   105      51.9
- 7 CSP02     5      26.0
- 8 CSP02    11      26.9
- 9 CSP02    36      25.9
-10 CSP02    56      28.7
+ 7 CSP08    10      49.6
+ 8 CSP08    27      49.5
+ 9 CSP08    90      49.2
+10 CSP02     5      26.0
 # ℹ 104 more rows</code></pre>
 </div>
 </div>
@@ -3187,23 +3351,22 @@ Caused by error:
 <li>Or use factors which are on the same level (e.g., ID columns)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a>size <span class="sc">|&gt;</span> </span>
-<span id="cb69-2"><a href=""></a>  <span class="fu">group_by</span>(plot, habitat) <span class="sc">|&gt;</span></span>
-<span id="cb69-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href=""></a>size <span class="sc">|&gt;</span> </span>
+<span id="cb80-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand), <span class="at">.by =</span> <span class="fu">c</span>(plot, habitat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27 × 3
    plot  habitat   mean_sand
    &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;
  1 CSP01 forest         49.8
- 2 CSP02 forest         34.7
- 3 CSP03 clearcut       29.9
+ 2 CSP08 grassland      49.4
+ 3 CSP02 forest         34.7
  4 CSP04 forest         30.3
  5 CSP05 grassland      44.6
- 6 CSP06 grassland      37.8
- 7 CSP07 grassland      36.6
- 8 CSP08 grassland      49.4
- 9 CSP09 forest         37.9
-10 CSP10 grassland      34.6
+ 6 CSP09 forest         37.9
+ 7 CSP12 grassland      43.1
+ 8 CSP13 grassland      46.6
+ 9 CSP16 forest         43.9
+10 CSP17 forest         41.2
 # ℹ 17 more rows</code></pre>
 </div>
 </div>
@@ -3256,7 +3419,7 @@ Caused by error:
 <h3 class="spacer" id="n-is-from-dplyr"><code>n()</code> is from <code>dplyr</code>*</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a><span class="fu">n</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href=""></a><span class="fu">n</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="spacer">
 <ul>
@@ -3270,10 +3433,8 @@ Caused by error:
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href=""></a>size <span class="sc">|&gt;</span></span>
-<span id="cb72-2"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb72-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">samples_total =</span> <span class="fu">n</span>(), </span>
-<span id="cb72-4"><a href=""></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a>size <span class="sc">|&gt;</span></span>
+<span id="cb83-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">samples_total =</span> <span class="fu">n</span>(), <span class="at">.by =</span> plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
 <div class="cell">
@@ -3282,13 +3443,13 @@ Caused by error:
   plot  samples_total
   &lt;chr&gt;         &lt;int&gt;
 1 CSP01             6
-2 CSP02             7
-3 CSP03             4
+2 CSP08             3
+3 CSP02             7
 4 CSP04             5
 5 CSP05             5
-6 CSP06             5
-7 CSP07             3
-8 CSP08             3
+6 CSP09             5
+7 CSP12             5
+8 CSP13             5
 # ℹ 19 more rows</code></pre>
 </div>
 </div>
@@ -3298,26 +3459,28 @@ Caused by error:
 <h2>Your Turn: Calculate summary statistics</h2>
 <h3 id="for-each-plot-and-habitat-calculate">For each plot and habitat, calculate</h3>
 <ul>
-<li>means for <strong>total_silt</strong> with <code>mean(x)</code></li>
-<li>standard deviations for <strong>total_silt</strong> with <code>sd(x)</code></li>
-<li>standard errors for <strong>total_sand</strong> and <strong>total_silt</strong> with <code>sd(x)</code>/<code>sqrt(n())</code></li>
+<li>standard error for <strong>total_sand</strong></li>
+<li>mean for <strong>total_silt</strong></li>
+<li>standard deviation for <strong>total_silt</strong></li>
+<li>standard error for <strong>total_silt</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74" data-code-line-numbers="13-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb74-2"><a href=""></a></span>
-<span id="cb74-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb74-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb74-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb74-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
-<span id="cb74-7"><a href=""></a></span>
-<span id="cb74-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb74-9"><a href=""></a>  <span class="fu">group_by</span>(plot, habitat) <span class="sc">|&gt;</span></span>
-<span id="cb74-10"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),                         </span>
-<span id="cb74-11"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),          </span>
-<span id="cb74-12"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),    </span>
-<span id="cb74-13"><a href=""></a>            <span class="at">se_sand =</span> ???,</span>
-<span id="cb74-14"><a href=""></a>            ???)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85" data-code-line-numbers="12-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb85-2"><a href=""></a></span>
+<span id="cb85-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb85-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb85-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb85-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
+<span id="cb85-7"><a href=""></a></span>
+<span id="cb85-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb85-9"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),                         </span>
+<span id="cb85-10"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),          </span>
+<span id="cb85-11"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),    </span>
+<span id="cb85-12"><a href=""></a>            <span class="at">se_sand =</span> ???,</span>
+<span id="cb85-13"><a href=""></a>            ???, </span>
+<span id="cb85-14"><a href=""></a>            <span class="at">.by =</span> <span class="fu">c</span>(plot, habitat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><span class="note absolute" style="left: 85%; bottom: 60%; width: 40%; "><strong>Hint</strong><br><span class="small">Use <code>sd(x)</code>/<code>sqrt(n())</code> for standard error calculations</span></span></p>
 <p><span class="note absolute" style="left: 85%; bottom: 20%; width: 40%; "><strong>Too Easy?</strong><br><span class="small">Can you recycle some of the calculated values into the next statistic?</span></span></p>
 <p><span class="note absolute" style="left: 80%; bottom: -5%; width: 50%; "><strong>Challenging</strong><br><span class="small">What if you only wanted to calculate the mean of each column…<br>can you use the <code>across()</code> function to do this elegantly?</span></span></p>
 </section>
@@ -3325,50 +3488,49 @@ Caused by error:
 <h2>Your Turn: Calculate summary statistics</h2>
 <h3 id="for-each-plot-and-habitat-calculate-1">For each plot and habitat, calculate</h3>
 <ul>
-<li>sample sizes with <code>n()</code></li>
-<li>means for <strong>total_sand</strong> and <strong>total_silt</strong> with <code>mean(x)</code></li>
-<li>standard deviations for <strong>total_sand</strong> and <strong>total_silt</strong> with <code>sd(x)</code></li>
-<li>standard errors for <strong>total_sand</strong> and <strong>total_silt</strong> with <code>sd(x)</code>/<code>sqrt(n(x))</code></li>
+<li>standard error for <strong>total_sand</strong></li>
+<li>mean for <strong>total_silt</strong></li>
+<li>standard deviation for <strong>total_silt</strong></li>
+<li>standard error for <strong>total_silt</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75" data-code-line-numbers="10-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb75-2"><a href=""></a></span>
-<span id="cb75-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb75-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb75-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb75-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
-<span id="cb75-7"><a href=""></a></span>
-<span id="cb75-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb75-9"><a href=""></a>  <span class="fu">group_by</span>(plot, habitat) <span class="sc">|&gt;</span></span>
-<span id="cb75-10"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),                         </span>
-<span id="cb75-11"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),          </span>
-<span id="cb75-12"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),              </span>
-<span id="cb75-13"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),     </span>
-<span id="cb75-14"><a href=""></a>            <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt),          </span>
-<span id="cb75-15"><a href=""></a>            <span class="at">sd_silt =</span> <span class="fu">sd</span>(total_silt),              </span>
-<span id="cb75-16"><a href=""></a>            <span class="at">se_silt =</span> sd_silt <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size))     </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="12-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb86-2"><a href=""></a></span>
+<span id="cb86-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb86-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb86-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb86-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
+<span id="cb86-7"><a href=""></a></span>
+<span id="cb86-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb86-9"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),                         </span>
+<span id="cb86-10"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),          </span>
+<span id="cb86-11"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),              </span>
+<span id="cb86-12"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),     </span>
+<span id="cb86-13"><a href=""></a>            <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt),          </span>
+<span id="cb86-14"><a href=""></a>            <span class="at">sd_silt =</span> <span class="fu">sd</span>(total_silt),              </span>
+<span id="cb86-15"><a href=""></a>            <span class="at">se_silt =</span> sd_silt <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),</span>
+<span id="cb86-16"><a href=""></a>            <span class="at">.by =</span> <span class="fu">c</span>(plot, habitat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-turn-calculate-summary-statistics-2" class="slide level2" data-visibility="visible">
 <h2>Your Turn: Calculate summary statistics</h2>
 <h3 id="check-your-work">Check your work</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>size_sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href=""></a>size_sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27 × 9
-# Groups:   plot [27]
    plot  habitat   sample_size mean_sand sd_sand se_sand mean_silt sd_silt se_silt
    &lt;chr&gt; &lt;chr&gt;           &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
  1 CSP01 forest              6      49.8   2.96    1.21       29.5   3.72    1.52 
- 2 CSP02 forest              7      34.7  10.8     4.06       40.9   4.29    1.62 
- 3 CSP03 clearcut            4      29.9   4.89    2.45       43.6   3.25    1.63 
+ 2 CSP08 grassland           3      49.4   0.176   0.102      32.4   1.73    0.998
+ 3 CSP02 forest              7      34.7  10.8     4.06       40.9   4.29    1.62 
  4 CSP04 forest              5      30.3   2.18    0.973      43.0   0.544   0.243
  5 CSP05 grassland           5      44.6   5.52    2.47       31.8   1.81    0.811
- 6 CSP06 grassland           5      37.8   4.10    1.83       48.1   3.32    1.49 
- 7 CSP07 grassland           3      36.6   7.30    4.21       39.8   1.05    0.609
- 8 CSP08 grassland           3      49.4   0.176   0.102      32.4   1.73    0.998
- 9 CSP09 forest              5      37.9   2.98    1.33       38.4   1.17    0.524
-10 CSP10 grassland           3      34.6   9.71    5.61       44.1   5.41    3.13 
+ 6 CSP09 forest              5      37.9   2.98    1.33       38.4   1.17    0.524
+ 7 CSP12 grassland           5      43.1   3.24    1.45       37.5   2.03    0.908
+ 8 CSP13 grassland           5      46.6   6.91    3.09       29.4   3.67    1.64 
+ 9 CSP16 forest              5      43.9  14.9     6.67       38.3  17.4     7.78 
+10 CSP17 forest              3      41.2   3.46    2.00       32.4   1.62    0.937
 # ℹ 17 more rows</code></pre>
 </div>
 </div>
@@ -3500,23 +3662,23 @@ Caused by error:
 </section>
 <section id="why-do-we-care-1" class="slide level2">
 <h2>Why do we care?</h2>
-<div id="eicknnddls" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eicknnddls table {
+<div id="impvsoioww" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#impvsoioww table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eicknnddls thead, #eicknnddls tbody, #eicknnddls tfoot, #eicknnddls tr, #eicknnddls td, #eicknnddls th {
+#impvsoioww thead, #impvsoioww tbody, #impvsoioww tfoot, #impvsoioww tr, #impvsoioww td, #impvsoioww th {
   border-style: none;
 }
 
-#eicknnddls p {
+#impvsoioww p {
   margin: 0;
   padding: 0;
 }
 
-#eicknnddls .gt_table {
+#impvsoioww .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3542,12 +3704,12 @@ Caused by error:
   border-left-color: #D3D3D3;
 }
 
-#eicknnddls .gt_caption {
+#impvsoioww .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eicknnddls .gt_title {
+#impvsoioww .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3559,7 +3721,7 @@ Caused by error:
   border-bottom-width: 0;
 }
 
-#eicknnddls .gt_subtitle {
+#impvsoioww .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3571,7 +3733,7 @@ Caused by error:
   border-top-width: 0;
 }
 
-#eicknnddls .gt_heading {
+#impvsoioww .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3583,13 +3745,13 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#eicknnddls .gt_bottom_border {
+#impvsoioww .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eicknnddls .gt_col_headings {
+#impvsoioww .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3604,7 +3766,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#eicknnddls .gt_col_heading {
+#impvsoioww .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3624,7 +3786,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#eicknnddls .gt_column_spanner_outer {
+#impvsoioww .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3636,15 +3798,15 @@ Caused by error:
   padding-right: 4px;
 }
 
-#eicknnddls .gt_column_spanner_outer:first-child {
+#impvsoioww .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eicknnddls .gt_column_spanner_outer:last-child {
+#impvsoioww .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eicknnddls .gt_column_spanner {
+#impvsoioww .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3656,11 +3818,11 @@ Caused by error:
   width: 100%;
 }
 
-#eicknnddls .gt_spanner_row {
+#impvsoioww .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eicknnddls .gt_group_heading {
+#impvsoioww .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3686,7 +3848,7 @@ Caused by error:
   text-align: left;
 }
 
-#eicknnddls .gt_empty_group_heading {
+#impvsoioww .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3701,15 +3863,15 @@ Caused by error:
   vertical-align: middle;
 }
 
-#eicknnddls .gt_from_md > :first-child {
+#impvsoioww .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eicknnddls .gt_from_md > :last-child {
+#impvsoioww .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eicknnddls .gt_row {
+#impvsoioww .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3728,7 +3890,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#eicknnddls .gt_stub {
+#impvsoioww .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3741,7 +3903,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#eicknnddls .gt_stub_row_group {
+#impvsoioww .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3755,15 +3917,15 @@ Caused by error:
   vertical-align: top;
 }
 
-#eicknnddls .gt_row_group_first td {
+#impvsoioww .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eicknnddls .gt_row_group_first th {
+#impvsoioww .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eicknnddls .gt_summary_row {
+#impvsoioww .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3773,16 +3935,16 @@ Caused by error:
   padding-right: 5px;
 }
 
-#eicknnddls .gt_first_summary_row {
+#impvsoioww .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eicknnddls .gt_first_summary_row.thick {
+#impvsoioww .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eicknnddls .gt_last_summary_row {
+#impvsoioww .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3792,7 +3954,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#eicknnddls .gt_grand_summary_row {
+#impvsoioww .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3802,7 +3964,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#eicknnddls .gt_first_grand_summary_row {
+#impvsoioww .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3812,7 +3974,7 @@ Caused by error:
   border-top-color: #D3D3D3;
 }
 
-#eicknnddls .gt_last_grand_summary_row_top {
+#impvsoioww .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3822,11 +3984,11 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#eicknnddls .gt_striped {
+#impvsoioww .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eicknnddls .gt_table_body {
+#impvsoioww .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3835,7 +3997,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#eicknnddls .gt_footnotes {
+#impvsoioww .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3849,7 +4011,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#eicknnddls .gt_footnote {
+#impvsoioww .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3858,7 +4020,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#eicknnddls .gt_sourcenotes {
+#impvsoioww .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3872,7 +4034,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#eicknnddls .gt_sourcenote {
+#impvsoioww .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3880,72 +4042,72 @@ Caused by error:
   padding-right: 5px;
 }
 
-#eicknnddls .gt_left {
+#impvsoioww .gt_left {
   text-align: left;
 }
 
-#eicknnddls .gt_center {
+#impvsoioww .gt_center {
   text-align: center;
 }
 
-#eicknnddls .gt_right {
+#impvsoioww .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eicknnddls .gt_font_normal {
+#impvsoioww .gt_font_normal {
   font-weight: normal;
 }
 
-#eicknnddls .gt_font_bold {
+#impvsoioww .gt_font_bold {
   font-weight: bold;
 }
 
-#eicknnddls .gt_font_italic {
+#impvsoioww .gt_font_italic {
   font-style: italic;
 }
 
-#eicknnddls .gt_super {
+#impvsoioww .gt_super {
   font-size: 65%;
 }
 
-#eicknnddls .gt_footnote_marks {
+#impvsoioww .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eicknnddls .gt_asterisk {
+#impvsoioww .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eicknnddls .gt_indent_1 {
+#impvsoioww .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eicknnddls .gt_indent_2 {
+#impvsoioww .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eicknnddls .gt_indent_3 {
+#impvsoioww .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eicknnddls .gt_indent_4 {
+#impvsoioww .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eicknnddls .gt_indent_5 {
+#impvsoioww .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eicknnddls .katex-display {
+#impvsoioww .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eicknnddls div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#impvsoioww div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3985,8 +4147,8 @@ Caused by error:
 </div>
 <p><strong>How would you plot this untidy data as the number of cases by country for each year?</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> ???, <span class="at">y =</span> ???)) <span class="sc">+</span> </span>
-<span id="cb78-2"><a href=""></a>  ???                                           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> ???, <span class="at">y =</span> ???)) <span class="sc">+</span> </span>
+<span id="cb89-2"><a href=""></a>  ???                                           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Note</strong></p>
 <ul>
@@ -4001,24 +4163,24 @@ Caused by error:
 <div class="columns small">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> <span class="st">`</span><span class="at">1999</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb79-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> <span class="st">`</span><span class="at">1999</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb90-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-66-1.png" width="1400"></p>
+<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-77-1.png" width="1400"></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> <span class="st">`</span><span class="at">2000</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb80-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table4a, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> <span class="st">`</span><span class="at">2000</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb91-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-67-1.png" width="1400"></p>
+<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-78-1.png" width="1400"></p>
 </figure>
 </div>
 </div>
@@ -4035,23 +4197,23 @@ Caused by error:
 <div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
-<div id="yodugixadh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yodugixadh table {
+<div id="eqiizzshdp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#eqiizzshdp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yodugixadh thead, #yodugixadh tbody, #yodugixadh tfoot, #yodugixadh tr, #yodugixadh td, #yodugixadh th {
+#eqiizzshdp thead, #eqiizzshdp tbody, #eqiizzshdp tfoot, #eqiizzshdp tr, #eqiizzshdp td, #eqiizzshdp th {
   border-style: none;
 }
 
-#yodugixadh p {
+#eqiizzshdp p {
   margin: 0;
   padding: 0;
 }
 
-#yodugixadh .gt_table {
+#eqiizzshdp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4077,12 +4239,12 @@ Caused by error:
   border-left-color: #D3D3D3;
 }
 
-#yodugixadh .gt_caption {
+#eqiizzshdp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yodugixadh .gt_title {
+#eqiizzshdp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4094,7 +4256,7 @@ Caused by error:
   border-bottom-width: 0;
 }
 
-#yodugixadh .gt_subtitle {
+#eqiizzshdp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4106,7 +4268,7 @@ Caused by error:
   border-top-width: 0;
 }
 
-#yodugixadh .gt_heading {
+#eqiizzshdp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4118,13 +4280,13 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#yodugixadh .gt_bottom_border {
+#eqiizzshdp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yodugixadh .gt_col_headings {
+#eqiizzshdp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4139,7 +4301,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#yodugixadh .gt_col_heading {
+#eqiizzshdp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4159,7 +4321,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#yodugixadh .gt_column_spanner_outer {
+#eqiizzshdp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4171,15 +4333,15 @@ Caused by error:
   padding-right: 4px;
 }
 
-#yodugixadh .gt_column_spanner_outer:first-child {
+#eqiizzshdp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yodugixadh .gt_column_spanner_outer:last-child {
+#eqiizzshdp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yodugixadh .gt_column_spanner {
+#eqiizzshdp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4191,11 +4353,11 @@ Caused by error:
   width: 100%;
 }
 
-#yodugixadh .gt_spanner_row {
+#eqiizzshdp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yodugixadh .gt_group_heading {
+#eqiizzshdp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4221,7 +4383,7 @@ Caused by error:
   text-align: left;
 }
 
-#yodugixadh .gt_empty_group_heading {
+#eqiizzshdp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4236,15 +4398,15 @@ Caused by error:
   vertical-align: middle;
 }
 
-#yodugixadh .gt_from_md > :first-child {
+#eqiizzshdp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yodugixadh .gt_from_md > :last-child {
+#eqiizzshdp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yodugixadh .gt_row {
+#eqiizzshdp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4263,7 +4425,7 @@ Caused by error:
   overflow-x: hidden;
 }
 
-#yodugixadh .gt_stub {
+#eqiizzshdp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4276,7 +4438,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#yodugixadh .gt_stub_row_group {
+#eqiizzshdp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4290,15 +4452,15 @@ Caused by error:
   vertical-align: top;
 }
 
-#yodugixadh .gt_row_group_first td {
+#eqiizzshdp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yodugixadh .gt_row_group_first th {
+#eqiizzshdp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yodugixadh .gt_summary_row {
+#eqiizzshdp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4308,16 +4470,16 @@ Caused by error:
   padding-right: 5px;
 }
 
-#yodugixadh .gt_first_summary_row {
+#eqiizzshdp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yodugixadh .gt_first_summary_row.thick {
+#eqiizzshdp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yodugixadh .gt_last_summary_row {
+#eqiizzshdp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4327,7 +4489,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#yodugixadh .gt_grand_summary_row {
+#eqiizzshdp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4337,7 +4499,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#yodugixadh .gt_first_grand_summary_row {
+#eqiizzshdp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4347,7 +4509,7 @@ Caused by error:
   border-top-color: #D3D3D3;
 }
 
-#yodugixadh .gt_last_grand_summary_row_top {
+#eqiizzshdp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4357,11 +4519,11 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#yodugixadh .gt_striped {
+#eqiizzshdp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yodugixadh .gt_table_body {
+#eqiizzshdp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4370,7 +4532,7 @@ Caused by error:
   border-bottom-color: #D3D3D3;
 }
 
-#yodugixadh .gt_footnotes {
+#eqiizzshdp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4384,7 +4546,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#yodugixadh .gt_footnote {
+#eqiizzshdp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4393,7 +4555,7 @@ Caused by error:
   padding-right: 5px;
 }
 
-#yodugixadh .gt_sourcenotes {
+#eqiizzshdp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4407,7 +4569,7 @@ Caused by error:
   border-right-color: #D3D3D3;
 }
 
-#yodugixadh .gt_sourcenote {
+#eqiizzshdp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4415,72 +4577,72 @@ Caused by error:
   padding-right: 5px;
 }
 
-#yodugixadh .gt_left {
+#eqiizzshdp .gt_left {
   text-align: left;
 }
 
-#yodugixadh .gt_center {
+#eqiizzshdp .gt_center {
   text-align: center;
 }
 
-#yodugixadh .gt_right {
+#eqiizzshdp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yodugixadh .gt_font_normal {
+#eqiizzshdp .gt_font_normal {
   font-weight: normal;
 }
 
-#yodugixadh .gt_font_bold {
+#eqiizzshdp .gt_font_bold {
   font-weight: bold;
 }
 
-#yodugixadh .gt_font_italic {
+#eqiizzshdp .gt_font_italic {
   font-style: italic;
 }
 
-#yodugixadh .gt_super {
+#eqiizzshdp .gt_super {
   font-size: 65%;
 }
 
-#yodugixadh .gt_footnote_marks {
+#eqiizzshdp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yodugixadh .gt_asterisk {
+#eqiizzshdp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yodugixadh .gt_indent_1 {
+#eqiizzshdp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yodugixadh .gt_indent_2 {
+#eqiizzshdp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yodugixadh .gt_indent_3 {
+#eqiizzshdp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yodugixadh .gt_indent_4 {
+#eqiizzshdp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yodugixadh .gt_indent_5 {
+#eqiizzshdp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yodugixadh .katex-display {
+#eqiizzshdp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yodugixadh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#eqiizzshdp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4539,12 +4701,12 @@ Caused by error:
 </div>
 </div><div class="column fragment small" style="width:60%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
-<span id="cb81-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb92-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-69-1.png" width="1400"></p>
+<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-80-1.png" width="1400"></p>
 </figure>
 </div>
 </div>
@@ -4557,26 +4719,26 @@ Caused by error:
 <div class="columns small">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, </span>
-<span id="cb82-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
-<span id="cb82-3"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, </span>
+<span id="cb93-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb93-3"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-70-1.png" width="1400"></p>
+<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-81-1.png" width="1400"></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, </span>
-<span id="cb83-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
-<span id="cb83-3"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> table1, </span>
+<span id="cb94-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> cases, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span></span>
+<span id="cb94-3"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-71-1.png" width="1400"></p>
+<p><img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-82-1.png" width="1400"></p>
 </figure>
 </div>
 </div>
@@ -4654,9 +4816,9 @@ Caused by error:
 <h3 class="spacer" id="pivot_longer-is-from-tidyr"><code>pivot_longer()</code> is from <code>tidyr</code>*</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href=""></a><span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">c</span>(column1, column2),</span>
-<span id="cb86-2"><a href=""></a>             <span class="at">names_to =</span> <span class="st">"new_categorical_column"</span>,</span>
-<span id="cb86-3"><a href=""></a>             <span class="at">values_to =</span> <span class="st">"new_numerical_column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href=""></a><span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">c</span>(column1, column2),</span>
+<span id="cb97-2"><a href=""></a>             <span class="at">names_to =</span> <span class="st">"new_categorical_column"</span>,</span>
+<span id="cb97-3"><a href=""></a>             <span class="at">values_to =</span> <span class="st">"new_numerical_column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="spacer">
 <ul>
@@ -4673,9 +4835,9 @@ Caused by error:
 <h3 class="spacer" id="pivot_longer-is-from-tidyr-1"><code>pivot_longer()</code> is from <code>tidyr</code>*</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href=""></a><span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">c</span>(column1, column2),</span>
-<span id="cb87-2"><a href=""></a>             <span class="at">names_to =</span> <span class="st">"new_categorical_column"</span>,</span>
-<span id="cb87-3"><a href=""></a>             <span class="at">values_to =</span> <span class="st">"new_numerical_column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href=""></a><span class="fu">pivot_longer</span>(data, <span class="at">cols =</span> <span class="fu">c</span>(column1, column2),</span>
+<span id="cb98-2"><a href=""></a>             <span class="at">names_to =</span> <span class="st">"new_categorical_column"</span>,</span>
+<span id="cb98-3"><a href=""></a>             <span class="at">values_to =</span> <span class="st">"new_numerical_column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 id="in-our-example">In our example:</h3>
 <ul>
@@ -4694,8 +4856,8 @@ Caused by error:
 <section id="going-long-4" class="slide level2">
 <h2>Going long</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>habitat, <span class="sc">-</span>technician, <span class="sc">-</span>date),</span>
-<span id="cb88-2"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"amount"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>habitat, <span class="sc">-</span>technician, <span class="sc">-</span>date),</span>
+<span id="cb99-2"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"amount"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -4724,29 +4886,29 @@ Caused by error:
 <li>We’ll first create a summary dataset for sand variables</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href=""></a>sand_sum <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand) <span class="sc">|&gt;</span></span>
-<span id="cb90-3"><a href=""></a>  <span class="fu">group_by</span>(plot) <span class="sc">|&gt;</span></span>
-<span id="cb90-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),</span>
-<span id="cb90-5"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
-<span id="cb90-6"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
-<span id="cb90-7"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size))</span>
-<span id="cb90-8"><a href=""></a></span>
-<span id="cb90-9"><a href=""></a>sand_sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href=""></a>sand_sum <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb101-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand) <span class="sc">|&gt;</span></span>
+<span id="cb101-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),</span>
+<span id="cb101-4"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
+<span id="cb101-5"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
+<span id="cb101-6"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size), </span>
+<span id="cb101-7"><a href=""></a>            <span class="at">.by =</span> plot)</span>
+<span id="cb101-8"><a href=""></a></span>
+<span id="cb101-9"><a href=""></a>sand_sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27 × 5
    plot  sample_size mean_sand sd_sand se_sand
    &lt;chr&gt;       &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
  1 CSP01           6      49.8   2.96    1.21 
- 2 CSP02           7      34.7  10.8     4.06 
- 3 CSP03           4      29.9   4.89    2.45 
+ 2 CSP08           3      49.4   0.176   0.102
+ 3 CSP02           7      34.7  10.8     4.06 
  4 CSP04           5      30.3   2.18    0.973
  5 CSP05           5      44.6   5.52    2.47 
- 6 CSP06           5      37.8   4.10    1.83 
- 7 CSP07           3      36.6   7.30    4.21 
- 8 CSP08           3      49.4   0.176   0.102
- 9 CSP09           5      37.9   2.98    1.33 
-10 CSP10           3      34.6   9.71    5.61 
+ 6 CSP09           5      37.9   2.98    1.33 
+ 7 CSP12           5      43.1   3.24    1.45 
+ 8 CSP13           5      46.6   6.91    3.09 
+ 9 CSP16           5      43.9  14.9     6.67 
+10 CSP17           3      41.2   3.46    2.00 
 # ℹ 17 more rows</code></pre>
 </div>
 </div>
@@ -4757,10 +4919,10 @@ Caused by error:
 <li>Gather all variables except <code>plot</code> and <code>sample_size</code> into a long format</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a>sand_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(sand_sum, </span>
-<span id="cb92-2"><a href=""></a>                          <span class="at">cols =</span> ???,</span>
-<span id="cb92-3"><a href=""></a>                          <span class="at">names_to =</span> ???,</span>
-<span id="cb92-4"><a href=""></a>                          <span class="at">values_to =</span> ???)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href=""></a>sand_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(sand_sum, </span>
+<span id="cb103-2"><a href=""></a>                          <span class="at">cols =</span> ???,</span>
+<span id="cb103-3"><a href=""></a>                          <span class="at">names_to =</span> ???,</span>
+<span id="cb103-4"><a href=""></a>                          <span class="at">values_to =</span> ???)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-turn-lengthen-data-2" class="slide level2" data-visibility="visible">
@@ -4769,10 +4931,10 @@ Caused by error:
 <li>Gather all variables except <code>plot</code> and <code>sample_size</code> into a long format</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href=""></a>sand_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(sand_sum, </span>
-<span id="cb93-2"><a href=""></a>                          <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"sand"</span>),  </span>
-<span id="cb93-3"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>,    </span>
-<span id="cb93-4"><a href=""></a>                          <span class="at">values_to =</span> <span class="st">"amount"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href=""></a>sand_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(sand_sum, </span>
+<span id="cb104-2"><a href=""></a>                          <span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">"sand"</span>),  </span>
+<span id="cb104-3"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>,    </span>
+<span id="cb104-4"><a href=""></a>                          <span class="at">values_to =</span> <span class="st">"amount"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -4784,12 +4946,12 @@ Caused by error:
  1 CSP01           6 mean_sand 49.8  
  2 CSP01           6 sd_sand    2.96 
  3 CSP01           6 se_sand    1.21 
- 4 CSP02           7 mean_sand 34.7  
- 5 CSP02           7 sd_sand   10.8  
- 6 CSP02           7 se_sand    4.06 
- 7 CSP03           4 mean_sand 29.9  
- 8 CSP03           4 sd_sand    4.89 
- 9 CSP03           4 se_sand    2.45 
+ 4 CSP08           3 mean_sand 49.4  
+ 5 CSP08           3 sd_sand    0.176
+ 6 CSP08           3 se_sand    0.102
+ 7 CSP02           7 mean_sand 34.7  
+ 8 CSP02           7 sd_sand   10.8  
+ 9 CSP02           7 se_sand    4.06 
 10 CSP04           5 mean_sand 30.3  
 11 CSP04           5 sd_sand    2.18 
 12 CSP04           5 se_sand    0.973
@@ -4880,9 +5042,9 @@ Caused by error:
 <h3 class="spacer" id="pivot_wider-is-from-tidyr"><code>pivot_wider()</code> is from <code>tidyr</code>*</h3>
 <p><span class="footnote">* part of the <code>tidyverse</code></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href=""></a><span class="fu">pivot_wider</span>(data,</span>
-<span id="cb97-2"><a href=""></a>            <span class="at">names_from =</span> existing_categorical_column,</span>
-<span id="cb97-3"><a href=""></a>            <span class="at">values_from =</span> existing_numerical_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href=""></a><span class="fu">pivot_wider</span>(data,</span>
+<span id="cb108-2"><a href=""></a>            <span class="at">names_from =</span> existing_categorical_column,</span>
+<span id="cb108-3"><a href=""></a>            <span class="at">values_from =</span> existing_numerical_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="spacer">
 <ul>
@@ -4908,24 +5070,24 @@ Caused by error:
 <section id="going-wide-3" class="slide level2">
 <h2>Going wide</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href=""></a>size_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(size_long, <span class="at">names_from =</span> type, <span class="at">values_from =</span> amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href=""></a>size_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(size_long, <span class="at">names_from =</span> type, <span class="at">values_from =</span> amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb99"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb99-1"><a href=""></a># A tibble: 114 × 14</span>
-<span id="cb99-2"><a href=""></a>   plot  depth habitat   technician date       coarse_sand medium_sand fine_sand coarse_silt medium_silt fine_silt  clay total_sand total_silt</span>
-<span id="cb99-3"><a href=""></a>   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;date&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span id="cb99-4"><a href=""></a> 1 CSP01     4 forest    Catharine  2009-04-23       13.0        17.4      19.7        14.1        11.2       8.17  16.3       50.1       33.5</span>
-<span id="cb99-5"><a href=""></a> 2 CSP01    12 forest    Catharine  2009-04-23       10.7        16.9      19.2        14.1        11.7       9.03  18.4       46.8       34.8</span>
-<span id="cb99-6"><a href=""></a> 3 CSP01    35 forest    Catharine  2009-04-23       12.1        17.8      16.1        10.3         9.51      7.47  26.7       46         27.3</span>
-<span id="cb99-7"><a href=""></a> 4 CSP01    53 forest    Catharine  2009-04-23       17.6        18.2      14.3         9.4         9.1       8.7   22.7       50.1       27.2</span>
-<span id="cb99-8"><a href=""></a> 5 CSP01    83 forest    Catharine  2009-04-23       21.0        18.4      14.3         9.79        8.79      7.29  20.4       53.8       25.9</span>
-<span id="cb99-9"><a href=""></a> 6 CSP01   105 forest    Catharine  2009-04-23       19.0        18.4      14.4        10.8         9.4       8.22  19.7       51.9       28.4</span>
-<span id="cb99-10"><a href=""></a> 7 CSP08    10 grassland Catharine  2009-03-02       11.6        17.1      20.8        16.3         9.55      6.23  18.4       49.6       32.1</span>
-<span id="cb99-11"><a href=""></a> 8 CSP08    27 grassland Catharine  2009-03-02       15.4        16.2      17.8        14.3        10.4       6.1   19.6       49.5       30.8</span>
-<span id="cb99-12"><a href=""></a> 9 CSP08    90 grassland Catharine  2009-03-02       14.9        15.8      18.6        15.1        11.5       7.56  16.5       49.2       34.2</span>
-<span id="cb99-13"><a href=""></a>10 CSP02     5 forest    Catharine  2009-05-06        8.75        8.64      8.66       12.0        18.3      15.2   28.5       26.0       45.4</span>
-<span id="cb99-14"><a href=""></a># ℹ 104 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode numberSource small number-lines code-with-copy"><code class="sourceCode"><span id="cb110-1"><a href=""></a># A tibble: 114 × 14</span>
+<span id="cb110-2"><a href=""></a>   plot  depth habitat   technician date       coarse_sand medium_sand fine_sand coarse_silt medium_silt fine_silt  clay total_sand total_silt</span>
+<span id="cb110-3"><a href=""></a>   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;date&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span id="cb110-4"><a href=""></a> 1 CSP01     4 forest    Catharine  2009-04-23       13.0        17.4      19.7        14.1        11.2       8.17  16.3       50.1       33.5</span>
+<span id="cb110-5"><a href=""></a> 2 CSP01    12 forest    Catharine  2009-04-23       10.7        16.9      19.2        14.1        11.7       9.03  18.4       46.8       34.8</span>
+<span id="cb110-6"><a href=""></a> 3 CSP01    35 forest    Catharine  2009-04-23       12.1        17.8      16.1        10.3         9.51      7.47  26.7       46         27.3</span>
+<span id="cb110-7"><a href=""></a> 4 CSP01    53 forest    Catharine  2009-04-23       17.6        18.2      14.3         9.4         9.1       8.7   22.7       50.1       27.2</span>
+<span id="cb110-8"><a href=""></a> 5 CSP01    83 forest    Catharine  2009-04-23       21.0        18.4      14.3         9.79        8.79      7.29  20.4       53.8       25.9</span>
+<span id="cb110-9"><a href=""></a> 6 CSP01   105 forest    Catharine  2009-04-23       19.0        18.4      14.4        10.8         9.4       8.22  19.7       51.9       28.4</span>
+<span id="cb110-10"><a href=""></a> 7 CSP08    10 grassland Catharine  2009-03-02       11.6        17.1      20.8        16.3         9.55      6.23  18.4       49.6       32.1</span>
+<span id="cb110-11"><a href=""></a> 8 CSP08    27 grassland Catharine  2009-03-02       15.4        16.2      17.8        14.3        10.4       6.1   19.6       49.5       30.8</span>
+<span id="cb110-12"><a href=""></a> 9 CSP08    90 grassland Catharine  2009-03-02       14.9        15.8      18.6        15.1        11.5       7.56  16.5       49.2       34.2</span>
+<span id="cb110-13"><a href=""></a>10 CSP02     5 forest    Catharine  2009-05-06        8.75        8.64      8.66       12.0        18.3      15.2   28.5       26.0       45.4</span>
+<span id="cb110-14"><a href=""></a># ℹ 104 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -4933,29 +5095,29 @@ Caused by error:
 <h2>Again: Why transpose?</h2>
 <h3 id="figures-long-data-are-great-for-graphing">Figures: Long data are great for graphing</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date),</span>
-<span id="cb100-2"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"amount"</span>)</span>
-<span id="cb100-3"><a href=""></a></span>
-<span id="cb100-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> size_long, <span class="fu">aes</span>(<span class="at">y =</span> depth, <span class="at">x =</span> amount, <span class="at">colour =</span> type)) <span class="sc">+</span></span>
-<span id="cb100-5"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb100-6"><a href=""></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
-<span id="cb100-7"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> type, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date),</span>
+<span id="cb111-2"><a href=""></a>                          <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"amount"</span>)</span>
+<span id="cb111-3"><a href=""></a></span>
+<span id="cb111-4"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> size_long, <span class="fu">aes</span>(<span class="at">y =</span> depth, <span class="at">x =</span> amount, <span class="at">colour =</span> type)) <span class="sc">+</span></span>
+<span id="cb111-5"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb111-6"><a href=""></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
+<span id="cb111-7"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> type, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-87-1.png" width="2400" class="r-stretch"></section>
+<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-98-1.png" width="2400" class="r-stretch"></section>
 <section id="again-why-transpose-1" class="slide level2">
 <h2>Again: Why transpose?</h2>
 <h3 id="figures-take-it-to-the-next-step">Figures: Take it to the next step</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101" data-code-line-numbers="7-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb101-2"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb101-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb101-4"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
-<span id="cb101-5"><a href=""></a></span>
-<span id="cb101-6"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date, <span class="sc">-</span>clay),</span>
-<span id="cb101-7"><a href=""></a>                          <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"size"</span>, <span class="st">"category"</span>), <span class="at">values_to =</span> <span class="st">"amount"</span>,</span>
-<span id="cb101-8"><a href=""></a>                          <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb101-9"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="st">"coarse"</span>, <span class="st">"medium"</span>, <span class="st">"fine"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112" data-code-line-numbers="7-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb112-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb112-4"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
+<span id="cb112-5"><a href=""></a></span>
+<span id="cb112-6"><a href=""></a>size_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(size, <span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date, <span class="sc">-</span>clay),</span>
+<span id="cb112-7"><a href=""></a>                          <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"size"</span>, <span class="st">"category"</span>), <span class="at">values_to =</span> <span class="st">"amount"</span>,</span>
+<span id="cb112-8"><a href=""></a>                          <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb112-9"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="st">"coarse"</span>, <span class="st">"medium"</span>, <span class="st">"fine"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -4980,14 +5142,14 @@ Caused by error:
 <h2>Again: Why transpose?</h2>
 <h3 id="figures-take-it-to-the-next-step-1">Figures: Take it to the next step</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> size_long, </span>
-<span id="cb103-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">y =</span> depth, <span class="at">x =</span> amount, <span class="at">colour =</span> category)) <span class="sc">+</span></span>
-<span id="cb103-3"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb103-4"><a href=""></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
-<span id="cb103-5"><a href=""></a>  <span class="fu">facet_grid</span>(category <span class="sc">~</span> size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> size_long, </span>
+<span id="cb114-2"><a href=""></a>       <span class="fu">aes</span>(<span class="at">y =</span> depth, <span class="at">x =</span> amount, <span class="at">colour =</span> category)) <span class="sc">+</span></span>
+<span id="cb114-3"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb114-4"><a href=""></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
+<span id="cb114-5"><a href=""></a>  <span class="fu">facet_grid</span>(category <span class="sc">~</span> size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-90-1.png" width="2400" class="r-stretch"></section>
+<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-101-1.png" width="2400" class="r-stretch"></section>
 <section id="again-why-transpose-3" class="slide level2">
 <h2>Again: Why transpose?</h2>
 <h3 id="anlyses-linear-models-lmy-x-data">Anlyses: Linear models <code>lm(y ~ x, data)</code></h3>
@@ -4997,7 +5159,7 @@ Caused by error:
 <li>i.e., do amounts of different size classes differ with depth? (need size classes in “type” column)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href=""></a><span class="fu">lm</span>(amount <span class="sc">~</span> type <span class="sc">+</span> depth, <span class="at">data =</span> size_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href=""></a><span class="fu">lm</span>(amount <span class="sc">~</span> type <span class="sc">+</span> depth, <span class="at">data =</span> size_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="spacer">
@@ -5006,7 +5168,7 @@ Caused by error:
 <li>i.e., does the amount of sand differ with depth? (need size classes in separate columns)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href=""></a><span class="fu">lm</span>(total_sand <span class="sc">~</span> depth, <span class="at">data =</span> size_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href=""></a><span class="fu">lm</span>(total_sand <span class="sc">~</span> depth, <span class="at">data =</span> size_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><span class="note absolute fragment" style="bottom: 0px; ">If you can’t figure out how to plot or analyse your data, they probably need to be transposed</span></p>
@@ -5015,59 +5177,59 @@ Caused by error:
 <h2>Your Turn: Transpose for plotting</h2>
 <p>Plot the number of Tuberculosis <code>cases</code> vs.&nbsp;the <code>population</code> in data frame <code>table2</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106" data-code-line-numbers="1,3-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href=""></a>temp <span class="ot">&lt;-</span> pivot_???(table2, ???)                    </span>
-<span id="cb106-2"><a href=""></a></span>
-<span id="cb106-3"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> temp, ???) <span class="sc">+</span>    </span>
-<span id="cb106-4"><a href=""></a>  ???                         </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117" data-code-line-numbers="1,3-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href=""></a>temp <span class="ot">&lt;-</span> pivot_???(table2, ???)                    </span>
+<span id="cb117-2"><a href=""></a></span>
+<span id="cb117-3"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> temp, ???) <span class="sc">+</span>    </span>
+<span id="cb117-4"><a href=""></a>  ???                         </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-turn-transpose-for-plotting-1" class="slide level2" data-visibility="visible">
 <h2>Your Turn: Transpose for plotting</h2>
 <p>Plot the number of Tuberculosis cases (<code>cases</code>) vs.&nbsp;the <code>population</code> in data frame <code>table2</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb107" data-code-line-numbers="1,3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href=""></a>temp <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(table2, <span class="at">names_from =</span> <span class="st">"type"</span>, <span class="at">values_from =</span> <span class="st">"count"</span>) </span>
-<span id="cb107-2"><a href=""></a></span>
-<span id="cb107-3"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> temp, <span class="fu">aes</span>(<span class="at">x =</span> population, <span class="at">y =</span> cases)) <span class="sc">+</span> </span>
-<span id="cb107-4"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb107-5"><a href=""></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118" data-code-line-numbers="1,3-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href=""></a>temp <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(table2, <span class="at">names_from =</span> <span class="st">"type"</span>, <span class="at">values_from =</span> <span class="st">"count"</span>) </span>
+<span id="cb118-2"><a href=""></a></span>
+<span id="cb118-3"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> temp, <span class="fu">aes</span>(<span class="at">x =</span> population, <span class="at">y =</span> cases)) <span class="sc">+</span> </span>
+<span id="cb118-4"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb118-5"><a href=""></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-94-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1400"></section>
+<img data-src="4_summarizing_and_transforming_files/figure-revealjs/unnamed-chunk-105-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1400"></section>
 <section id="put-it-all-together-2" class="slide level2">
 <h2>Put it all together</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
-<span id="cb108-2"><a href=""></a></span>
-<span id="cb108-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb108-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb108-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
-<span id="cb108-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
-<span id="cb108-7"><a href=""></a></span>
-<span id="cb108-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb108-9"><a href=""></a>  <span class="fu">group_by</span>(plot, habitat) <span class="sc">|&gt;</span></span>
-<span id="cb108-10"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),</span>
-<span id="cb108-11"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
-<span id="cb108-12"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
-<span id="cb108-13"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
-<span id="cb108-14"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),</span>
-<span id="cb108-15"><a href=""></a>            <span class="at">total_silt =</span> <span class="fu">sum</span>(total_silt),</span>
-<span id="cb108-16"><a href=""></a>            <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt),</span>
-<span id="cb108-17"><a href=""></a>            <span class="at">sd_silt =</span> <span class="fu">sd</span>(total_silt),</span>
-<span id="cb108-18"><a href=""></a>            <span class="at">se_silt =</span> sd_silt <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size))</span>
-<span id="cb108-19"><a href=""></a></span>
-<span id="cb108-20"><a href=""></a>size_long <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
-<span id="cb108-21"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date, <span class="sc">-</span>clay), </span>
-<span id="cb108-22"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"amount"</span>, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"size"</span>, <span class="st">"category"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb108-23"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="st">"coarse"</span>, <span class="st">"medium"</span>, <span class="st">"fine"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href=""></a>meta <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_meta.csv"</span>)</span>
+<span id="cb119-2"><a href=""></a></span>
+<span id="cb119-3"><a href=""></a>size <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/grain_size2.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb119-4"><a href=""></a>  <span class="fu">left_join</span>(meta, <span class="at">by =</span> <span class="st">"plot"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb119-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">total_sand =</span> coarse_sand <span class="sc">+</span> medium_sand <span class="sc">+</span> fine_sand,</span>
+<span id="cb119-6"><a href=""></a>         <span class="at">total_silt =</span> coarse_silt <span class="sc">+</span> medium_silt <span class="sc">+</span> fine_silt)</span>
+<span id="cb119-7"><a href=""></a></span>
+<span id="cb119-8"><a href=""></a>size_sum <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb119-9"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_size =</span> <span class="fu">n</span>(),</span>
+<span id="cb119-10"><a href=""></a>            <span class="at">total_sand =</span> <span class="fu">sum</span>(total_sand),</span>
+<span id="cb119-11"><a href=""></a>            <span class="at">mean_sand =</span> <span class="fu">mean</span>(total_sand),</span>
+<span id="cb119-12"><a href=""></a>            <span class="at">sd_sand =</span> <span class="fu">sd</span>(total_sand),</span>
+<span id="cb119-13"><a href=""></a>            <span class="at">se_sand =</span> sd_sand <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),</span>
+<span id="cb119-14"><a href=""></a>            <span class="at">total_silt =</span> <span class="fu">sum</span>(total_silt),</span>
+<span id="cb119-15"><a href=""></a>            <span class="at">mean_silt =</span> <span class="fu">mean</span>(total_silt),</span>
+<span id="cb119-16"><a href=""></a>            <span class="at">sd_silt =</span> <span class="fu">sd</span>(total_silt),</span>
+<span id="cb119-17"><a href=""></a>            <span class="at">se_silt =</span> sd_silt <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),</span>
+<span id="cb119-18"><a href=""></a>            <span class="at">.by =</span> <span class="fu">c</span>(plot, habitat))</span>
+<span id="cb119-19"><a href=""></a></span>
+<span id="cb119-20"><a href=""></a>size_long <span class="ot">&lt;-</span> size <span class="sc">|&gt;</span></span>
+<span id="cb119-21"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="sc">-</span>plot, <span class="sc">-</span>depth, <span class="sc">-</span>technician, <span class="sc">-</span>habitat, <span class="sc">-</span>date, <span class="sc">-</span>clay), </span>
+<span id="cb119-22"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"amount"</span>, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"size"</span>, <span class="st">"category"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb119-23"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">size =</span> <span class="fu">factor</span>(size, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="st">"coarse"</span>, <span class="st">"medium"</span>, <span class="st">"fine"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="put-it-all-together-3" class="slide level2">
 <h2>Put it all together</h2>
 <h3 id="save-your-data">Save your data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href=""></a><span class="fu">write_csv</span>(size, <span class="st">"datasets/size_total.csv"</span>)</span>
-<span id="cb109-2"><a href=""></a><span class="fu">write_csv</span>(size_sum, <span class="st">"datasets/size_summary.csv"</span>)</span>
-<span id="cb109-3"><a href=""></a><span class="fu">write_csv</span>(size_long, <span class="st">"datasets/size_long.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href=""></a><span class="fu">write_csv</span>(size, <span class="st">"datasets/size_total.csv"</span>)</span>
+<span id="cb120-2"><a href=""></a><span class="fu">write_csv</span>(size_sum, <span class="st">"datasets/size_summary.csv"</span>)</span>
+<span id="cb120-3"><a href=""></a><span class="fu">write_csv</span>(size_long, <span class="st">"datasets/size_long.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h3 class="spacer" id="keep-yourself-organized">Keep yourself organized</h3>
 <ul>
@@ -5078,25 +5240,33 @@ Caused by error:
 <li><code>3_graphing.csv</code></li>
 </ul>
 </section>
-<section id="wrapping-up-common-mistakes" class="slide level2 space-list">
+<section id="wrapping-up-common-mistakes" class="slide level2">
 <h2>Wrapping up: Common mistakes</h2>
-<ul>
-<li><code>select()</code> doesn’t work
+<h4 id="select-doesnt-work"><code>select()</code> doesn’t work</h4>
 <ul>
 <li>You may have the <code>MASS</code> package loaded, it also has a <code>select()</code> function</li>
 <li>Make sure you loaded <code>tidyverse</code> or <code>dplyr</code> packages</li>
 <li>Try using <code>dplyr::select()</code></li>
-</ul></li>
-<li>I can’t figure out how to <code>pivot_wider()</code> my data in the way I want it
+</ul>
+<div class="fragment">
+<h4 id="i-cant-figure-out-how-to-pivot_wider-my-data-in-the-way-i-want-it">I can’t figure out how to <code>pivot_wider()</code> my data in the way I want it</h4>
 <ul>
 <li>Sometimes you need to <code>pivot_longer()</code> before you can widen it</li>
-</ul></li>
-<li><code>mutate()</code> is giving me weird results
+</ul>
+</div>
+<div class="fragment">
+<h4 id="mutate-is-giving-me-weird-results"><code>mutate()</code> is giving me weird results</h4>
 <ul>
-<li>Is your data grouped when it shouldn’t be?</li>
-<li>Try using <code>ungroup()</code> first</li>
-</ul></li>
-<li>I get a warning when I join data sets
+<li>Is your data grouped when it shouldn’t be? (try using <code>ungroup()</code>)</li>
+</ul>
+</div>
+<div class="fragment">
+<h4 id="joins-use-by-mutatesummarizes-use-.by">Joins use <code>by</code>, mutate/summarizes use <code>.by</code></h4>
+</div>
+</section>
+<section id="wrapping-up-common-mistakes-1" class="slide level2 space-list">
+<h2>Wrapping up: Common mistakes</h2>
+<h4 id="i-get-a-warning-when-i-join-data-sets">I get a warning when I join data sets</h4>
 <ul>
 <li>Can be because multiple joins</li>
 <li>Can be because mismatched factor levels
@@ -5104,7 +5274,6 @@ Caused by error:
 <li>If the category levels in one data frame do not match the other data frame</li>
 <li>They will be transformed to character</li>
 <li>If that’s a problem, use <code>as.factor()</code> to turn them back</li>
-</ul></li>
 </ul></li>
 </ul>
 </section>
