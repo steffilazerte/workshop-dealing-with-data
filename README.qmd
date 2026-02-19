@@ -70,11 +70,11 @@ f <- tibble::tibble(
     html_answer = glue("[html-answers]({html_answer})"),
     pdf = glue("[pdf]({pdf})"),
     pdf_answer = glue("[pdf-answers]({pdf_answer})"),
-    links = glue("{name} ({html} | {pdf}")
+    links = glue("{name} ({html}|{pdf}")
   )
 
 if(answers) {
-  links <- glue_data(f, "{links} | {html_answer} | {pdf_answer})")
+  links <- glue_data(f, "{links}|{html_answer}|{pdf_answer})")
 } else {
   links <- glue_data(f, "{links})")
 }
