@@ -46,24 +46,44 @@ are be posted after the workshop.
 slides as they will be the most accurate with respect to formatting and will 
 allow you to easily copy/paste code and navigate
 
-🚧 Slides will be available by the date of the workshop 🚧
+<!-- 🚧 Slides will be available by the date of the workshop 🚧 -->
 
+```{r}
+#| echo: false
+#| results: asis
+library(glue)
+answers <- FALSE
+site <- "https://steffilazerte.ca/workshop-dealing-with-data/"
+f <- tibble::tibble(
+  name = c("Intro to R", "Visualizing data in R", "Loading & Cleaning Data in R", 
+           "Summarizing & Transforming Data in R", "Getting help with R"),
+  file = c("1_intro_to_R", "2_visualizations", "3_loading_and_cleaning",
+           "4_summarizing_and_transforming", "5_getting_help"),
+  html = glue("{site}/{file}.html"),
+  html_answer = glue("{site}/{file}_answers.html"),
+  pdf = glue("{site}/pdf/{file}_sm.pdf"),
+  pdf_answer = glue("{site}/pdf/{file}_answers_sm.pdf")
+) |>  
+  dplyr::mutate(
+    name = paste0(dplyr::row_number(), ". ", name),
+    html = glue("[html]({html})"),
+    html_answer = glue("[html-answers]({html_answer})"),
+    pdf = glue("[pdf]({pdf})"),
+    pdf_answer = glue("[pdf-answers]({pdf_answer})"),
+    links = glue("{name} ({html} | {pdf}")
+  )
 
-<!-- 1. Intro to R ([html](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R.html) | [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_sm.pdf))
-| [html-answers](https://steffilazerte.ca/workshop-dealing-with-data/1_intro_to_R_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/1_intro_to_R_answers_sm.pdf)) -->
+if(answers) {
+  links <- glue_data(f, "{links} | {html_answer} | {pdf_answer})")
+} else {
+  links <- glue_data(f, "{links})")
+}
 
-<!-- 2. Visualizing data in R ([html](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations.html) | [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_sm.pdf)) | 
-[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/2_visualizations_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/2_visualizations_answers_sm.pdf)) -->
+cat(links, sep = "\n")
 
-<!-- 3. Loading & Cleaning Data in R ([html](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning.html) | [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_sm.pdf)) |
-[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/3_loading_and_cleaning_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/3_loading_and_cleaning_answers_sm.pdf)) -->
+if(answers) cat("\n\n> Answer slides will be posted after the workshop\n\n")
+```
 
-<!-- 4. Summarizing & Transforming Data in R ([html](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming.html) | [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_sm.pdf)) |
-[html-answers](https://steffilazerte.ca/workshop-dealing-with-data/4_summarizing_and_transforming_answers.html) | [pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data/pdf/4_summarizing_and_transforming_answers_sm.pdf)) -->
-
-<!-- 5. Getting help with R ([html](https://steffilazerte.ca/workshop-dealing-with-data/5_getting_help.html) | [pdf](https://steffilazerte.ca/workshop-dealing-with-data/pdf/5_getting_help_sm.pdf) | *No answer slides*) -->
-
-> Answer slides will be posted after the workshop
 
 ---
 
