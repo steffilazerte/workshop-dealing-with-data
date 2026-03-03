@@ -52,7 +52,7 @@ allow you to easily copy/paste code and navigate
 #| echo: false
 #| results: asis
 library(glue)
-answers <- FALSE
+answers <- TRUE
 site <- "https://steffilazerte.ca/workshop-dealing-with-data/"
 f <- tibble::tibble(
   name = c("Intro to R", "Visualizing data in R", "Loading & Cleaning Data in R", 
