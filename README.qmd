@@ -6,9 +6,9 @@ format: gfm
 
 *An introduction to R for data management and manipulation*
 
-**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>\
-**Location**: Brandon University, Brodie Building<br>\
-**Date/time**: Sat/Sun January 23/24 2027, 9:00am-5:00pm<br>
+**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)\
+**Location**: Brandon University, Brodie Building\
+**Date/time**: Sat/Sun January 23/24 2027, 9:00am-5:00pm
 
 > **⚠️Important!⚠️**
 >
