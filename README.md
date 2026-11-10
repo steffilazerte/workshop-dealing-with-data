@@ -4,12 +4,9 @@
 
 *An introduction to R for data management and manipulation*
 
-**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>
-**Location**: Online<br> **Date/time**: Tues/Thurs February 24/26 2026,
-10:00am-6:00pm Eastern<br>
-
-This workshop is being run on behalf of the University of Waterloo
-Hydrobiogeochemistry lab.
+**Instructor**: Steffi LaZerte (<sel@steffilazerte.ca>)<br>\
+**Location**: Brandon University, Brodie Building<br>\
+**Date/time**: Sat/Sun January 23/24 2027, 9:00am-5:00pm<br>
 
 > **⚠️Important!⚠️**
 >
@@ -53,22 +50,9 @@ activities are be posted after the workshop.
 
 **I recommend using the html version** of these slides as they will be
 the most accurate with respect to formatting and will allow you to
-easily copy/paste code and navigate
+easily copy/paste code and navigate.
 
-<!-- 🚧 Slides will be available by the date of the workshop 🚧 -->
-
-1.  Intro to R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data//1_intro_to_R.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data//pdf/1_intro_to_R_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data//1_intro_to_R_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data//pdf/1_intro_to_R_answers_sm.pdf))
-2.  Visualizing data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data//2_visualizations.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data//pdf/2_visualizations_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data//2_visualizations_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data//pdf/2_visualizations_answers_sm.pdf))
-3.  Loading & Cleaning Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data//3_loading_and_cleaning.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data//pdf/3_loading_and_cleaning_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data//3_loading_and_cleaning_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data//pdf/3_loading_and_cleaning_answers_sm.pdf))
-4.  Summarizing & Transforming Data in R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data//4_summarizing_and_transforming.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data//pdf/4_summarizing_and_transforming_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data//4_summarizing_and_transforming_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data//pdf/4_summarizing_and_transforming_answers_sm.pdf))
-5.  Getting help with R
-    ([html](https://steffilazerte.ca/workshop-dealing-with-data//5_getting_help.html)\|[pdf](https://steffilazerte.ca/workshop-dealing-with-data//pdf/5_getting_help_sm.pdf)\|[html-answers](https://steffilazerte.ca/workshop-dealing-with-data//5_getting_help_answers.html)\|[pdf-answers](https://steffilazerte.ca/workshop-dealing-with-data//pdf/5_getting_help_answers_sm.pdf))
-
-> Answer slides will be posted after the workshop
+🚧 Slides will be available by the date of the workshop 🚧
 
 ------------------------------------------------------------------------
 
@@ -141,8 +125,8 @@ R for you in the ‘Console’ pane
 **Verify your version of R by looking at the first line of the console
 (left or lower left pane), you should see something like this:**
 
-    R version 4.5.2 (2025-10-31) -- [Not] Part in a Rumble
-    Copyright (C) 2025 The R Foundation for Statistical Computing
+    R version 4.6.1 (2026-06-24) -- Happy Hop
+    Copyright (C) 2026 The R Foundation for Statistical Computing
     Platform: x86_64-pc-linux-gnu (64-bit)
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -159,8 +143,8 @@ R for you in the ‘Console’ pane
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
 
-The important line is the first one: R version 4.5.2 (2025-10-31) –
-\[Not\] Part in a Rumble
+The important line is the first one: R version 4.6.1 (2026-06-24) –
+Happy Hop
 
 ### **3. Install/Update Packages**
 
@@ -212,11 +196,11 @@ library("tidyverse")
 ```
 
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ✔ dplyr     1.2.0     ✔ readr     2.1.5
-    ✔ forcats   1.0.0     ✔ stringr   1.6.0
-    ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
-    ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-    ✔ purrr     1.2.1     
+    ✔ dplyr     1.2.1     ✔ readr     2.2.0
+    ✔ forcats   1.0.1     ✔ stringr   1.6.0
+    ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+    ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+    ✔ purrr     1.2.2     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ✖ dplyr::filter() masks stats::filter()
     ✖ dplyr::lag()    masks stats::lag()
@@ -230,7 +214,7 @@ library("tidyverse")
 >   with the `tidyverse`, try installing packages invidiually
 >   - `dplyr`, `tidyr`, `readr`, `ggplot2`, `lubridate`
 >   - e.g., `install.packages("dplyr")` or in the Install Packages Menu
-> - Email Steffi <sel@steffilazerte.ca>
+>   - Email Steffi <sel@steffilazerte.ca>
 
 #### **4. A bit of background (optional)**
 
