@@ -8,6 +8,11 @@
 **Location**: Brandon University, Brodie Building\
 **Date/time**: Sat/Sun January 23/24 2027, 9:00am-5:00pm
 
+**Registration**: Send an email to [Steffi
+LaZerte](mailto:sel@steffilazerte.ca) to register (Note we need a
+minimum number of registrants, so register early to ensure the workshop
+proceeds!)
+
 > **⚠️Important!⚠️**
 >
 > Make sure you’re ready for the workshop by following the [**Before the

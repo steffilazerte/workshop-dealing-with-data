@@ -1,3 +1,22 @@
+# Advertising ---------------------------------------
+
+# Generate QR code for the poster
+qrcode::qr_code("https://github.com/steffilazerte/workshop-dealing-with-data#workshop-dealing-with-data-in-r", ecl = "H") |>
+  qrcode::add_logo("~/Documents/Business/logo_gear.png") |>
+  qrcode::generate_svg("figures/qr.svg")
+
+quarto::quarto_render("README.qmd")
+
+# Create poster from ./Docs in Inkscape
+# - Shrink for email
+# - Keep high quality for printing
+
+#gs -sDEVICE=pdfwrite -dPDFSETTINGS=/screen -dNOPAUSE -dBATCH -sOutputFile=Docs/R_workshop_poster_2027.pdf Docs/R_workshop_poster_2027_high_qual.pdf
+
+# Pre-workshop Prep -----------------------------------------------------
+# - Review slides
+# - Update as needed
+# - Compile, below
 
 f <- tibble::tibble(
   file = c("1_intro_to_R", "2_visualizations", "3_loading_and_cleaning",
